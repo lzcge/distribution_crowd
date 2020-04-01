@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: web
+  redis:
+    host: localhost
+    jedis:
+      pool:
+        max-idle: 100
+  session:
+    store-type: redis   #指定SpringSession存储方式
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false    #取消页面缓存，方便开发
+
+eureka:
+  client:
+    register-with-eureka: false   #页面由用户操作，不用注册到eureka
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+

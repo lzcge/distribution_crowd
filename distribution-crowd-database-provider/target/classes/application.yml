@@ -1,0 +1,19 @@
+server:
+  port: 2000
+spring:
+  datasource:
+    username: root
+    password: li1997525626
+    url: jdbc:mysql://localhost:3306/atcrowdfunding?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&verifyServerCertificate=false&autoReconnct=true&autoReconnectForPools=true&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: database-provider #当前微服务名称，注册服务信息时必须有
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+  instance:
+    prefer-ip-address: true

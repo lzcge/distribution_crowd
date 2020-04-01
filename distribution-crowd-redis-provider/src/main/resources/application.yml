@@ -1,0 +1,14 @@
+server:
+  port: 3000
+spring:
+  application:
+    name: redis-provider
+  redis:
+    host: localhost
+    port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+  instance:
+    prefer-ip-address: true

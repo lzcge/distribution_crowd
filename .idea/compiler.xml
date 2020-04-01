@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="distribution-crowd-common" />
+        <module name="distribution-crowd-database-provider" />
+        <module name="distribution-crowd-member-manager" />
+        <module name="distribution-crowd-project-manager" />
+        <module name="distribution-crowd-redis-provider" />
+        <module name="distribution-crowd-registry-center" />
+        <module name="distribution-crowd-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="distribution-crowd-common" target="1.8" />
+      <module name="distribution-crowd-database-provider" target="1.8" />
+      <module name="distribution-crowd-member-manager" target="1.8" />
+      <module name="distribution-crowd-parent" target="1.8" />
+      <module name="distribution-crowd-project-manager" target="1.8" />
+      <module name="distribution-crowd-redis-provider" target="1.8" />
+      <module name="distribution-crowd-registry-center" target="1.8" />
+      <module name="distribution-crowd-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

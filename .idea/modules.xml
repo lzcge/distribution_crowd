@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-common/distribution-crowd-common.iml" filepath="$PROJECT_DIR$/distribution-crowd-common/distribution-crowd-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-database-provider/distribution-crowd-database-provider.iml" filepath="$PROJECT_DIR$/distribution-crowd-database-provider/distribution-crowd-database-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-member-manager/distribution-crowd-member-manager.iml" filepath="$PROJECT_DIR$/distribution-crowd-member-manager/distribution-crowd-member-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-parent.iml" filepath="$PROJECT_DIR$/distribution-crowd-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-project-manager/distribution-crowd-project-manager.iml" filepath="$PROJECT_DIR$/distribution-crowd-project-manager/distribution-crowd-project-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-redis-provider/distribution-crowd-redis-provider.iml" filepath="$PROJECT_DIR$/distribution-crowd-redis-provider/distribution-crowd-redis-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-registry-center/distribution-crowd-registry-center.iml" filepath="$PROJECT_DIR$/distribution-crowd-registry-center/distribution-crowd-registry-center.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution-crowd-web/distribution-crowd-web.iml" filepath="$PROJECT_DIR$/distribution-crowd-web/distribution-crowd-web.iml" />
+    </modules>
+  </component>
+</project>
