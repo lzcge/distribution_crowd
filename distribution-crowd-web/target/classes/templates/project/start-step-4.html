@@ -79,19 +79,19 @@
 				<div class="navbar-header">
 				  <a class="navbar-brand" href="#" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
 				</div>
-            <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-              <ul class="nav navbar-nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
 			  </div>
 			</nav>
       </div>
@@ -203,7 +203,7 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-body" style="padding:60px;">
                                                     <i class="glyphicon glyphicon-ok" style="color:green;font-size:40px;"></i> <span style="margin-left:20px;">你发起的众筹项目信息已经提交完毕，我们会在5~7个工作日内对项目进行审核，请耐心等候</span>
-                                                    <p style="margin-left:60px;">你能在会员中心-我的众筹- 发起的项目中查看</p>
+                                                    <p style="margin-left:60px;">你能在个人中心-我的众筹- 发起的项目中查看</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +213,7 @@
                         </div>
                         </div>
                         <div class="panel-footer" style="text-align:center;">
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='minecrowdfunding.html'">我的众筹</button>
+                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='/member/center.html'">个人中心</button>
                         </div>
                     </div>
                 </div>
@@ -226,10 +226,10 @@
                 <div class="col-md-12 column">
                     <div id="footer">
                         <div class="footerNav">
-                             <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                            <a rel="nofollow" href="#">关于我们</a> | <a rel="nofollow" href="#">服务条款</a> | <a rel="nofollow" href="#">免责声明</a> | <a rel="nofollow" href="#">网站地图</a> | <a rel="nofollow" href="#">联系我们</a>
                         </div>
                         <div class="copyRight">
-                            Copyright ?2017-2017atguigu.com 版权所有
+                            Copyright ?2017-lzcge.cn 版权所有
                         </div>
                     </div>
                     

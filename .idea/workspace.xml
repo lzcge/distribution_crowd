@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25eb31ff-fd39-4133-aa5e-c83a4d9e1987" name="Default" comment="" />
+    <list default="true" id="25eb31ff-fd39-4133-aa5e-c83a4d9e1987" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java" afterPath="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java" afterPath="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-common/target/classes/com/lzcge/crowd/api/ProjectOperationRemoteService.class" afterPath="$PROJECT_DIR$/distribution-crowd-common/target/classes/com/lzcge/crowd/api/ProjectOperationRemoteService.class" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-common/target/classes/com/lzcge/crowd/util/CrowdConstant.class" afterPath="$PROJECT_DIR$/distribution-crowd-common/target/classes/com/lzcge/crowd/util/CrowdConstant.class" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/impl/ProjectServiceImpl.java" afterPath="$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/impl/ProjectServiceImpl.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java" afterPath="$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-project-manager/target/classes/com/lzcge/crowd/controller/ProjectController.class" afterPath="$PROJECT_DIR$/distribution-crowd-project-manager/target/classes/com/lzcge/crowd/controller/ProjectController.class" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-4.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-4.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/com/lzcge/crowd/config/SpringMVCConfig.class" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/com/lzcge/crowd/config/SpringMVCConfig.class" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/com/lzcge/crowd/controller/ProjectController.class" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/com/lzcge/crowd/controller/ProjectController.class" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-1.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-1.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-2.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-2.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-3.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-3.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-4.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start-step-4.html" />
+      <change beforePath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start.html" afterPath="$PROJECT_DIR$/distribution-crowd-web/target/classes/templates/project/start.html" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/distribution-crowd-common/target/" />
@@ -23,41 +46,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="start-step-1.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="114" column="60" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start-step-2.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7308">
-              <caret line="364" column="72" lean-forward="false" selection-start-line="364" selection-start-column="64" selection-end-line="364" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ProjectController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2796">
-              <caret line="71" column="25" lean-forward="false" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="25" />
+            <state relative-caret-position="1200">
+              <caret line="71" column="40" lean-forward="false" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpringMVCConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java">
+      <file leaf-file-name="basicinfo.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/basicinfo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-168">
-              <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="35" />
+            <state relative-caret-position="1752">
+              <caret line="73" column="51" lean-forward="false" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CrowdConstant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -66,38 +79,8 @@
       <file leaf-file-name="MemberController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/MemberController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PageController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PageController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PayController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PayController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-324">
-              <caret line="127" column="16" lean-forward="false" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start-step-3.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="225" column="125" lean-forward="false" selection-start-line="225" selection-start-column="124" selection-end-line="225" selection-end-column="125" />
+            <state relative-caret-position="648">
+              <caret line="45" column="90" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="90" />
               <folding />
             </state>
           </provider>
@@ -106,18 +89,58 @@
       <file leaf-file-name="ProjectController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2658">
-              <caret line="127" column="67" lean-forward="true" selection-start-line="127" selection-start-column="67" selection-end-line="127" selection-end-column="67" />
+            <state relative-caret-position="744">
+              <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProjectVO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/ProjectVO.java">
+      <file leaf-file-name="ProjectOperationRemoteService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="600">
+              <caret line="36" column="69" lean-forward="false" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="69" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/application.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpringMVCConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1848">
+              <caret line="79" column="45" lean-forward="false" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start-step-3.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="515">
+              <caret line="284" column="21" lean-forward="true" selection-start-line="284" selection-start-column="21" selection-end-line="284" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start-step-4.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-4.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5112">
+              <caret line="228" column="59" lean-forward="false" selection-start-line="228" selection-start-column="55" selection-end-line="228" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -142,10 +165,18 @@
       <find>collapse</find>
       <find>navbar-right</find>
       <find>phone</find>
+      <find>headPictureInput</find>
+      <find>headPicPath</find>
+      <find>headerPicturePath</find>
+      <find>saveProject</find>
+      <find>input</find>
     </findStrings>
     <replaceStrings>
       <replace>lzcge</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -160,15 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
-        <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/MemberConfirmInfoVO.java" />
-        <option value="$PROJECT_DIR$/distribution-crowd-database-provider/src/main/resources/mybatis/mapper/ReturnPOMapper.xml" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/pom.xml" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/AlipayConfig.java" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PayController.java" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/login.html" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/static/css/login.css" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/ManagerLogin.html" />
         <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/po/MemberPO.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-redis-provider/src/main/java/com/lzcge/crowd/controller/RedisOperationController.java" />
@@ -199,9 +221,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/distribution-crowd-member-manager/pom.xml" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/accttype.html" />
-        <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/checkemail.html" />
-        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/MemberManagerRemoteService.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-redis-provider/src/test/java/com/lzcge/crowd/CrowdTest.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/checkauthcode.html" />
@@ -211,6 +231,17 @@
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/MemberController.java" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start.html" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html" />
+        <option value="$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/impl/ProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-4.html" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java" />
+        <option value="$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html" />
       </list>
     </option>
   </component>
@@ -240,6 +271,7 @@
     <option name="width" value="1938" />
     <option name="height" value="1048" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -255,8 +287,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -643,62 +677,6 @@
             <path>
               <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="lzcge" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
-              <item name="distribution-crowd-registry-center" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="lzcge" type="462c0819:PsiDirectoryNode" />
-              <item name="crowd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
               <item name="distribution-crowd-web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -791,7 +769,26 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="distribution-crowd-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="distribution-crowd-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="distribution-crowd-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="member" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="distribution-crowd-parent" type="b2602c69:ProjectViewProjectNode" />
@@ -807,8 +804,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -862,7 +857,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.DatabaseCrowdMainType">
+  <component name="RunManager" selected="Spring Boot.WebUI">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -882,31 +877,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-    </configuration>
-    <configuration name="CrowdTest.testStringRedisTemplate2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.lzcge.crowd.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="distribution-crowd-redis-provider" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.lzcge.crowd" />
-      <option name="MAIN_CLASS_NAME" value="com.lzcge.crowd.CrowdTest" />
-      <option name="METHOD_NAME" value="testStringRedisTemplate2" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -955,6 +925,17 @@
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.lzcge.crowd.MemberManagerCrowdMainType" />
       <module name="distribution-crowd-member-manager" />
+      <envs />
+    </configuration>
+    <configuration name="ProjectManagerCrowdMainType" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.lzcge.crowd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lzcge.crowd.ProjectManagerCrowdMainType" />
+      <module name="distribution-crowd-project-manager" />
       <envs />
     </configuration>
     <configuration name="RedisCrowdMainType" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -1014,18 +995,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.MemberManagerCrowdMainType" />
-      <item index="1" class="java.lang.String" itemvalue="Spring Boot.WebUI" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.CrowdTest.testStringRedisTemplate2" />
-      <item index="3" class="java.lang.String" itemvalue="Spring Boot.RedisCrowdMainType" />
-      <item index="4" class="java.lang.String" itemvalue="Spring Boot.DatabaseCrowdMainType" />
+      <item index="1" class="java.lang.String" itemvalue="Spring Boot.RedisCrowdMainType" />
+      <item index="2" class="java.lang.String" itemvalue="Spring Boot.DatabaseCrowdMainType" />
+      <item index="3" class="java.lang.String" itemvalue="Spring Boot.ProjectManagerCrowdMainType" />
+      <item index="4" class="java.lang.String" itemvalue="Spring Boot.WebUI" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Spring Boot.WebUI" />
-        <item index="1" class="java.lang.String" itemvalue="Spring Boot.MemberManagerCrowdMainType" />
+        <item index="1" class="java.lang.String" itemvalue="Spring Boot.RedisCrowdMainType" />
         <item index="2" class="java.lang.String" itemvalue="Spring Boot.DatabaseCrowdMainType" />
-        <item index="3" class="java.lang.String" itemvalue="Spring Boot.RedisCrowdMainType" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.CrowdTest.testStringRedisTemplate2" />
+        <item index="3" class="java.lang.String" itemvalue="Spring Boot.ProjectManagerCrowdMainType" />
+        <item index="4" class="java.lang.String" itemvalue="Spring Boot.MemberManagerCrowdMainType" />
       </list>
     </recent_temporary>
   </component>
@@ -1044,7 +1025,9 @@
       <updated>1585149492789</updated>
       <workItem from="1585149495842" duration="18666000" />
       <workItem from="1585305104305" duration="51757000" />
-      <workItem from="1585567030627" duration="85798000" />
+      <workItem from="1585567030627" duration="94830000" />
+      <workItem from="1585770193374" duration="1518000" />
+      <workItem from="1585790804879" duration="802000" />
     </task>
     <servers />
   </component>
@@ -1081,10 +1064,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156221000" />
+    <option name="totallyTimeSpent" value="167573000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -1095,18 +1079,17 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2622577" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49828961" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2713797" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16305587" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31698975" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23390558" sideWeight="0.49411765" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26233906" sideWeight="0.49411765" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28433478" sideWeight="0.5063291" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="BPMNPalette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1116,6 +1099,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2713797" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1128,184 +1112,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="26" />
+      <option name="time" value="27" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="memberVO.email" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.11.RELEASE/spring-web-5.0.11.RELEASE.jar!/org/springframework/web/bind/annotation/RequestMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/DataBaseOperationRemoteService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="71" column="40" lean-forward="false" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/MemberPOService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="18" column="9" lean-forward="false" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/resources/mybatis/mapper/MemberPOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-88">
-          <caret line="268" column="11" lean-forward="true" selection-start-line="268" selection-start-column="11" selection-end-line="268" selection-end-column="11" />
-          <folding>
-            <marker date="1585725406808" expanded="true" signature="4051:4155" ph="select from t_member" />
-            <marker date="1585725406808" expanded="true" signature="4242:4300" ph="delete from t_member... " />
-            <marker date="1585725406808" expanded="true" signature="4406:4426" ph="delete from t_member... " />
-            <marker date="1585725406808" expanded="true" signature="4609:5056" ph="insert into t_member... " />
-            <marker date="1585725406808" expanded="true" signature="7084:7113" ph="select count... t_member" />
-            <marker date="1585725406808" expanded="true" signature="8572:9102" ph="update t_member... " />
-            <marker date="1585725406808" expanded="true" signature="9316:10348" ph="update t_member... " />
-            <marker date="1585725406808" expanded="true" signature="10450:10913" ph="update t_member... " />
-            <marker date="1585725406808" expanded="true" signature="10970:11063" ph="insert into t_member_cert... " />
-            <marker date="1585725406808" expanded="true" signature="11122:11174" ph="delete from t_member_cert... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/MemberVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/ResultEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="47" lean-forward="false" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/minecrowdfunding.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5400">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="32" column="57" lean-forward="true" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
-          <folding>
-            <element signature="e#810#811#0" expanded="false" />
-            <element signature="e#865#866#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/RedisOperationRemoteService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/java/com/lzcge/crowd/MemberManagerCrowdMainType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-redis-provider/src/test/java/com/lzcge/crowd/CrowdTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-410">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-registry-center/src/main/java/com/lzcge/crowd/RegistryCenterCrowdMainType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/MemberManagerRemoteService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="63" column="79" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/WebUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/checkemail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="63" column="142" lean-forward="true" selection-start-line="63" selection-start-column="110" selection-end-line="63" selection-end-column="142" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/checkauthcode.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="130" column="56" lean-forward="false" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="56" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/uploadCert.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="63" column="43" lean-forward="false" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/center.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="97" column="18" lean-forward="true" selection-start-line="97" selection-start-column="18" selection-end-line="97" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1313,15 +1132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="146" column="49" lean-forward="false" selection-start-line="146" selection-start-column="35" selection-end-line="146" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/java/com/lzcge/crowd/controller/MemberController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="399" column="32" lean-forward="false" selection-start-line="399" selection-start-column="18" selection-end-line="399" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1329,7 +1139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-286">
           <caret line="83" column="50" lean-forward="false" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1337,7 +1146,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,7 +1153,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1360,50 +1167,234 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/controller/MemberController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1464">
-          <caret line="102" column="25" lean-forward="true" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/impl/CertServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-redis-provider/src/main/java/com/lzcge/crowd/controller/RedisOperationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1429">
+          <caret line="32" column="49" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-project-manager/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="49" column="38" lean-forward="false" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/DatabaseCrowdMainType.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="120">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/basicinfo.html">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PayController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="74" column="15" lean-forward="true" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="-324">
+          <caret line="127" column="16" lean-forward="false" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-864">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="347" column="26" lean-forward="false" selection-start-line="347" selection-start-column="26" selection-end-line="347" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/controller/MemberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="162" column="59" lean-forward="false" selection-start-line="162" selection-start-column="34" selection-end-line="162" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/controller/CertController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
+        <state relative-caret-position="466">
           <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/java/com/lzcge/crowd/controller/MemberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10032">
+          <caret line="445" column="46" lean-forward="false" selection-start-line="445" selection-start-column="32" selection-end-line="445" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+          <folding>
+            <element signature="e#606#607#0" expanded="false" />
+            <element signature="e#649#650#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="41" column="55" lean-forward="false" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="55" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/DataBaseOperationRemoteService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="106" column="25" lean-forward="false" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/resources/mybatis/mapper/ReturnPOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1585500477732" expanded="true" signature="4308:4412" ph="select from t_return" />
+            <marker date="1585500477732" expanded="true" signature="4499:4557" ph="delete from t_return... " />
+            <marker date="1585500477732" expanded="true" signature="4663:4683" ph="delete from t_return... " />
+            <marker date="1585500477732" expanded="true" signature="4866:5443" ph="insert into t_return... " />
+            <marker date="1585500477732" expanded="true" signature="8526:8555" ph="select count... t_return" />
+            <marker date="1585500477732" expanded="true" signature="10280:10952" ph="update t_return... " />
+            <marker date="1585500477732" expanded="true" signature="11166:12337" ph="update t_return... " />
+            <marker date="1585500477732" expanded="true" signature="12439:13030" ph="update t_return... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/resources/mybatis/mapper/MemberLaunchInfoPOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1585407743878" expanded="true" signature="3837:3953" ph="select from t_member_launch_info" />
+            <marker date="1585407743878" expanded="true" signature="4040:4110" ph="delete from t_member_launch_info... " />
+            <marker date="1585407743878" expanded="true" signature="4226:4258" ph="delete from t_member_launch_info... " />
+            <marker date="1585407743878" expanded="true" signature="4451:4796" ph="insert into t_member_launch_info... " />
+            <marker date="1585407743878" expanded="true" signature="6194:6235" ph="select count... t_member_launch_info" />
+            <marker date="1585407743878" expanded="true" signature="7341:7725" ph="update t_member_launch_info... " />
+            <marker date="1585407743878" expanded="true" signature="7949:8585" ph="update t_member_launch_info... " />
+            <marker date="1585407743878" expanded="true" signature="8697:9042" ph="update t_member_launch_info... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/mapper/MemberConfirmInfoPOMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="16" column="14" lean-forward="false" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/service/impl/ProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1570">
+          <caret line="97" column="18" lean-forward="false" selection-start-line="97" selection-start-column="18" selection-end-line="97" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/controller/ProjectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/MemberManagerRemoteService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1248">
+          <caret line="63" column="79" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/MemberConfirmInfoVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/ReturnVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/ProjectVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="14" column="36" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7296">
+          <caret line="319" column="85" lean-forward="false" selection-start-line="319" selection-start-column="76" selection-end-line="319" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="233" column="38" lean-forward="true" selection-start-line="233" selection-start-column="38" selection-end-line="233" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-registry-center/src/main/java/com/lzcge/crowd/RegistryCenterCrowdMainType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1416,50 +1407,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-redis-provider/src/main/java/com/lzcge/crowd/controller/RedisOperationController.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-database-provider/src/main/java/com/lzcge/crowd/DatabaseCrowdMainType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1429">
-          <caret line="32" column="49" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="49" />
+        <state relative-caret-position="432">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-member-manager/src/main/java/com/lzcge/crowd/MemberManagerCrowdMainType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        <state relative-caret-position="168">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start.html">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/ProjectManagerCrowdMainType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1560">
-          <caret line="79" column="46" lean-forward="true" selection-start-line="79" selection-start-column="46" selection-end-line="79" selection-end-column="46" />
+        <state relative-caret-position="312">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-project-manager/src/main/resources/application.yml">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/WebUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="49" column="38" lean-forward="false" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="38" />
+        <state relative-caret-position="168">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1468,94 +1443,85 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="16" column="64" lean-forward="false" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="215" column="129" lean-forward="false" selection-start-line="215" selection-start-column="113" selection-end-line="215" selection-end-column="129" />
+        <state relative-caret-position="5112">
+          <caret line="228" column="59" lean-forward="false" selection-start-line="228" selection-start-column="55" selection-end-line="228" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="225" column="125" lean-forward="false" selection-start-line="225" selection-start-column="124" selection-end-line="225" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-168">
-          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="114" column="60" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/pojo/vo/ProjectVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="672">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-project-manager/src/main/java/com/lzcge/crowd/controller/ProjectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2658">
-          <caret line="127" column="67" lean-forward="true" selection-start-line="127" selection-start-column="67" selection-end-line="127" selection-end-column="67" />
+        <state relative-caret-position="744">
+          <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/api/ProjectOperationRemoteService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="36" column="69" lean-forward="false" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/MemberController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="648">
+          <caret line="45" column="90" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="90" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PageController.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-common/src/main/java/com/lzcge/crowd/util/CrowdConstant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="600">
+          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/PayController.java">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/config/SpringMVCConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324">
-          <caret line="127" column="16" lean-forward="false" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="16" />
+        <state relative-caret-position="1848">
+          <caret line="79" column="45" lean-forward="false" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/member/basicinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1752">
+          <caret line="73" column="51" lean-forward="false" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/java/com/lzcge/crowd/controller/ProjectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2796">
-          <caret line="71" column="25" lean-forward="false" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="25" />
+        <state relative-caret-position="1200">
+          <caret line="71" column="40" lean-forward="false" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-2.html">
+    <entry file="file://$PROJECT_DIR$/distribution-crowd-web/src/main/resources/templates/project/start-step-3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7308">
-          <caret line="364" column="72" lean-forward="false" selection-start-line="364" selection-start-column="64" selection-end-line="364" selection-end-column="72" />
+        <state relative-caret-position="515">
+          <caret line="284" column="21" lean-forward="true" selection-start-line="284" selection-start-column="21" selection-end-line="284" selection-end-column="21" />
           <folding />
         </state>
       </provider>

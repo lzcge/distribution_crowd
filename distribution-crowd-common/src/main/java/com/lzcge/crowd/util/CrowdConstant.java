@@ -40,6 +40,8 @@ public class CrowdConstant {
 	public static final String MESSAGE_CODE_NOT_EXISTS = "验证码不存在或已过期";
 	public static final String MESSAGE_UPLOAD_FILE_EMPTY = "未检测到上传的文件";
 	public static final String MESSAGE_PROJECTVO_DENIED = "未检测到项目数据";
+	public static final String MESSAGE_RETURN_DENIED = "未检测到回报数据";
+	public static final String MESSAGE_CONFIRM_DENIED = "未检测到确认法人数据";
 
 	static {
 		EXCEPTION_MESSAGE_MAP.put("java.lang.ArithmeticException", "系统在进行数学运算时发生错误");

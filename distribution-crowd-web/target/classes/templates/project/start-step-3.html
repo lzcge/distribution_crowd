@@ -79,19 +79,19 @@
 				<div class="navbar-header">
 				  <a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
 				</div>
-            <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-              <ul class="nav navbar-nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
 			  </div>
 			</nav>
       </div>
@@ -191,7 +191,7 @@
                                 <div class="col-md-12 column">
                                     <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
                                         <b>
-                                            确认信息（请填写易付宝企业账号用于收款及身份核实）
+                                            确认信息（请填写企业账号用于收款及身份核实）
                                         </b>
                                     </blockquote>
                                 </div>
@@ -202,17 +202,20 @@
                                         <div class="col-md-6 column">
                                             <form role="form">
                                                 <div class="form-group">
-                                                     <label for="exampleInputEmail1">易付宝企业账号：</label><input type="email" class="form-control" id="exampleInputEmail1" />
+                                                     <label for="exampleInputEmail1">企业账号：</label>
+                                                    <input type="text" required="required" class="form-control" id="exampleInputEmail1" />
                                                 </div>
                                                 <div class="form-group">
-                                                     <label for="exampleInputPassword1">法人身份证号：</label><input type="password" class="form-control" id="exampleInputPassword1" />
+                                                     <label for="exampleInputPassword1">法人身份证号：</label>
+                                                    <input type="text" required="required" class="form-control" id="exampleInputPassword1" />
                                                 </div>
+                                                <p style="color: red;">[[${MESSAGE}]]</p>
                                             </form>
                                         </div>
                                         <div class="col-md-6 column">
                                             <div class="panel panel-default">
                                                 <div class="panel-body" style="padding:40px;">
-                                                    <i class="glyphicon glyphicon-user"></i> 易购账户名：18801282948<br><br><span style="margin-left:60px;">您正在使用该账号发起众筹项目</span>
+                                                    <i class="glyphicon glyphicon-user"></i> 账户：[[${session['LOGIN-MEMBER'].loginacct}]]<br><br><span style="margin-left:60px;">您正在使用该账号发起众筹项目</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,9 +225,9 @@
                         </div>
                         </div>
                         <div class="panel-footer" style="text-align:center;">
-                            <button type="button" class="btn  btn-default btn-lg" onclick="window.location.href='start-step-2.html'">上一步</button>
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='start-step-4.html'">提交</button>
-                            <a class="btn" > 保存草稿 </a>
+                            <button type="button" class="btn  btn-default btn-lg" onclick="window.location.href='/project/start-step-2.html'">上一步</button>
+                            <button type="button" class="btn  btn-warning btn-lg" onclick="saveConfirmInfo()">提交</button>
+                            <!--<a class="btn" > 保存草稿 </a>-->
                         </div>
                     </div>
                 </div>
@@ -237,10 +240,10 @@
                 <div class="col-md-12 column">
                     <div id="footer">
                         <div class="footerNav">
-                             <a rel="nofollow" href="http://www.layoutit.cn">关于我们</a> | <a rel="nofollow" href="http://www.layoutit.cn">服务条款</a> | <a rel="nofollow" href="http://www.layoutit.cn">免责声明</a> | <a rel="nofollow" href="http://www.layoutit.cn">网站地图</a> | <a rel="nofollow" href="http://www.layoutit.cn">联系我们</a>
+                             <a rel="nofollow" href="#">关于我们</a> | <a rel="nofollow" href="#">服务条款</a> | <a rel="nofollow" href="#">免责声明</a> | <a rel="nofollow" href="#">网站地图</a> | <a rel="nofollow" href="#">联系我们</a>
                         </div>
                         <div class="copyRight">
-                            Copyright ?2017-2017layoutit.cn 版权所有
+                            Copyright ?2017-lzcge.cn 版权所有
                         </div>
                     </div>
                     
@@ -254,10 +257,35 @@
      <script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
      <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
 	<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+        $('#myTab a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        });
+
+        function saveConfirmInfo() {
+
+
+            var confirmvo={
+                "paynum":$("#exampleInputEmail1").val(),
+                "cardnum":$("#exampleInputPassword1").val(),
+
+            };
+
+            $.ajax({
+                url:"/save/confirm/info",
+                type: "POST",
+                data: JSON.stringify(confirmvo),//将对象序列化成JSON字符串
+                dataType: "json",
+                contentType : 'application/json;charset=utf-8', //设置请求头信息
+                success:function (data) {
+                    if(data.result=="SUCCESS"){
+                        location.href="/save/whole/project";
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        }
 	</script>
   </body>
 </html>

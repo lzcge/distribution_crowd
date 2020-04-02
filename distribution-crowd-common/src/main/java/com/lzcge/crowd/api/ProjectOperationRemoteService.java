@@ -8,6 +8,7 @@ import com.lzcge.crowd.pojo.vo.TokenVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface ProjectOperationRemoteService {
 	public ResultEntity<String> saveProjectInfo(@RequestBody ProjectVO projectVO);
 
 	//保存回报信息
-	@RequestMapping("project/manager/save/return/info")
+	@RequestMapping(value = "project/manager/save/return/info",method = RequestMethod.POST)
 	public ResultEntity<String> saveReturnInfo(@RequestBody ReturnVO returnVO);
 
 	//将易付宝账号和身份证号存入项目对象

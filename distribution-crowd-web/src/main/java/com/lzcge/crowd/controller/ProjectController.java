@@ -4,8 +4,7 @@ import com.lzcge.crowd.api.MemberManagerRemoteService;
 import com.lzcge.crowd.api.ProjectOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
-import com.lzcge.crowd.pojo.vo.ProjectVO;
+import com.lzcge.crowd.pojo.vo.*;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
 import com.lzcge.crowd.util.UploadUtil;
@@ -67,6 +66,91 @@ public class ProjectController {
 		String detailPicPath = bucketDomain+"/"+foldName+"/"+newFileName;
 		return detailPicPath;
 	}
+
+
+	//保存所有完整信息到数据库
+	@RequestMapping("/save/whole/project")
+	public String saveWholeProject(Model model,HttpSession httpSession){
+		//登录检查从现有session中获取已登录的member对象
+		MemberSignSuccessVO signSuccessVO = (MemberSignSuccessVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		//如果对象为null，提示登录
+		if (signSuccessVO == null) {
+			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,CrowdConstant.MESSAGE_ACCESS_DENIED);
+			return "/login.html";
+		}
+		String memberSignToken = signSuccessVO.getToken();
+		ProjectVO project = (ProjectVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_INIT_PROJECT);
+		String projectToken = project.getProjectTempToken();
+		//令牌
+		TokenVO tokenVO = new TokenVO();
+		tokenVO.setMemberSignToken(memberSignToken);
+		tokenVO.setProjectTempToken(projectToken);
+		ResultEntity<String> resultEntity = projectRemoteService.saveWholeProject(tokenVO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
+			return "/project/start-step-3.html";
+		}
+
+		return "/project/start-step-4.html";
+	}
+
+
+	//保存确认法人信息到Redis
+	@RequestMapping("/save/confirm/info")
+	@ResponseBody
+	public ResultEntity<String> saveConfirmInfo(@RequestBody MemberConfirmInfoVO memberConfirmInfoVO, HttpSession httpSession){
+		//登录检查从现有session中获取已登录的member对象
+		MemberSignSuccessVO signSuccessVO = (MemberSignSuccessVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		//如果对象为null，提示登录
+		if (signSuccessVO == null) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+		String memberSignToken = signSuccessVO.getToken();
+		ProjectVO project = (ProjectVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_INIT_PROJECT);
+		String projectToken = project.getProjectTempToken();
+		if (memberConfirmInfoVO == null) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_CONFIRM_DENIED);
+		}
+		//令牌
+		memberConfirmInfoVO.setMemberSignToken(memberSignToken);
+		memberConfirmInfoVO.setProjectTempToken(projectToken);
+		ResultEntity<String> resultEntity = projectRemoteService.saveConfirmInfo(memberConfirmInfoVO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+
+
+		return ResultEntity.successNoData();
+	}
+
+
+
+	//保存回报信息到Redis
+	@RequestMapping("/save/return/info")
+	@ResponseBody
+	public ResultEntity<String> saveReturnInfo(@RequestBody ReturnVO returnVO, HttpSession httpSession){
+		//登录检查从现有session中获取已登录的member对象
+		MemberSignSuccessVO signSuccessVO = (MemberSignSuccessVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		//如果对象为null，提示登录
+		if (signSuccessVO == null) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+		String memberSignToken = signSuccessVO.getToken();
+		ProjectVO project = (ProjectVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_INIT_PROJECT);
+		String projectToken = project.getProjectTempToken();
+		if (returnVO == null) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_RETURN_DENIED);
+		}
+		//令牌
+		returnVO.setMemberSignToken(memberSignToken);
+		returnVO.setProjectTempToken(projectToken);
+		ResultEntity<String> resultEntity = projectRemoteService.saveReturnInfo(returnVO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
+	}
+
 
 	//保存项目信息到Redis
 	@RequestMapping("save/project/info")
@@ -134,6 +218,7 @@ public class ProjectController {
 		return projectRemoteService.saveDetailPictureListPath(memberSignToken,projectToken,pathList);*/
 		return ResultEntity.successWithData(sb.toString());
 	}
+
 	//上传头图
 	@RequestMapping("project/upload/headPicture")
 	@ResponseBody
@@ -159,6 +244,27 @@ public class ProjectController {
 		String projectToken = projectVO.getProjectTempToken();
 		return projectRemoteService.saveHeadPicturePath(memberSignToken,projectToken,headPicPath);*/
 		return ResultEntity.successWithData(headPicPath);
+	}
+
+
+	//上传回报信息说明头图
+	@RequestMapping("/return/upload/describPic")
+	@ResponseBody
+	public ResultEntity<String> describPic(
+			@RequestParam("describPicPath") MultipartFile describPic
+			,HttpSession httpSession) throws IOException {
+		//登录检查从现有session中获取已登录的member对象
+		MemberSignSuccessVO signSuccessVO = (MemberSignSuccessVO) httpSession.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+		//如果对象为null，提示登录
+		if (signSuccessVO == null) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+		//排除上传文件为空的情况
+		if (describPic.isEmpty()) {
+			return ResultEntity.failed(CrowdConstant.MESSAGE_UPLOAD_FILE_EMPTY);
+		}
+		String describPicPath = uploadFile(describPic);
+		return ResultEntity.successWithData(describPicPath);
 	}
 
 	//点击同意协议按钮，初始化项目

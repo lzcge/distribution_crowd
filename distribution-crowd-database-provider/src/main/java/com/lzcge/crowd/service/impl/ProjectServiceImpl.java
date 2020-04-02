@@ -95,7 +95,7 @@ public class ProjectServiceImpl implements ProjectService {
 			}
 			returnPOMapper.insertBatch(returnPOList);
 		}
-		//8.保存MemberConfirmInfoPO
+		//8.保存法人信息MemberConfirmInfoPO
 		MemberConfirmInfoVO memberConfirmInfoVO = projectVO.getMemberConfirmInfoVO();
 		if (memberConfirmInfoVO != null) {
 			MemberConfirmInfoPO memberConfirmInfoPO = new MemberConfirmInfoPO(null,

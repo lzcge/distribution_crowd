@@ -79,19 +79,19 @@
 				<div class="navbar-header">
 				  <a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
 				</div>
-            <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-              <ul class="nav navbar-nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
 			  </div>
 			</nav>
       </div>
@@ -196,43 +196,15 @@
                                     </blockquote>
                                 </div>
                                 <div class="col-md-12 column">
-                                    <table class="table table-bordered" style="text-align:center;">
-                                      <thead>
-                                        <tr style="background-color:#ddd;">
-                                          <td>序号</td>
-                                          <td>支付金额</td>
-                                          <td>名额</td>
-                                          <td>单笔限购</td>
-                                          <td>回报内容</td>
-                                          <td>回报时间</td>
-                                          <td>运费</td>
-                                          <td>操作</td>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td    scope="row">1</td>
-                                          <td>￥1.00</td>
-                                          <td>无限制</td>
-                                          <td>1</td>
-                                          <td>1</td>
-                                          <td>项目结束后的30天</td>
-                                          <td>包邮</td>
-                                          <td>
-                                                      <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                                      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-plus"></i> 添加回报</button>
-                                    <div style="border:10px solid #f60;border-bottom-color: #eceeef;border-width: 10px;width:20px;margin-left:20px;
-                                             border-left-color: rgba(221, 221, 221, 0);
-                                             border-top-color: rgba(221, 221, 221, 0);
-                                             border-right-color: rgba(221, 221, 221, 0);
-                                    "></div>
-                                    <div class="panel panel-default" style="border-style: dashed;background-color:#eceeef">
-                                      <div class="panel-body">
+
+                                <!--<button type="button" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-plus"></i> 添加回报</button>-->
+                                <div style="border:10px solid #f60;border-bottom-color: #eceeef;border-width: 10px;width:20px;margin-left:20px;
+                                         border-left-color: rgba(221, 221, 221, 0);
+                                         border-top-color: rgba(221, 221, 221, 0);
+                                         border-right-color: rgba(221, 221, 221, 0);
+                                "></div>
+                                <div class="panel panel-default" style="border-style: dashed;background-color:#eceeef">
+                                  <div class="panel-body">
 
 		<div class="col-md-12 column">
             <form class="form-horizontal">
@@ -240,86 +212,90 @@
                 <label for="inputEmail3" class="col-sm-2 control-label">回报类型</label>
                 <div class="col-sm-10">
                      <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 实物回报
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0"> 实物回报
                     </label>
                     <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 虚拟物品回报
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1"> 虚拟物品回报
                     </label>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">支持金额（元）</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" style="width:100px;" >
+                  <input required="required" placeholder="请输入数字" type="number" id="supportmoney" class="form-control" style="width:100px;" >
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">回报内容</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" placeholder="简单描述回报内容，不超过200字"></textarea>
+                  <textarea id="content" class="form-control" rows="5" placeholder="简单描述回报内容，不超过200字"></textarea>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">说明图片</label>
                 <div class="col-sm-10">
-                  <button type="button" class="btn btn-primary btn-lg active">上传图片</button>
+                    <!--存放已经上传的文件路径-->
+                    <input required="required" type="hidden" id="describPicPath">
+                    <!--隐藏的文件上传框-->
+                    <input id="describPictureInput" type="file" name="describPic" style="display: none;" />
+                  <button type="button" id="describPicBtn" class="btn btn-primary btn-lg active">上传图片</button>
                   <label class="control-label">支持jpg、jpeg、png、gif格式，大小不超过2M，建议尺寸：760*510px选择文件</label>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">回报数量（名）</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" style="width:100px;display:inline" >
-                  <label class="control-label">“0”为不限回报数量</label>
+                  <input required="required" placeholder="请输入数字" id="count" type="number" class="form-control" style="width:100px;display:inline" >
+                  <!--<label class="control-label">“0”为不限回报数量</label>-->
                 </div>
               </div>
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">单笔限购</label>
-                <div class="col-sm-10">
-                     <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1"> 不限购
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2"> 限购
-                    </label>
-                    <input type="text" class="form-control" style="width:100px;display:inline" >
-                    <label class="radio-inline">默认数量为1，且不超过上方已设置的回报数量</label>
-                </div>
-              </div>
+              <!--<div class="form-group">-->
+                <!--<label for="inputEmail3" class="col-sm-2 control-label">单笔限购</label>-->
+                <!--<div class="col-sm-10">-->
+                     <!--<label class="radio-inline">-->
+                      <!--<input type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1"> 不限购-->
+                    <!--</label>-->
+                    <!--<label class="radio-inline">-->
+                      <!--<input type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2"> 限购-->
+                    <!--</label>-->
+                    <!--<input type="text" class="form-control" style="width:100px;display:inline" >-->
+                    <!--<label class="radio-inline">默认数量为1，且不超过上方已设置的回报数量</label>-->
+                <!--</div>-->
+              <!--</div>-->
               <div class="form-group">
                 <label class="col-sm-2 control-label">运费(元)</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" style="width:100px;display:inline" value="0" >
+                  <input required="required" placeholder="请输入数字" id="freight" type="number" class="form-control" style="width:100px;display:inline" value="0" >
                   <label class="control-label">“0”为包邮</label>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">发票</label>
-                <div class="col-sm-10">
-                     <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1"> 不可开发票
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2"> 可开发票（包括个人发票和自定义抬头发票）
-                    </label>
-                </div>
-              </div>
+              <!--<div class="form-group">-->
+                <!--<label for="inputEmail3" class="col-sm-2 control-label">发票</label>-->
+                <!--<div class="col-sm-10">-->
+                     <!--<label class="radio-inline">-->
+                      <!--<input type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1"> 不可开发票-->
+                    <!--</label>-->
+                    <!--<label class="radio-inline">-->
+                      <!--<input type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2"> 可开发票（包括个人发票和自定义抬头发票）-->
+                    <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">回报时间</label>
                 <div class="col-sm-10">
                      <label class="radio-inline">
                       项目结束后
                     </label>
-                    <input type="text" class="form-control" style="width:100px;display:inline" >
+                    <input required="required" placeholder="请输入数字" id="returndate" type="number" class="form-control" style="width:100px;display:inline" >
                     <label class="radio-inline">天，向支持者发送回报</label>
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
-                      <button type="button" class="btn btn-primary">确定</button>
-                      <button type="button" class="btn btn-default">取消</button>
-                </div>
+                <!--<div class="col-sm-10">-->
+                      <!--<button type="button" class="btn btn-primary">确定</button>-->
+                      <!--<button type="button" class="btn btn-default">取消</button>-->
+                <!--</div>-->
               </div>
 
             </form>
@@ -347,9 +323,9 @@
                         </div>
                         </div>
                         <div class="panel-footer" style="text-align:center;">
-                            <button type="button" class="btn  btn-default btn-lg" onclick="window.location.href='start-step-1.html'">上一步</button>
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="window.location.href='start-step-3.html'">下一步</button>
-                            <a class="btn" > 预览 </a>
+                            <button type="button" class="btn  btn-default btn-lg" onclick="window.location.href='/project/start-step-1.html'">上一步</button>
+                            <button type="button" class="btn  btn-warning btn-lg" onclick="saveReturn()">下一步</button>
+                            <!--<a class="btn" > 预览 </a>-->
                         </div>
                     </div>
                 </div>
@@ -362,10 +338,10 @@
                 <div class="col-md-12 column">
                     <div id="footer">
                         <div class="footerNav">
-                             <a rel="nofollow" href="http://www.layoutit.cn">关于我们</a> | <a rel="nofollow" href="http://www.layoutit.cn">服务条款</a> | <a rel="nofollow" href="http://www.layoutit.cn">免责声明</a> | <a rel="nofollow" href="http://www.layoutit.cn">网站地图</a> | <a rel="nofollow" href="http://www.layoutit.cn">联系我们</a>
+                            <a rel="nofollow" href="#">关于我们</a> | <a rel="nofollow" href="#">服务条款</a> | <a rel="nofollow" href="#">免责声明</a> | <a rel="nofollow" href="#">网站地图</a> | <a rel="nofollow" href="#">联系我们</a>
                         </div>
                         <div class="copyRight">
-                            Copyright ?2017-2017layoutit.cn 版权所有
+                            Copyright ?2017-lzcge.cn 版权所有
                         </div>
                     </div>
                     
@@ -378,11 +354,75 @@
      <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
      <script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
      <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
-	<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+     <script>
+        $('#myTab a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+
+        //--------------------------上传说明图片--------------------------------
+        $("#describPicBtn").click(function(){
+            // 调用click()函数而不传入回调函数，就表示对#headPictureInput单击
+            $("#describPictureInput").click();
+        });
+
+        // 用户选择了具体要上传的文件后，文件上传框会触发值改变事件
+        $("#describPictureInput").change(function () {
+            //获取实际选中的文件数组
+            var file = this.files[0];
+            //创建formData对象
+            var formData = new FormData();
+            //封装文件数据
+            formData.append("describPicPath",file);
+            //发送ajax请求执行上传
+            $.ajax({
+                url:"/return/upload/describPic",
+                type:"post",
+                data:formData,
+                contentType:false,
+                processData:false,
+                success:function (data) {
+                    $("#describPicPath").val(data.data);
+                }
+            });
+        });
+
+
+
+        function saveReturn() {
+            //获取分类信息的多个checkbox
+            var types = [];
+            $("input[name='inlineRadioOptions']:checked").each(function(i){
+                types.push($(this).val())
+            });
+
+
+            var returntvo={
+                "type":types[0],
+                "supportmoney":$("#supportmoney").val(),
+                "content":$("#content").val(),
+                "count":$("#count").val(),
+                "freight":$("#freight").val(),
+                "describPicPath":$("#describPicPath").val(),
+                "returndate":$("#returndate").val(),
+            }
+
+            $.ajax({
+                url:"/save/return/info",
+                type: "POST",
+                data: JSON.stringify(returntvo),//将对象序列化成JSON字符串
+                dataType: "json",
+                contentType : 'application/json;charset=utf-8', //设置请求头信息
+                success:function (data) {
+                    if(data.result=="SUCCESS"){
+                        location.href="/project/start-step-3.html";
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+
 	</script>
   </body>
 </html>

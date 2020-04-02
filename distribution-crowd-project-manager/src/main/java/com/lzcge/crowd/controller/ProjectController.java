@@ -11,10 +11,7 @@ import com.lzcge.crowd.pojo.vo.TokenVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +96,7 @@ public class ProjectController {
 	/**
 	 * 保存回报信息
 	 */
-	@RequestMapping("project/manager/save/return/info")
+	@RequestMapping(value = "project/manager/save/return/info",method = RequestMethod.POST)
 	public ResultEntity<String> saveReturnInfo(@RequestBody ReturnVO returnVO){
 
 		ProjectVO projectVOByRedis = getProjectVO(returnVO).getData();

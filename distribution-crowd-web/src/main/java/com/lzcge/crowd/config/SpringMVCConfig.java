@@ -57,9 +57,30 @@ public class SpringMVCConfig implements WebMvcConfigurer {
 		viewName="member/checkauthcode";
 		registry.addViewController(urlPath).setViewName(viewName);
 
+		/**===========发布项目部分==============**/
+
 		//跳转到同意协议页面
-		urlPath = "project/to/agree/page";
+		urlPath = "/project/to/agree/page";
 		viewName = "project/start";
 		registry.addViewController(urlPath).setViewName(viewName);
+
+
+		urlPath = "/project/start-step-1.html";
+		viewName = "project/start-step-1";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		urlPath = "/project/start-step-2.html";
+		viewName = "project/start-step-2";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		urlPath = "/project/start-step-3.html";
+		viewName = "project/start-step-3";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		urlPath = "/project/start-step-4.html";
+		viewName = "project/start-step-4";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+
 	}
 }
