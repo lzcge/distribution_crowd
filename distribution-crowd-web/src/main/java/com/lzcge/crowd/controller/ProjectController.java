@@ -4,24 +4,23 @@ import com.lzcge.crowd.api.MemberManagerRemoteService;
 import com.lzcge.crowd.api.ProjectOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
+import com.lzcge.crowd.pojo.po.ProjectDetailPO;
+import com.lzcge.crowd.pojo.po.ProjectPO;
 import com.lzcge.crowd.pojo.vo.*;
-import com.lzcge.crowd.util.CrowdConstant;
-import com.lzcge.crowd.util.CrowdUtils;
-import com.lzcge.crowd.util.UploadUtil;
+import com.lzcge.crowd.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProjectController {
@@ -312,4 +311,80 @@ public class ProjectController {
 		model.addAttribute("memberLaunchInfoPO",memberLaunchInfoPOByToken.getData());
 		return "project/start-step-1";
 	}
+
+
+	/**
+	 * 分页查询项目信息
+	 * @param queryIndexVo
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/project/pageQuery")
+	public ResultEntity pageQuery(QueryIndexVo queryIndexVo) {
+		String pagetext = queryIndexVo.getQueryText();
+		Integer pageno = queryIndexVo.getPageNo();
+		Integer pagesize = queryIndexVo.getPageSize();
+
+		Map<String, Object> projectMap = new HashMap<String, Object>();
+		projectMap.put("pageno", pageno);
+		projectMap.put("pagesize", pagesize);
+		if ( StringUtil.isNotEmpty(pagetext) ) {
+			pagetext = pagetext.replaceAll("%", "\\\\%");
+		}
+		projectMap.put("pagetext", pagetext);
+
+		// 分页查询
+		ResultEntity<Page<ProjectPO>> page = projectRemoteService.pageQuery(projectMap);
+		if (ResultEntity.FAILED.equals(page.getResult())){
+			return ResultEntity.failed(page.getMessage());
+		}
+		return ResultEntity.successWithData(page.getData());
+
+	}
+
+
+	/**
+	 * 查看项目详情
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/project/do/projectdetail")
+	public ResultEntity projectdetail(String id,HttpSession session) {
+		ResultEntity<ProjectDetailPO> resultEntity = projectRemoteService.queryProjectDetail(id);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		ProjectDetailPO projectDetailPO = resultEntity.getData();
+		//用户支持时需要支付的总金额
+		Integer totalMoney = projectDetailPO.getReturnPO().getSupportmoney()+projectDetailPO.getReturnPO().getFreight();
+		projectDetailPO.setTotalMoney(totalMoney);
+		
+		session.setAttribute("ProjectDetailPO",projectDetailPO);
+		return ResultEntity.successWithData(resultEntity.getData());
+
+	}
+
+	/**
+	 * 更新项目信息
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/project/do/update/project")
+	public ResultEntity updateProject(ProjectVO projectVO,Model model,HttpSession session) {
+		ResultEntity<ProjectDetailPO> resultEntity = projectRemoteService.updateProject(projectVO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		ProjectDetailPO projectDetailPO = resultEntity.getData();
+		//用户支持时需要支付的总金额
+		Integer totalMoney = projectDetailPO.getReturnPO().getSupportmoney()+projectDetailPO.getReturnPO().getFreight();
+		projectDetailPO.setTotalMoney(totalMoney);
+		session.setAttribute("ProjectDetailPO",projectDetailPO);
+		return ResultEntity.successWithData(projectDetailPO);
+
+	}
+
+
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="UTF-8" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,7 +77,7 @@
 			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			  <div class="container">
 				<div class="navbar-header">
-				  <a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
+				  <a class="navbar-brand" href="#" style="font-size:32px;">众筹平台</a>
 				</div>
                   <div id="navbar" class="navbar-collapse collapse" style="float:right;">
                       <ul class="nav navbar-nav">
@@ -97,33 +97,7 @@
       </div>
     </div>
 
-    <div class="container theme-showcase" role="main">
-
-        <div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <nav class="navbar navbar-default" role="navigation">
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <!--<li>-->
-                                <!--<a rel="nofollow" href="index.html"><i class="glyphicon glyphicon-home"></i> 众筹首页</a>-->
-                                <!--</li>-->
-                                <li >
-                                    <a rel="nofollow" href="/project/displayAllProjects.html"><i class="glyphicon glyphicon-th-large"></i> 众筹项目</a>
-                                </li>
-                                <!--<li>-->
-                                <!--<a rel="nofollow" href="start.html"><i class="glyphicon glyphicon-edit"></i> 发起众筹</a>-->
-                                <!--</li>-->
-                                <li>
-                                    <a rel="nofollow" href="/member/minecrowdfunding.html"><i class="glyphicon glyphicon-user"></i> 我的众筹</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        
+    <div class="container theme-showcase" role="main">        
         
         <div class="container">
             <div class="row clearfix">
@@ -135,7 +109,7 @@
                                     <div class="col-md-3 column">
                                         <div class="progress" style="height:50px;border-radius:0;    position: absolute;width: 75%;right:49px;">
                                           <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height:50px;">
-                                            <div style="font-size:16px;margin-top:15px;">1. 项目及发起人信息</div>
+                                            <div style="font-size:16px;margin-top:15px;">1. 确认回报内容</div>
                                           </div>
                                         </div>
                                         <div style="right: 0;border:10px solid #ddd;border-left-color: #88b7d5;border-width: 25px;position: absolute;
@@ -149,7 +123,7 @@
                                     <div class="col-md-3 column">
                                         <div class="progress" style="height:50px;border-radius:0;position: absolute;width: 75%;right:49px;">
                                           <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height:50px;">
-                                            <div style="font-size:16px;margin-top:15px;">2. 回报设置</div>
+                                            <div style="font-size:16px;margin-top:15px;">2. 确认订单</div>
                                           </div>
                                         </div>
                                         <div style="right: 0;border:10px solid #ddd;border-left-color: #88b7d5;border-width: 25px;position: absolute;
@@ -163,7 +137,7 @@
                                     <div class="col-md-3 column">
                                         <div class="progress" style="height:50px;border-radius:0;position: absolute;width: 75%;right:49px;">
                                           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height:50px;">
-                                            <div style="font-size:16px;margin-top:15px;">3. 确认信息</div>
+                                            <div style="font-size:16px;margin-top:15px;">3. 付款</div>
                                           </div>
                                         </div>
                                         <div style="right: 0;border:10px solid #ddd;border-left-color: #88b7d5;border-width: 25px;position: absolute;
@@ -185,49 +159,94 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                        
-                        <div class="container-fluid">
-                            <div class="row clearfix">
-                                <div class="col-md-12 column">
-                                    <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
-                                        <b>
-                                            确认信息（请填写企业账号用于收款及身份核实）
-                                        </b>
-                                    </blockquote>
-                                </div>
-                                <div class="col-md-12 column">
-                                
-                                
-                                    <div class="row clearfix">
-                                        <div class="col-md-6 column">
-                                            <form role="form">
-                                                <div class="form-group">
-                                                     <label for="exampleInputEmail1">企业账号：</label>
-                                                    <input type="text" required="required" class="form-control" id="exampleInputEmail1" />
-                                                </div>
-                                                <div class="form-group">
-                                                     <label for="exampleInputPassword1">法人身份证号：</label>
-                                                    <input type="text" required="required" class="form-control" id="exampleInputPassword1" />
-                                                </div>
-                                                <p style="color: red;">[[${MESSAGE}]]</p>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6 column">
-                                            <div class="panel panel-default">
-                                                <div class="panel-body" style="padding:40px;">
-                                                    <i class="glyphicon glyphicon-user"></i> 账户：[[${session['LOGIN-MEMBER'].loginacct}]]<br><br><span style="margin-left:60px;">您正在使用该账号发起众筹项目</span>
-                                                </div>
-                                            </div>
+                            <div class="container-fluid">
+                                <div class="row clearfix">
+                                    <div class="col-md-12 column">
+                                        <div class="alert alert-warning alert-dismissable" style="color:red;">
+                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <i class="glyphicon glyphicon-info-sign"></i> <strong >请在15分钟内付款，否则您的订单会被自动关闭。</strong>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                        <div id="address" class="container-fluid">
+                            <div class="row clearfix">
+                                <div class="col-md-12 column">
+                                    <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;">
+                                        <b>
+                                            付款
+                                        </b>
+                                    </blockquote>
+                                </div>
+                                <div class="col-md-12 column" style="padding:0 120px;">
+
+                                    <div style="border:10px solid #f60;border-bottom-color: #eceeef;border-width: 10px;width:20px;margin-left:20px;margin-top:-20px;
+                                             border-left-color: rgba(221, 221, 221, 0);
+                                             border-top-color: rgba(221, 221, 221, 0);
+                                             border-right-color: rgba(221, 221, 221, 0);
+                                    "></div>
+                                    <div class="panel panel-default" style="border-style: dashed;background-color:#eceeef">
+                                      <div class="panel-body">
+                                            <div class="col-md-12 column" >
+                                                <form class="form-horizontal" th:action="@{/pay/do/pay}">
+                                                    <div class="form-group">
+                                                        <input type="hidden" th:name="projectid" th:id="projectid" th:value="${orderInfo.projectid}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">订单编号</label>
+                                                        <input type="hidden" th:name="WIDout_trade_no" th:id="WIDout_trade_no" th:value="${orderInfo.ordernum}">
+                                                        <div th:id="ordernum" class="col-sm-10">
+                                                              [[${orderInfo.ordernum}]]
+
+                                                        </div>
+                                                    </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">收货人：</label>
+                                                      <input type="hidden" th:name="WIDout_trade_no" th:id="WIDout_trade_no" th:value="${orderInfo.ordernum}">
+                                                    <div th:id="username" class="col-sm-10">
+                                                        [[${orderInfo.gainusername}]]
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">手机：</label>
+                                                      <input type="hidden" th:name="WIDsubject" th:id="WIDsubject" th:value="${orderInfo.ordernum}">
+                                                    <div th:id="phone" class="col-sm-10">
+                                                        [[${orderInfo.gainphone}]]
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">地址：</label>
+                                                      <input type="hidden" th:name="WIDbody" th:id="WIDbody" th:value="${orderInfo.ordernum}">
+                                                    <div th:id="address" class="col-sm-10">
+                                                        [[${orderInfo.address}]]
+                                                    </div>
+                                                  </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">待付金额：</label>
+                                                        <input type="hidden" th:name="WIDtotal_amount" th:id="WIDtotal_amount" th:value="${orderInfo.money}">
+                                                        <div th:id="money" class="col-sm-10">
+                                                            [[${orderInfo.money}]]
+                                                        </div>
+                                                    </div>
+                                                  <div class="form-group">
+                                                    <!--<label for="inputEmail3" class="col-sm-2 control-label"></label>-->
+                                                    <div class="col-sm-10">
+                                                          <button type="submit"   class="btn btn-primary">立即付款</button>
+                                                    </div>
+                                                      <p style="color: red;">[[${MESSAGE}]]</p>
+                                                  </div>
+                                                </form>
+                                            </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="container-fluid">
+
                         </div>
-                        <div class="panel-footer" style="text-align:center;">
-                            <button type="button" class="btn  btn-default btn-lg" onclick="window.location.href='/project/start-step-2.html'">上一步</button>
-                            <button type="button" class="btn  btn-warning btn-lg" onclick="saveConfirmInfo()">提交</button>
-                            <!--<a class="btn" > 保存草稿 </a>-->
+
                         </div>
                     </div>
                 </div>
@@ -235,57 +254,62 @@
         </div>
         
 
-        <div class="container" style="margin-top:20px;">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <div id="footer">
-                        <div class="footerNav">
-                             <a rel="nofollow" href="#">关于我们</a> | <a rel="nofollow" href="#">服务条款</a> | <a rel="nofollow" href="#">免责声明</a> | <a rel="nofollow" href="#">网站地图</a> | <a rel="nofollow" href="#">联系我们</a>
-                        </div>
-                        <div class="copyRight">
-                            Copyright ?2017-lzcge.cn 版权所有
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+
       
     </div> <!-- /container -->
-     <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-2.1.1.min.js}"></script>
-     <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-     <script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
-     <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
+
+ 
+ <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-2.1.1.min.js}"></script>
+ <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+ <script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
+ <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
+ <script type="text/javascript" src="${APP_PATH }/jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>
 	<script>
+
+
         $('#myTab a').click(function (e) {
           e.preventDefault()
           $(this).tab('show')
         });
 
-        function saveConfirmInfo() {
+        //禁用登录页的浏览器返回按钮
+        window.history.go(1);
 
 
-            var confirmvo={
-                "paynum":$("#exampleInputEmail1").val(),
-                "cardnum":$("#exampleInputPassword1").val(),
 
-            };
 
-            $.ajax({
-                url:"/save/confirm/info",
-                type: "POST",
-                data: JSON.stringify(confirmvo),//将对象序列化成JSON字符串
-                dataType: "json",
-                contentType : 'application/json;charset=utf-8', //设置请求头信息
-                success:function (data) {
-                    if(data.result=="SUCCESS"){
-                        location.href="/save/whole/project";
-                    }else{
-                        alert(data.message);
-                    }
-                }
-            });
+        //提交订单
+
+        $("#btn").click(function () {
+            var WIDout_trade_no=$("#ordernum").html();
+            var WIDtotal_amount=$("#money").html();
+            var WIDsubject=$("#ordernum").html();
+            var WIDbody=$("#ordernum").html();
+            var projectid=$("#projectid").html();
+            window.location.href="/pay/do/pay?WIDout_trade_no="+WIDout_trade_no+"&WIDtotal_amount="+WIDtotal_amount+"&WIDsubject="+WIDsubject+"&WIDbody="+WIDbody;
+        });
+
+
+        /**
+         * 生成唯一订单号
+         * @returns {string}
+         */
+        function orderCode() {
+            var orderCode='';
+            for (var i = 0; i < 6; i++) //6位随机数，用以加在时间戳后面。
+            {
+                orderCode += Math.floor(Math.random() * 10);
+            }
+            orderCode = new Date().getTime() + orderCode;  //时间戳，用来生成订单号。
+            console.log(orderCode);
+            return orderCode;
         }
-	</script>
+
+
+
+
+
+
+    </script>
   </body>
 </html>

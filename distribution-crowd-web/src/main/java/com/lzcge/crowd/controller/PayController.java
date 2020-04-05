@@ -4,12 +4,24 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.lzcge.crowd.api.MemberManagerRemoteService;
+import com.lzcge.crowd.api.ProjectOperationRemoteService;
+import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.config.AlipayConfig;
+import com.lzcge.crowd.pojo.ResultEntity;
+import com.lzcge.crowd.pojo.po.OrderPO;
+import com.lzcge.crowd.pojo.po.ProjectDetailPO;
+import com.lzcge.crowd.pojo.vo.ProjectVO;
+import com.lzcge.crowd.util.CrowdConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,8 +29,33 @@ import java.util.Map;
 @Controller
 public class PayController {
 
+	@Autowired
+	private MemberManagerRemoteService memmberRemoteService;
+
+	@Autowired
+	private ProjectOperationRemoteService projectRemoteService;
+
+	@Autowired
+	private RedisOperationRemoteService redisService;
+
+	@RequestMapping("/pay/paymoney.html")
+	public String paymoneyhtml(@RequestParam("orderid") Integer orderid, Model model){
+		//根据订单id获取
+		ResultEntity<OrderPO> resultEntity = memmberRemoteService.queryOrderById(orderid);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
+			return "error";
+		}
+
+		//写入model域中
+		model.addAttribute("orderInfo",resultEntity.getData());
+		//返回页面
+		return "pay/pay-paymoney";
+	}
+
+
 	//支付方法
-	@RequestMapping("pay/do/pay")
+	@RequestMapping("/pay/do/pay")
 	@ResponseBody
 	public String pay(HttpServletRequest request) throws Exception {
 		//获得初始化的AlipayClient
@@ -38,18 +75,18 @@ public class PayController {
 		alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
 		//商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+		String ordernum = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 		//付款金额，必填
-		String total_amount = new String(request.getParameter("WIDtotal_amount").getBytes("ISO-8859-1"),"UTF-8");
+		String money = new String(request.getParameter("WIDtotal_amount").getBytes("ISO-8859-1"),"UTF-8");
 		//订单名称，必填
 		String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
-		//商品描述，可空
-		String body = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
+		//备注
+		String remark = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
 
-		alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
-				+ "\"total_amount\":\""+ total_amount +"\","
+		alipayRequest.setBizContent("{\"out_trade_no\":\""+ ordernum +"\","
+				+ "\"total_amount\":\""+ money +"\","
 				+ "\"subject\":\""+ subject +"\","
-				+ "\"body\":\""+ body +"\","
+				+ "\"body\":\""+ remark +"\","
 				+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 
 		//若想给BizContent增加其他可选请求参数，以增加自定义超时时间参数timeout_express来举例说明
@@ -127,8 +164,7 @@ public class PayController {
 
 	//页面跳转同步通知页面路径
 	@RequestMapping("pay/return.html")
-	@ResponseBody
-	public String payReturn(HttpServletRequest request) throws Exception {
+	public String payReturn(HttpServletRequest request,Model model) throws Exception {
 		// 获取支付宝GET过来反馈信息
 		Map<String, String> params = new HashMap<String, String>();
 		Map<String, String[]> requestParams = request.getParameterMap();
@@ -139,8 +175,8 @@ public class PayController {
 			for (int i = 0; i < values.length; i++) {
 				valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
 			}
-			// 乱码解决，这段代码在出现乱码时使用
-			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+//			// 乱码解决，这段代码在出现乱码时使用
+//			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
 			params.put(name, valueStr);
 		}
 		boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,
@@ -153,10 +189,45 @@ public class PayController {
 			String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
 			// 付款金额
 			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
-			return "trade_no:" + trade_no + "<br/>out_trade_no:" + out_trade_no + "<br/>total_amount:" + total_amount;
+			//去掉小数点
+			Long money = Long.valueOf(total_amount.split("\\.")[0]);
+			HttpSession session = request.getSession();
+			//设置更新信息
+
+			ProjectVO projectVO = new ProjectVO();
+			ProjectDetailPO projectDetailPO = (ProjectDetailPO) session.getAttribute("ProjectDetailPO");
+			projectVO.setId(projectDetailPO.getProjectPO().getId());
+			//判断是否众筹成功
+			//众筹已结束
+			if(projectDetailPO.getProjectPO().getSupportmoney()>=projectDetailPO.getProjectPO().getMoney()){
+				byte status = new Byte("2");
+				projectVO.setStatus(status);
+			}else{    //没结束
+				//刚好结束
+				if(projectDetailPO.getProjectPO().getSupportmoney()+money>=projectDetailPO.getProjectPO().getMoney()){
+					byte status = new Byte("2");
+					projectVO.setStatus(status);
+				}
+				projectVO.setSupporter(projectDetailPO.getProjectPO().getSupporter()+1);
+				projectVO.setSupportmoney(projectDetailPO.getProjectPO().getSupportmoney()+money);
+			}
+
+
+			//更新工程信息
+			ResultEntity<ProjectDetailPO> resultEntity = projectRemoteService.updateProject(projectVO);
+			if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
+				return "error";
+			}
+
+			session.setAttribute("ProjectDetailPO",resultEntity.getData());
+			return "redirect:/project/projectdetail.html";
+//			return "trade_no:" + trade_no + "<br/>out_trade_no:" + out_trade_no + "<br/>total_amount:" + total_amount;
 		} else {
 			return "验签失败";
 		}
 	}
+
+
 
 }

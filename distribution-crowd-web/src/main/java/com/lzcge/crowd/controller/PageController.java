@@ -16,4 +16,6 @@ public class PageController {
 	public String showPage(@PathVariable String fold,@PathVariable String page){
 		return fold+"/"+page;
 	}
+
+
 }

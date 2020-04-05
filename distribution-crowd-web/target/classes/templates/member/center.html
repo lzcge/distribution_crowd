@@ -97,11 +97,18 @@
                 </div>
             </div>
             <div class="list-group">
-                <div class="list-group-item active">
-                    资产总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                <!--企业才支持发起众筹-->
+                <div th:switch="${session['LOGIN-MEMBER'].usertype}">
+                    <div th:case="1" class="list-group-item active" onclick="window.location.href='/project/to/agree/page'">
+                        发起众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                    </div>
+
                 </div>
-                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/project/to/agree/page'">
+                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/member/minecrowdfunding.html'">
                     我的众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                </div>
+                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/project/displayAllProjects.html'">
+                    项目总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                 </div>
                 <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/toPage/pay/pay'">
                     支付宝付款<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
@@ -135,7 +142,7 @@
         <div class="col-md-12 column">
             <div id="footer">
                 <div class="footerNav">
-                    <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                    <a rel="nofollow" href="">关于我们</a> | <a rel="nofollow" href="">服务条款</a> | <a rel="nofollow" href="">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
                 </div>
                 <div class="copyRight">
                     Copyright ?2017-2017atguigu.com 版权所有

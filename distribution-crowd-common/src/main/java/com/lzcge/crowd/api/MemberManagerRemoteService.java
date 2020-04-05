@@ -3,9 +3,12 @@ package com.lzcge.crowd.api;
 
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
+import com.lzcge.crowd.pojo.po.MemberAddressPO;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
+import com.lzcge.crowd.pojo.po.OrderPO;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,5 +65,50 @@ public interface MemberManagerRemoteService {
 	 */
 	@RequestMapping(value = "member/manager/finish/emailcode",method = RequestMethod.POST)
 	public ResultEntity<String> finishEmailApply(@RequestBody MemberVO memberVO);
+
+	/**
+	 * 查询用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address")
+	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO);
+
+
+	/**
+	 * 查询用户收获地址根据收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address/by/address")
+	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO);
+
+
+
+	/**
+	 * 新增用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/add/address")
+	public ResultEntity<List<MemberAddressPO>> addMemberAddress(@RequestBody MemberAddressPO memberAddressPO);
+
+	/**
+	 * 保存订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/save/order")
+	public ResultEntity<Integer> saveOrder(@RequestBody OrderVO orderVO);
+
+	/**
+	 * 根据订单id获取订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/orderid")
+	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid);
+
+
 
 }

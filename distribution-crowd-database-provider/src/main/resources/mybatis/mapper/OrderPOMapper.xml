@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzcge.crowd.mapper.OrderPOMapper" >
+
+
+    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="id"  parameterType="com.lzcge.crowd.pojo.vo.OrderVO" >
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+
+            <if test="memberid != null" >
+                memberid,
+            </if>
+            <if test="projectid != null" >
+                projectid,
+            </if>
+            <if test="returnid != null" >
+                returnid,
+            </if>
+            <if test="ordernum != null" >
+                ordernum,
+            </if>
+            <if test="createdate != null" >
+                createdate,
+            </if>
+            <if test="money != null" >
+                money,
+            </if>
+            <if test="rtncount != null" >
+                rtncount,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="gainusername != null" >
+                gainusername,
+            </if>
+            <if test="gainphone != null" >
+                gainphone,
+            </if>
+            <if test="remark != null" >
+             remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+            <if test="memberid != null" >
+                #{memberid,jdbcType=INTEGER},
+            </if>
+            <if test="projectid != null" >
+                #{projectid,jdbcType=INTEGER},
+            </if>
+            <if test="returnid != null" >
+                #{returnid,jdbcType=INTEGER},
+            </if>
+            <if test="ordernum != null" >
+                #{ordernum,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null" >
+                #{createdate,jdbcType=CHAR},
+            </if>
+            <if test="money != null" >
+                #{money,jdbcType=INTEGER},
+            </if>
+            <if test="rtncount != null" >
+                #{rtncount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="gainusername != null" >
+                #{gainusername,jdbcType=VARCHAR},
+            </if>
+            <if test="gainphone != null" >
+                #{gainphone,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryOrderById" resultType="com.lzcge.crowd.pojo.po.OrderPO" parameterType="java.lang.Integer">
+        SELECT
+            id,
+            memberid,
+            projectid,
+            returnid,
+            ordernum,
+            createdate,
+            money,
+            rtncount,
+            status,
+            address,
+            gainusername,
+            gainphone,
+            remark
+        FROM
+          t_order
+        WHERE
+          id = #{id,jdbcType=INTEGER}
+
+    </select>
+
+
+
+
+
+</mapper>

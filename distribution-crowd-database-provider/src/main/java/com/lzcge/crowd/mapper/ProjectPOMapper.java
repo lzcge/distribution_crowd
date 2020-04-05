@@ -5,6 +5,7 @@ import com.lzcge.crowd.pojo.po.ProjectPOExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProjectPOMapper {
     int countByExample(ProjectPOExample example);
@@ -28,4 +29,8 @@ public interface ProjectPOMapper {
     int updateByPrimaryKeySelective(ProjectPO record);
 
     int updateByPrimaryKey(ProjectPO record);
+
+	List<ProjectPO> queryPage(Map<String, Object> projectMap);
+
+	int queryCount(Map<String, Object> projectMap);
 }

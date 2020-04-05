@@ -1,8 +1,10 @@
 package com.lzcge.crowd.mapper;
 
 import com.lzcge.crowd.entity.MemberCert;
+import com.lzcge.crowd.pojo.po.MemberAddressPO;
 import com.lzcge.crowd.pojo.po.MemberPO;
 import com.lzcge.crowd.pojo.po.MemberPOExample;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,4 +35,10 @@ public interface MemberPOMapper {
 	void delteMemberCert(MemberCert memberCert);
 
 	void insertMemberCert(MemberCert memberCert);
+
+	List<MemberAddressPO> selectMemberAddress(@Param("memberid") Integer memberid);
+
+	List<MemberAddressPO> selectMemberAddressByadress(@Param("address") String address);
+
+	void addMemberAddress(MemberAddressPO memberAddressPO);
 }

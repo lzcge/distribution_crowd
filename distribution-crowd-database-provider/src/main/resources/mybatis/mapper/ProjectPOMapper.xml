@@ -101,6 +101,27 @@
     from t_project
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+    <select id="queryPage" resultMap="BaseResultMap">
+        select * from t_project
+        <where>
+            <if test="pagetext != null">
+                and project_name like concat('%', #{pagetext}, '%')
+            </if>
+        </where>
+        limit #{startIndex}, #{pagesize}
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select count(id) from t_project
+        <where>
+            <if test="pagetext != null">
+                and project_name like concat('%', #{pagetext}, '%')
+            </if>
+        </where>
+    </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_project
     where id = #{id,jdbcType=INTEGER}

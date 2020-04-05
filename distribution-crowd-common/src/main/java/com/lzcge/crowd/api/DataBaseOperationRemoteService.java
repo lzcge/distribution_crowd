@@ -3,14 +3,16 @@ package com.lzcge.crowd.api;
 import com.lzcge.crowd.entity.Cert;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
-import com.lzcge.crowd.pojo.po.CertPO;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.MemberPO;
+import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.MemberVO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.pojo.vo.ProjectVO;
+import com.lzcge.crowd.util.Page;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 //定义feign客户端 ;
@@ -103,6 +105,83 @@ public interface DataBaseOperationRemoteService {
 	@RequestMapping(value = "/retrieve/member/by/login/acct",method = RequestMethod.POST)
 	ResultEntity<MemberPO> retrieveMemberByLoginAcct(@RequestParam("loginacct") String loginacct);
 
+	/**
+	 * 保存项目信息
+	 * @param projectVO
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping("save/project/remote/{memberId}")
 	ResultEntity<String> saveProjectRemote(@RequestBody ProjectVO projectVO, @PathVariable("memberId") String memberId);
+
+
+	/**
+	 * 分页查询项目信息
+	 * @param projectMap
+	 * @return
+	 */
+	@RequestMapping("retrieve/project/querypage")
+	ResultEntity<Page<ProjectPO>> pageQueryProject(@RequestParam Map<String, Object> projectMap);
+
+	/**
+	 * 查询项目详细信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/projectdetail")
+	public ResultEntity<ProjectDetailPO> queryProjectDetail(@RequestParam("id") String id);
+
+
+	/**
+	 * 查询用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address")
+	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO);
+
+
+	/**
+	 * 查询用户收获地址根据收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address/by/address")
+	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO);
+
+
+	/**
+	 * 新增用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/add/address")
+	public ResultEntity<List<MemberAddressPO>> addMemberAddress(@RequestBody MemberAddressPO memberAddressPO);
+
+	/**
+	 * 保存订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/save/order")
+	public ResultEntity<Integer> saveOrder(@RequestBody OrderVO orderVO);
+
+	/**
+	 * 根据订单id获取订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/orderid")
+	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid);
+
+
+	/**
+	 * 更新项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/update/projectdetail")
+	public ResultEntity<ProjectDetailPO> updateProject(@RequestBody ProjectVO projectVO);
+
+
 }

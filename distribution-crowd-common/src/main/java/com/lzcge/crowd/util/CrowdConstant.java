@@ -20,7 +20,11 @@ public class CrowdConstant {
 	public static final String ATTR_NAME_LOGIN_MEMBER = "LOGIN-MEMBER";
 	public static final String ATTR_NAME_PAGE_INFO = "PAGE-INFO";
 	public static final String ATTR_NAME_INIT_PROJECT = "INIT-PROJECT";
-	
+
+	public static final String MESSAGE_ORDER_FAILED = "订单获取失败";
+
+
+	public static final String MESSAGE_ADDRESS_FAILED = "收获地址已存在";
 	public static final String MESSAGE_LOGIN_FAILED = "登录账号或密码不正确！请核对后再登录！";
 	public static final String MESSAGE_LOGIN_PHONE_FAILED = "登录账号与手机号不匹配！";
 	public static final String MESSAGE_CODE_INVALID = "明文不是有效字符串，请核对后再操作！";

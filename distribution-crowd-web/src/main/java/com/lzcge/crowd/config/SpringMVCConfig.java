@@ -81,6 +81,29 @@ public class SpringMVCConfig implements WebMvcConfigurer {
 		viewName = "project/start-step-4";
 		registry.addViewController(urlPath).setViewName(viewName);
 
+		urlPath = "/pay/pay.html";
+		viewName = "pay/pay";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		/**======项目查看，支持========**/
+		urlPath = "/project/displayAllProjects.html";
+		viewName = "project/displayAllProjects";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		urlPath = "/project/projectdetail.html";
+		viewName = "project/projectdetail";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		/**======项目支持========**/
+		urlPath = "/pay/pay-ConfirmReturn.html";
+		viewName = "pay/pay-ConfirmReturn";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+//		urlPath = "/pay/paymoney.html";
+//		viewName = "pay/paymoney";
+//		registry.addViewController(urlPath).setViewName(viewName);
+
+
 
 	}
 }

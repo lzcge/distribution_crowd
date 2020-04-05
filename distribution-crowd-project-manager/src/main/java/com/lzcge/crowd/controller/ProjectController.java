@@ -4,17 +4,20 @@ import com.alibaba.fastjson.JSON;
 import com.lzcge.crowd.api.DataBaseOperationRemoteService;
 import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
+import com.lzcge.crowd.pojo.po.ProjectDetailPO;
+import com.lzcge.crowd.pojo.po.ProjectPO;
 import com.lzcge.crowd.pojo.vo.MemberConfirmInfoVO;
 import com.lzcge.crowd.pojo.vo.ProjectVO;
 import com.lzcge.crowd.pojo.vo.ReturnVO;
 import com.lzcge.crowd.pojo.vo.TokenVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
+import com.lzcge.crowd.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 public class ProjectController {
@@ -44,6 +47,8 @@ public class ProjectController {
 		}
 		//取出Redis中临时的完整项目信息保存到数据库
 		ProjectVO projectVOByRedis = getProjectVO(tokenVO).getData();
+
+
 		ResultEntity<String> resultEntity1 = dataBaseService.saveProjectRemote(projectVOByRedis, memberId);
 		if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
 			return ResultEntity.failed(resultEntity1.getMessage());
@@ -267,6 +272,50 @@ public class ProjectController {
 		redisService.saveNormalStringKeyValue(projectToken,jsonString,-1);
 		//初始化完成后的数据在Redis中存一份，并返回给调用方一份
 		return ResultEntity.successWithData(projectVO);
+	}
+
+
+	/**
+	 * 分页查询项目信息
+	 * @param projectMap
+	 * @return
+	 */
+	@RequestMapping("project/manager/pagequery/project")
+	public ResultEntity<Page<ProjectPO>> pageQuery(@RequestParam Map<String, Object> projectMap){
+		ResultEntity<Page<ProjectPO>> resultEntity = dataBaseService.pageQueryProject(projectMap);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+	/**
+	 * 查询项目详细信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/projectdetail")
+	public ResultEntity<ProjectDetailPO> queryProjectDetail(@RequestParam("id") String id){
+		ResultEntity<ProjectDetailPO> resultEntity = dataBaseService.queryProjectDetail(id);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		ProjectDetailPO projectDetailPO = resultEntity.getData();
+		return ResultEntity.successWithData(projectDetailPO);
+	}
+
+	/**
+	 * 更新项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/update/projectdetail")
+	public ResultEntity<ProjectDetailPO> updateProject(@RequestBody ProjectVO projectVO){
+		ResultEntity<ProjectDetailPO> resultEntity = dataBaseService.updateProject(projectVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
 	}
 
 }

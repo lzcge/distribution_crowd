@@ -3,10 +3,8 @@ package com.lzcge.crowd.service.impl;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.mapper.MemberLaunchInfoPOMapper;
 import com.lzcge.crowd.mapper.MemberPOMapper;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPOExample;
-import com.lzcge.crowd.pojo.po.MemberPO;
-import com.lzcge.crowd.pojo.po.MemberPOExample;
+import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.service.MemberPOService;
 import com.lzcge.crowd.util.CrowdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,4 +117,29 @@ public class MemberPOServiceImpl implements MemberPOService {
 	public void insertMemberCert(MemberCert memberCert) {
 		memberPOMapper.insertMemberCert(memberCert);
 	}
+
+
+	@Override
+	public List<MemberAddressPO> queryAddress(MemberAddressPO memberAddressPO) {
+
+		List<MemberAddressPO> memberAddressPOList =  memberPOMapper.selectMemberAddress(memberAddressPO.getMemberid());
+		return memberAddressPOList;
+	}
+
+	@Override
+	public List<MemberAddressPO> selectMemberAddressByadress(MemberAddressPO memberAddressPO) {
+		return memberPOMapper.selectMemberAddressByadress(memberAddressPO.getAddress());
+	}
+
+	@Override
+	@Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+	public List<MemberAddressPO> addMemberAddress(MemberAddressPO memberAddressPO) {
+		memberPOMapper.addMemberAddress(memberAddressPO);
+		//重新获取所有地址
+		List<MemberAddressPO> memberAddressPOList =  memberPOMapper.selectMemberAddress(memberAddressPO.getMemberid());
+		return memberAddressPOList;
+	}
+
+
+
 }

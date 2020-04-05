@@ -11,6 +11,23 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectVO extends TokenVO{
 
+	private Integer id;
+
+
+	private Byte status;
+
+	private String deploydate;
+
+	private Long supportmoney;
+
+	private Integer supporter;
+
+	private Integer completion;
+
+	private Integer memberid;
+
+	private Integer follower;
+
 	// 分类id集合
 	private List<Integer> typeIdList;
 

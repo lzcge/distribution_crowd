@@ -3,13 +3,19 @@ package com.lzcge.crowd.controller;
 
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
+import com.lzcge.crowd.pojo.po.MemberAddressPO;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
 import com.lzcge.crowd.pojo.po.MemberPO;
+import com.lzcge.crowd.pojo.po.OrderPO;
+import com.lzcge.crowd.pojo.vo.MemberVO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.service.MemberPOService;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController			//服务端返回的都是json数据
 public class MemberController {
@@ -169,4 +175,60 @@ public class MemberController {
 			return ResultEntity.failed(e.getMessage());
 		}
 	}
+
+	/**
+	 * 查询用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address")
+	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO){
+		try {
+			 List<MemberAddressPO> memberAddressPOList= memberPOService.queryAddress(memberAddressPO);
+			return ResultEntity.successWithData(memberAddressPOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * 查询用户收获地址根据收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address/by/address")
+	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO){
+		try {
+			List<MemberAddressPO> memberAddressPOList= memberPOService.selectMemberAddressByadress(memberAddressPO);
+			return ResultEntity.successWithData(memberAddressPOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * 新增用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/add/address")
+	public ResultEntity<List<MemberAddressPO>> addAddress(@RequestBody MemberAddressPO memberAddressPO){
+		try {
+			List<MemberAddressPO> memberAddressPOList = memberPOService.addMemberAddress(memberAddressPO);
+			return ResultEntity.successWithData(memberAddressPOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
+
+
+
+
+
 }

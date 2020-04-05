@@ -6,11 +6,10 @@ import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.entity.Cert;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
-import com.lzcge.crowd.pojo.po.CertPO;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.MemberPO;
+import com.lzcge.crowd.pojo.po.*;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
 import org.springframework.beans.BeanUtils;
@@ -49,6 +48,21 @@ public class MemberController {
 
 	@Value("${spring.mail.username}")
 	private String username;
+
+
+	//工具类;检查用户令牌是否登录
+	public ResultEntity<String> memberTokenCheck(String memberSignToken){
+		//检查是否登录(Redis中memberSignToken对应的key是否有值)
+		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(memberSignToken);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+
+
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
 
 //	//Spring会根据@Value注解中的表达式读取yml/properties配置文件给成员变量设置对应的值
 //	@Value("${crowd.short.message.appCode}")
@@ -158,7 +172,7 @@ public class MemberController {
 		String token = CrowdUtils.generateRedisKey(CrowdConstant.REDIS_MEMBER_SING_TOKEN_PREFIX);
 		//token作为key，userid作为value，过期时间30分钟存入Redis
 		String id = memberPO.getId()+"";
-		ResultEntity<String> resultEntitySaveToken = redisRemoteService.saveNormalStringKeyValue(token, id, 30);
+		ResultEntity<String> resultEntitySaveToken = redisRemoteService.saveNormalStringKeyValue(token, id, -1);
 		if(ResultEntity.FAILED.equals(resultEntitySaveToken.getResult())){
 			return ResultEntity.failed(resultEntitySaveToken.getMessage());
 		}
@@ -459,6 +473,105 @@ public class MemberController {
 		}
 
 		return ResultEntity.successNoData();
+	}
+
+
+	/**
+	 * 查询用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address")
+	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO){
+		//检查是否登录(Redis中memberSignToken对应的key是否有值)
+		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
+		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+		ResultEntity<List<MemberAddressPO>> listResultEntity = databasesRemoteService.queryAddress(memberAddressPO);
+		if(ResultEntity.FAILED.equals(listResultEntity.getResult())){
+			return ResultEntity.failed(listResultEntity.getMessage());
+		}
+
+		return ResultEntity.successWithData(listResultEntity.getData());
+	}
+
+
+	/**
+	 * 查询用户收获地址根据收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/get/address/by/address")
+	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO){
+		//检查是否登录(Redis中memberSignToken对应的key是否有值)
+		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
+		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+		ResultEntity<List<MemberAddressPO>> listResultEntity = databasesRemoteService.selectMemberAddressByadress(memberAddressPO);
+		if(ResultEntity.FAILED.equals(listResultEntity.getResult())){
+			return ResultEntity.failed(listResultEntity.getMessage());
+		}
+
+		return ResultEntity.successWithData(listResultEntity.getData());
+	}
+
+
+
+	/**
+	 * 新增用户收获地址
+	 * @param memberAddressPO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/add/address")
+	public ResultEntity<List<MemberAddressPO>> addAddress(@RequestBody MemberAddressPO memberAddressPO){
+		//检查是否登录(Redis中memberSignToken对应的key是否有值)
+		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
+		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
+		}
+
+		ResultEntity<List<MemberAddressPO>> addResultEntity = databasesRemoteService.addMemberAddress(memberAddressPO);
+		if(ResultEntity.FAILED.equals(addResultEntity.getResult())){
+			return ResultEntity.failed(addResultEntity.getMessage());
+		}
+
+
+
+		return ResultEntity.successWithData(addResultEntity.getData());
+
+	}
+
+
+	/**
+	 * 保存订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/save/order")
+	public ResultEntity<Integer> saveOrder(@RequestBody OrderVO orderVO){
+		ResultEntity<Integer> resultEntity = databasesRemoteService.saveOrder(orderVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+	/**
+	 * 根据订单id获取订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/orderid")
+	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid){
+		ResultEntity<OrderPO> resultEntity = databasesRemoteService.queryOrderById(orderid);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+
 	}
 
 

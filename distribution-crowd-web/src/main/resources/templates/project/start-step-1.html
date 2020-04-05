@@ -196,7 +196,7 @@
                           <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                  <li><a href="member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="/member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
                                   <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
                                   <li class="divider"></li>
                                   <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
@@ -217,17 +217,17 @@
                     <nav class="navbar navbar-default" role="navigation">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li>
-                                    <a rel="nofollow" href="index.html"><i class="glyphicon glyphicon-home"></i> 众筹首页</a>
-                                </li>
+                                <!--<li>-->
+                                <!--<a rel="nofollow" href="index.html"><i class="glyphicon glyphicon-home"></i> 众筹首页</a>-->
+                                <!--</li>-->
                                 <li >
-                                    <a rel="nofollow" href="projects.html"><i class="glyphicon glyphicon-th-large"></i> 项目总览</a>
+                                    <a rel="nofollow" href="/project/displayAllProjects.html"><i class="glyphicon glyphicon-th-large"></i> 众筹项目</a>
                                 </li>
-                                <li class="active">
-                                    <a rel="nofollow" href="javascript:;"><i class="glyphicon glyphicon-edit"></i> 发起项目</a>
-                                </li>
+                                <!--<li>-->
+                                <!--<a rel="nofollow" href="start.html"><i class="glyphicon glyphicon-edit"></i> 发起众筹</a>-->
+                                <!--</li>-->
                                 <li>
-                                    <a rel="nofollow" href="minecrowdfunding.html"><i class="glyphicon glyphicon-user"></i> 我的众筹</a>
+                                    <a rel="nofollow" href="/member/minecrowdfunding.html"><i class="glyphicon glyphicon-user"></i> 我的众筹</a>
                                 </li>
                             </ul>
                         </div>

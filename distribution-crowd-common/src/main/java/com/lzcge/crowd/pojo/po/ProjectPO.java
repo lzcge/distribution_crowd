@@ -1,7 +1,11 @@
 package com.lzcge.crowd.pojo.po;
 
-import java.io.Serializable;
+import lombok.Data;
 
+import java.io.Serializable;
+import java.util.List;
+
+@Data
 public class ProjectPO implements Serializable {
     private Integer id;
 
@@ -9,7 +13,7 @@ public class ProjectPO implements Serializable {
 
     private String projectDescription;
 
-    private Integer money;
+    private Long money;
 
     private Integer day;
 
@@ -31,9 +35,11 @@ public class ProjectPO implements Serializable {
 
     private String headerPicturePath;
 
+	private List<String> detailPicturePathList;
+
     private static final long serialVersionUID = 1L;
 
-    public ProjectPO(Integer id, String projectName, String projectDescription, Integer money, Integer day, Byte status, String deploydate, Long supportmoney, Integer supporter, Integer completion, Integer memberid, String createdate, Integer follower, String headerPicturePath) {
+    public ProjectPO(Integer id, String projectName, String projectDescription, Long money, Integer day, Byte status, String deploydate, Long supportmoney, Integer supporter, Integer completion, Integer memberid, String createdate, Integer follower, String headerPicturePath) {
         this.id = id;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
@@ -78,11 +84,11 @@ public class ProjectPO implements Serializable {
         this.projectDescription = projectDescription == null ? null : projectDescription.trim();
     }
 
-    public Integer getMoney() {
+    public Long getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(Long money) {
         this.money = money;
     }
 
@@ -166,7 +172,15 @@ public class ProjectPO implements Serializable {
         this.headerPicturePath = headerPicturePath == null ? null : headerPicturePath.trim();
     }
 
-    @Override
+	public List<String> getDetailPicturePathList() {
+		return detailPicturePathList;
+	}
+
+	public void setDetailPicturePathList(List<String> detailPicturePathList) {
+		this.detailPicturePathList = detailPicturePathList;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

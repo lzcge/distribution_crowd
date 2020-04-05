@@ -90,6 +90,20 @@
       order by ${orderByClause}
     </if>
   </select>
+
+    <select id="selectMemberAddress" resultType="com.lzcge.crowd.pojo.po.MemberAddressPO" parameterType="java.lang.Integer" >
+        select id,memberid,address,username,phoneNum
+        from t_member_address
+       WHERE memberid=#{memberid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectMemberAddressByadress" resultType="com.lzcge.crowd.pojo.po.MemberAddressPO" parameterType="java.lang.String" >
+        select id,memberid,address,username,phoneNum
+        from t_member_address
+        WHERE address=#{address,jdbcType=VARCHAR}
+    </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -116,6 +130,21 @@
       #{usertype,jdbcType=CHAR}, #{realname,jdbcType=VARCHAR}, #{cardnum,jdbcType=VARCHAR},
       #{accttype,jdbcType=CHAR})
   </insert>
+
+    <insert id="addMemberAddress" parameterType="com.lzcge.crowd.pojo.po.MemberAddressPO">
+        insert into
+        t_member_address (memberid,address,username,phoneNum)
+        values
+        (#{memberid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
+         #{username,jdbcType=CHAR},
+          #{phoneNum,jdbcType=VARCHAR})
+
+    </insert>
+
+
+
+
+
   <insert id="insertSelective" parameterType="com.lzcge.crowd.pojo.po.MemberPO" >
     insert into t_member
     <trim prefix="(" suffix=")" suffixOverrides="," >
