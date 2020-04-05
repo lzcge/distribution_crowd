@@ -136,7 +136,7 @@ public class CrowdUtils {
 			//(不必修改)
 			System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 			//初始化ascClient，("***"分别填写自己的AccessKey ID和Secret)
-			IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIH7eIHlBve5bo", "YeknBtRhmZ1ss6NxcjAwb8K3ZRRJGJ");
+			IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "****", "****");
 			//(不必修改)
 			DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
 			//(不必修改)
@@ -146,9 +146,9 @@ public class CrowdUtils {
 			//****处填写接收方的手机号码
 			request.setPhoneNumbers(phoneNum);
 			//****填写已申请的短信签名
-			request.setSignName("南宫云珠");
+			request.setSignName("****");
 			//****填写获得的短信模版CODE
-			request.setTemplateCode("SMS_172005764");
+			request.setTemplateCode("SMS_****4");
 			//笔者的短信模版中有${code}, 因此此处对应填写验证码
 			request.setTemplateParam("{\"code\":\""+randomCode+"\"}");
 //			request.setTemplateParam("{\"code\":\"520\"}");
