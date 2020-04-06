@@ -1,9 +1,9 @@
 package com.lzcge.crowd.service.impl;
 
 import com.lzcge.crowd.entity.MemberCert;
-import com.lzcge.crowd.mapper.MemberLaunchInfoPOMapper;
-import com.lzcge.crowd.mapper.MemberPOMapper;
+import com.lzcge.crowd.mapper.*;
 import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.service.MemberPOService;
 import com.lzcge.crowd.util.CrowdUtils;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +24,16 @@ public class MemberPOServiceImpl implements MemberPOService {
 
 	@Autowired
 	private MemberLaunchInfoPOMapper memberLaunchInfoPOMapper;
+
+	@Autowired
+	private OrderPOMapper orderPOMapper;
+
+	@Autowired
+	ProjectPOMapper projectPOMapper;
+
+	@Autowired
+	ReturnPOMapper returnPOMapper;
+
 
 	@Override
 	public int getLoginAcct(String loginacct) {
@@ -139,6 +150,8 @@ public class MemberPOServiceImpl implements MemberPOService {
 		List<MemberAddressPO> memberAddressPOList =  memberPOMapper.selectMemberAddress(memberAddressPO.getMemberid());
 		return memberAddressPOList;
 	}
+
+
 
 
 

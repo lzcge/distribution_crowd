@@ -99,9 +99,9 @@ public class SpringMVCConfig implements WebMvcConfigurer {
 		viewName = "pay/pay-ConfirmReturn";
 		registry.addViewController(urlPath).setViewName(viewName);
 
-//		urlPath = "/pay/paymoney.html";
-//		viewName = "pay/paymoney";
-//		registry.addViewController(urlPath).setViewName(viewName);
+		urlPath = "/member/minecrowdfunding.html";
+		viewName = "member/minecrowdfunding";
+		registry.addViewController(urlPath).setViewName(viewName);
 
 
 

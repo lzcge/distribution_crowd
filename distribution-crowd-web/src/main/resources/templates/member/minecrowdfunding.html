@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
 	<link rel="stylesheet" href="css/theme.css" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" href="${APP_PATH}/css/pagination.css" th:href="@{/css/pagination.css}">
 	<style>
 #footer {
     padding: 15px 0;
@@ -55,21 +56,21 @@
 			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			  <div class="container">
 				<div class="navbar-header">
-				  <a class="navbar-brand" href="#" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
+				  <a class="navbar-brand" href="#" style="font-size:32px;">众筹平台</a>
 				</div>
-            <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-              <ul class="nav navbar-nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="/member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
 			  </div>
 			</nav>
 
@@ -81,47 +82,67 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="thumbnail" style="    border-radius: 0px;">
-						<img src="img/services-box1.jpg" th:src="@{/img/services-box1.jpg}" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-						<div class="caption" style="text-align:center;">
-							<h3>
-								ZhangSan
-							</h3>
-							<span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='cert.html'">未实名认证</span>
-						</div>
+						<img src="img/services-box1.jpg" th:src="@{/img/man.jpg}" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                        <div class="caption" style="text-align:center;">
+                            <h3 th:text="${session['LOGIN-MEMBER'].username}"></h3>
+
+                            <div th:switch="${session['LOGIN-MEMBER'].authstatus}">
+                                <span th:case="1" class="label label-warning" style="cursor:pointer;">实名认证申请中</span>
+                                <span th:case="2" class="label label-success" style="cursor:pointer;">已实名认证</span>
+                                <span th:case="0" class="label label-danger" style="cursor:pointer;" onclick="window.location.href='/member/accttype.html'">未实名认证</span>
+                            </div>
+
+                        </div>
 					</div>
 				</div>
 			</div>
 			<div class="list-group">
-				<div class="list-group-item" style="cursor:pointer;" onclick="window.location.href='member.html'">
-					资产总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
-				</div>
-				<div class="list-group-item active">
-					我的众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
-				</div>
+                <!--企业才支持发起众筹-->
+                <div th:switch="${session['LOGIN-MEMBER'].usertype}">
+                    <div th:case="1" class="list-group-item " onclick="window.location.href='/project/to/agree/page'">
+                        发起众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                    </div>
+
+                </div>
+                <div class="list-group-item active" style="cursor:pointer;" onclick="window.location.href='/member/minecrowdfunding.html'">
+                    我的众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                </div>
+                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/project/displayAllProjects.html'">
+                    项目总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                </div>
 			</div>
 		</div>
             <div class="col-sm-9 col-md-9 column">
               <ul id="myTab" style="" class="nav nav-pills" role="tablist">
                 <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">我的众筹</a></li>
-                <li role="presentation"><a href="#profile">众筹资产</a></li>
+                <!--<li role="presentation"><a href="#profile">众筹资产</a></li>-->
               </ul>
               <div id="myTabContent" class="tab-content" style="margin-top:10px;">
                   <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
-                  
+
                         <ul id="myTab1" class="nav nav-tabs">
-                          <li role="presentation" class="active"><a href="#support">我支持的</a></li>
-                          <li role="presentation"><a href="#attension">我关注的</a></li>
-                          <li role="presentation"><a href="#add">我发起的</a></li>
-                            <li class=" pull-right">
-                                 <button type="button" class="btn btn-warning" onclick="window.location.href='start.html'">发起众筹</button>
-                            </li>
-                        </ul>                  
+                          <li role="presentation" class="active">
+                              <a onclick="querySupportPage()"  href="#support">我支持的</a>
+                          </li>
+                          <!--<li role="presentation"><a href="#attension">我关注的</a></li>-->
+                          <!--企业才有这个功能模块-->
+                          <li th:switch="${session['LOGIN-MEMBER'].usertype}" role="presentation">
+                              <a th:case="1" href="#add">我发起的</a>
+                          </li>
+                          <li th:switch="${session['LOGIN-MEMBER'].usertype}" class=" pull-right">
+                             <button th:case="1" type="button" class="btn btn-warning" onclick="window.location.href='start.html'">发起众筹</button>
+                          </li>
+                        </ul>
+
+
                         <div id="myTab1" class="tab-content" style="margin-top:10px;">
                             <div role="tabpanel" class="tab-pane fade active in" id="support" aria-labelledby="home-tab">
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-md-12 column">
-                                             <span class="label label-warning">全部</span> <span class="label" style="color:#000;">已支付</span> <span class="label " style="color:#000;">未支付</span> 
+                                             <span class="label" th:id="-1" style="cursor:pointer"><a onclick="querySupportPage('-1')">全部</a></span>
+                                             <span class="label" th:id="1" style="color:#000;cursor:pointer"><a onclick="querySupportPage('1')">已支付</a></span>
+                                             <span class="label " th:id="0" style="color:#000;cursor:pointer"><a onclick="querySupportPage('0')">未支付</a></span>
                                         </div>
                                         <div class="col-md-12 column" style="margin-top:10px;padding:0;">
                                             <table class="table table-bordered" style="text-align:center;">
@@ -131,11 +152,11 @@
                                                   <td width="90">支持日期</td>
                                                   <td width="120">支持金额（元）</td>
                                                   <td width="80">回报数量</td>
-                                                  <td width="80">交易状态</td>
+                                                  <!--<td width="80">交易状态</td>-->
                                                   <td width="120">操作</td>
                                                 </tr>
                                               </thead>
-                                              <tbody>
+                                              <tbody id="supporttable">
                                                 <tr>
                                                   <td style="vertical-align:middle;">
                                                     <div class="thumbnail">
@@ -151,18 +172,25 @@
                                                                 <div style="float:right;"><i title="截至日期" class="glyphicon glyphicon-calendar"></i> 剩余8天 </div>
                                                             </p>
                                                             <br>
-                                                                <div class="progress" style="margin-bottom: 4px;">
-                                                                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                                    <span >众筹中</span>
-                                                                  </div>
-                                                                </div>
+                                                            <!--<div th:switch="">-->
+                                                                <!--<div th:case="" class="progress" style="margin-bottom: 4px;">-->
+                                                                    <!--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%">-->
+                                                                        <!--<span >众筹中</span>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div th:case="" class="progress" style="margin-bottom: 4px;">-->
+                                                                    <!--<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%">-->
+                                                                        <!--<span >众筹结束</span>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
                                                         </div>
                                                     </div>
                                                   </td>
                                                   <td style="vertical-align:middle;">2017-05-23 11:31:22</td>
                                                   <td style="vertical-align:middle;">1.00<br>(运费：0.00 )</td>
                                                   <td style="vertical-align:middle;">1</td>
-                                                  <td style="vertical-align:middle;">交易关闭</td>
+                                                  <!--<td style="vertical-align:middle;">交易关闭</td>-->
                                                   <td style="vertical-align:middle;">
                                                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                                                           <button type="button" class="btn btn-default">删除订单</button>
@@ -170,97 +198,18 @@
                                                     </div>
                                                   </td>
                                                 </tr>
-                                                <tr>
-                                                  <td style="vertical-align:middle;">
-                                                    <div class="thumbnail">
-                                                        <div class="caption">
-                                                            <h3>
-                                                                BAVOSN便携折叠移动电源台灯
-                                                            </h3>
-                                                            <p>
-                                                                订单编号:2x002231111
-                                                            </p>
-                                                            <p>
-                                                                <div style="float:left;"><i class="glyphicon glyphicon-screenshot" title="目标金额" ></i> 已完成 100% </div>
-                                                                <div style="float:right;"><i title="截至日期" class="glyphicon glyphicon-calendar"></i> 剩余8天 </div>
-                                                            </p>
-                                                            <br>
-                                                                <div class="progress" style="margin-bottom: 4px;">
-                                                                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                                    <span >众筹成功</span>
-                                                                  </div>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                  </td>
-                                                  <td style="vertical-align:middle;">2017-05-23 11:31:22</td>
-                                                  <td style="vertical-align:middle;">1.00<br>(运费：0.00 )</td>
-                                                  <td style="vertical-align:middle;">1</td>
-                                                  <td style="vertical-align:middle;">交易关闭</td>
-                                                  <td style="vertical-align:middle;">
-                                                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                                          <button type="button" class="btn btn-default">删除订单</button>
-                                                          <button type="button" class="btn btn-default">交易详情</button>
-                                                    </div>
-                                                  </td>
-                                                </tr>
+
+                                                    <!--js动态拼接订单信息-->
+
+
+
                                               </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="attension" aria-labelledby="attension-tab">
-                                <div class="container-fluid">
-                                    <div class="row clearfix">
-                                        <div class="col-md-12 column" style="padding:0;">
-                                            <table class="table table-bordered" style="text-align:center;">
-                                              <thead>
-                                                <tr style="background-color:#ddd;">
-                                                  <td>项目信息</td>
-                                                  <td width="120">支持人数</td>
-                                                  <td width="120">关注人数</td>
-                                                  <td width="120">操作</td>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                                <tr>
-                                                  <td style="vertical-align:middle;">
-                                                    <div class="thumbnail">
-                                                        <div class="caption">
-                                                            <p>
-                                                                BAVOSN便携折叠移动电源台灯
-                                                            </p>
-                                                            <p>
-                                                                <i class="glyphicon glyphicon-jpy"></i> 已筹集 1000.0元
-                                                            </p>
-                                                            <p>
-                                                                <div style="float:left;"><i class="glyphicon glyphicon-screenshot" title="目标金额" ></i> 已完成 100% </div>
-                                                                <div style="float:right;"><i class="glyphicon glyphicon-calendar"></i> 剩余2天 </div>
-                                                            </p>
-                                                            <br>
-                                                                <div class="progress" style="margin-bottom: 4px;">
-                                                                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                                    <span >众筹中</span>
-                                                                  </div>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                  </td>
-                                                  <td style="vertical-align:middle;">1</td>
-                                                  <td style="vertical-align:middle;">1</td>
-                                                  <td style="vertical-align:middle;">
-                                                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                                          <button type="button" class="btn btn-default">取消关注</button>
-                                                    </div>
-                                                  </td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div role="tabpanel" class="tab-pane fade  " id="add" aria-labelledby="add-tab">
                                 <div class="container-fluid">
                                     <div class="row clearfix">
@@ -314,13 +263,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-                  
+
                   </div>
                   <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
                   众筹资产
                   </div>
+
             </div>
 		</div>
 	</div>
@@ -330,10 +280,10 @@
                 <div class="col-md-12 column">
                     <div id="footer">
                         <div class="footerNav">
-                             <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                            <a rel="nofollow" href="#">关于我们</a> | <a rel="nofollow" href="#">服务条款</a> | <a rel="nofollow" href="#">免责声明</a> | <a rel="nofollow" href="#">网站地图</a> | <a rel="nofollow" href="#">联系我们</a>
                         </div>
                         <div class="copyRight">
-                            Copyright ?2017-2017atguigu.com 版权所有
+                            Copyright ?2017-lzcge.cn 版权所有
                         </div>
                     </div>
                     
@@ -344,15 +294,254 @@
     <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 	<script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
     <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
+ <script type="text/javascript" src="${APP_PATH }/jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>
+ <script src="${APP_PATH}/jquery/pagination/jquery.pagination.js" th:src="@{/jquery/pagination/jquery.pagination.js}"></script>
 	<script>
-$('#myTab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-$('#myTab1 a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+        $('#myTab a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+        $('#myTab1 a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        });
+        querySupportPage("-1");
+
+
+        /**
+         * 查询支持项目
+         * -1全部订单
+         * 0未付款
+         * 1已经支付的项目
+         */
+        function querySupportPage(num){
+            //清除原有所有样式
+            $("#-1").attr("class", "label");
+            $("#0").attr("class", "label");
+            $("#1").attr("class", "label");
+
+            //设置新点击标签颜色改变
+            $("#"+num).attr("class", "label label-warning");
+
+           var memberid = [[${session['LOGIN-MEMBER'].id}]];
+            var loadingIndex = -1 ;
+
+            $.ajax({
+                url : "/query/orderSupport",
+                type : "POST",
+                data : {
+                    "memberid":memberid,
+                    "status":num
+                },
+                dataType:"JSON",
+                beforeSend : function(){
+                    loadingIndex = layer.msg('数据查询中', {icon: 6});
+                    return true ;
+                },
+                success : function(result){
+                    console.log(result);
+                    //显示结果
+                    layer.close(loadingIndex);
+                    if(result.result=="SUCCESS"){
+                        //循环遍历,显示数据
+                        var list = result.data;
+                        // var list = pageObj.datas ;
+                        var content = "";
+                        $("#projects").html(content);
+                        $.each(list,function(i,orderDetail){
+
+                            content+="<tr>";
+                            content+=    "<td style='vertical-align:middle;'>";
+                            content+=       "<div class='thumbnail'>";
+                            content+=        "<div class='caption'>";
+                            content+=        "<h3>"+orderDetail.projectPO.projectDescription+"</h3>";
+                            content+=       "<p>订单编号:"+orderDetail.orderPO.ordernum+"</p>";
+                            content+=   "<p>";
+                            content+=   "<div style='float:left;'><i class='glyphicon glyphicon-screenshot' title='目标金额' ></i> 已筹集：￥"+orderDetail.projectPO.supportmoney+  "</div>";
+                            content+=   "<div style='float:right;'><i title='截至日期' class='glyphicon glyphicon-calendar'></i> "+orderDetail.projectPO.deploydate+" </div>";
+                            content+=    "</p>";
+                            content+=    "<br>";
+                            content+=        "<div class='progress' style='margin-bottom: 4px;'>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 1'>";
+                            content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹中</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 2'>";
+                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹结束</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 3'>";
+                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹失败</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=         "</div>";
+                            content+=       "</div>";
+                            content+=        "</div>";
+                            content+=       " </td>";
+                            content+=        "<td style='vertical-align:middle;'>"+orderDetail.orderPO.createdate+"</td>";
+                            content+=   "<td style='vertical-align:middle;'>￥"+orderDetail.orderPO.money+"<br>(运费:￥"+orderDetail.returnPO.freight+" )</td>";
+                            content+=   "<td style='vertical-align:middle;'>"+orderDetail.orderPO.rtncount+"</td>";
+                            content+=        "<td style='vertical-align:middle;'>";
+                            content+=        "<div class='btn-group-vertical' role='group' aria-label='Vertical button group'>";
+                            content+=       "<button type='button' onclick='deleteOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>删除订单</button>";
+                            content+=       "</div>";
+                            content+=        "</td>";
+                            content+=        "</tr>";
+
+                        });
+                        //$("tbody").append(content);
+                        $("#supporttable").html(content);
+                    }else{
+
+                        layer.msg("查询数据失败", {time:2000, icon:5, shift:6});
+
+                    }
+                },
+                error : function(){
+                    layer.msg("查询数据错误", {time:2000, icon:5, shift:6});
+                }
+
+            });
+
+
+        }
+
+        /**
+         * 删除订单
+         * @param orderid
+         */
+        function deleteOrder(orderid) {
+            layer.confirm("确认删除该订单信息吗？",{icon: 3, title:'提示'},function (index) {
+                layer.close(index);
+                var loadingIndex = -1 ;
+                $.ajax({
+                    url: "/delete/order/by/orderid",
+                    type: "POST",
+                    data: {
+                        "orderid": orderid
+                    },
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        loadingIndex = layer.msg('数据删除中', {icon: 6});
+                        return true;
+                    },
+                    success:function (result) {
+                        console.log(result);
+                        layer.close(loadingIndex);
+                        if(result.result='SUCCESS'){
+                            querySupportPage("-1");
+                        }else{
+                            layer.msg("删除失败", {time:2000, icon:5, shift:6});
+                        }
+                    },
+                    error:function () {
+                        layer.msg("删除失败", {time:2000, icon:5, shift:6});
+                    }
+
+
+                })
+
+            }),function (index) {
+                layer.close(index);
+            }
+
+
+        }
+
+
+        /**
+         * 查询未支付的项目
+         */
+        function querySupportNotpay(){
+            var memberid = [[${session['LOGIN-MEMBER'].id}]];
+            var loadingIndex = -1 ;
+            $.ajax({
+                url : "/query/orderSupport",
+                type : "POST",
+                data : {
+                    "memberid":memberid
+                },
+                dataType:"JSON",
+                beforeSend : function(){
+                    loadingIndex = layer.msg('数据查询中', {icon: 6});
+                    return true ;
+                },
+                success : function(result){
+                    console.log(result);
+                    //显示结果
+                    layer.close(loadingIndex);
+                    if(result.result=="SUCCESS"){
+                        //循环遍历,显示数据
+                        var list = result.data;
+                        // var list = pageObj.datas ;
+                        var content = "";
+                        $("#projects").html(content);
+                        $.each(list,function(i,orderDetail){
+
+                            content+="<tr>";
+                            content+=    "<td style='vertical-align:middle;'>";
+                            content+=       "<div class='thumbnail'>";
+                            content+=        "<div class='caption'>";
+                            content+=        "<h3>"+orderDetail.projectPO.projectDescription+"</h3>";
+                            content+=       "<p>订单编号:"+orderDetail.orderPO.ordernum+"</p>";
+                            content+=   "<p>";
+                            content+=   "<div style='float:left;'><i class='glyphicon glyphicon-screenshot' title='目标金额' ></i> 已筹集：￥"+orderDetail.projectPO.supportmoney+  "</div>";
+                            content+=   "<div style='float:right;'><i title='截至日期' class='glyphicon glyphicon-calendar'></i> "+orderDetail.projectPO.deploydate+" </div>";
+                            content+=    "</p>";
+                            content+=    "<br>";
+                            content+=        "<div class='progress' style='margin-bottom: 4px;'>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 1'>";
+                            content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹中</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 2'>";
+                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹结束</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 3'>";
+                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                            content+=               "<span >众筹失败</span>";
+                            content+=               "</div>";
+                            content+=            "</if>";
+                            content+=         "</div>";
+                            content+=       "</div>";
+                            content+=        "</div>";
+                            content+=       " </td>";
+                            content+=        "<td style='vertical-align:middle;'>"+orderDetail.orderPO.createdate+"</td>";
+                            content+=   "<td style='vertical-align:middle;'>￥"+orderDetail.orderPO.money+"<br>(运费:￥"+orderDetail.returnPO.freight+" )</td>";
+                            content+=   "<td style='vertical-align:middle;'>"+orderDetail.orderPO.rtncount+"</td>";
+                            content+=        "<td style='vertical-align:middle;'>";
+                            content+=        "<div class='btn-group-vertical' role='group' aria-label='Vertical button group'>";
+                            content+=       "<button type='button' onclick='deleteOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>删除订单</button>";
+                            content+=       "</div>";
+                            content+=        "</td>";
+                            content+=        "</tr>";
+
+                        });
+                        //$("tbody").append(content);
+                        $("#supporttable").html(content);
+                    }else{
+
+                        layer.msg("查询数据失败", {time:2000, icon:5, shift:6});
+
+                    }
+                },
+                error : function(){
+                    layer.msg("查询数据错误", {time:2000, icon:5, shift:6});
+                }
+
+            });
+
+
+        }
+
+
+
 	</script>
   </body>
 </html>

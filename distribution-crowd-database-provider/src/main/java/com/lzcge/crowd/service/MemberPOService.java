@@ -4,6 +4,8 @@ import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.po.MemberAddressPO;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
 import com.lzcge.crowd.pojo.po.MemberPO;
+import com.lzcge.crowd.pojo.po.OrderDetailPO;
+import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +39,9 @@ public interface MemberPOService {
 	List<MemberAddressPO> selectMemberAddressByadress(MemberAddressPO memberAddressPO);
 
 	List<MemberAddressPO> addMemberAddress(MemberAddressPO memberAddressPO);
+
+
+
 
 
 

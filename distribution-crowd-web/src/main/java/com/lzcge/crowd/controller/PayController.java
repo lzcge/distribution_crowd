@@ -1,5 +1,6 @@
 package com.lzcge.crowd.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
@@ -11,6 +12,7 @@ import com.lzcge.crowd.config.AlipayConfig;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.OrderPO;
 import com.lzcge.crowd.pojo.po.ProjectDetailPO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.pojo.vo.ProjectVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,13 +214,38 @@ public class PayController {
 				projectVO.setSupportmoney(projectDetailPO.getProjectPO().getSupportmoney()+money);
 			}
 
-
 			//更新工程信息
 			ResultEntity<ProjectDetailPO> resultEntity = projectRemoteService.updateProject(projectVO);
 			if(ResultEntity.FAILED.equals(resultEntity.getResult())){
 				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
 				return "error";
 			}
+
+
+			//更新订单状态
+			//redis中取出订单信息
+			ResultEntity<String> resultEntity1 = redisService.retrieveStringValueByStringKey(out_trade_no);
+			if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
+				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity1.getMessage());
+				return "error";
+			}
+			if(resultEntity1.getData()==null){
+				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,CrowdConstant.MESSAGE_ORDER_NOT_EXISTS);
+				return "error";
+			}
+			//从Redis中查询到对象字符串
+			String orderVOString = resultEntity1.getData();
+			//json转对象
+			OrderVO orderVO = JSON.parseObject(orderVOString, OrderVO.class);
+			//更新订单状态
+			orderVO.setStatus("1");
+			ResultEntity<String> resultEntity2 = memmberRemoteService.updateOrder(orderVO);
+			if(ResultEntity.FAILED.equals(resultEntity2.getResult())){
+				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,CrowdConstant.MESSAGE_ORDER_UPDATE_FAILED);
+				return "error";
+			}
+			//redis中取消该订单
+			redisService.removeByKey(out_trade_no);
 
 			session.setAttribute("ProjectDetailPO",resultEntity.getData());
 			return "redirect:/project/projectdetail.html";

@@ -5,6 +5,7 @@ import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.MemberAddressPO;
 import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
+import com.lzcge.crowd.pojo.po.OrderDetailPO;
 import com.lzcge.crowd.pojo.po.OrderPO;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
@@ -108,6 +109,35 @@ public interface MemberManagerRemoteService {
 	 */
 	@RequestMapping(value = "member/order/query/order/by/orderid")
 	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid);
+
+	/**
+	 * 更新订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/update/order")
+	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO);
+
+
+	/**
+	 * 查询用户支持的项目
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/support/order")
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO);
+
+
+	/**
+	 * 删除订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/order/by/orderid")
+	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid);
+
+
+
 
 
 

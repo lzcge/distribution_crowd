@@ -1,15 +1,21 @@
 package com.lzcge.crowd.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.annotations.JsonAdapter;
 import com.lzcge.crowd.api.MemberManagerRemoteService;
 import com.lzcge.crowd.api.ProjectOperationRemoteService;
+import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.MemberAddressPO;
+import com.lzcge.crowd.pojo.po.OrderDetailPO;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
+import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +39,9 @@ public class OrderController {
 
 	@Autowired
 	private ProjectOperationRemoteService projectRemoteService;
+
+	@Autowired
+	private RedisOperationRemoteService redisService;
 
 
 	/**
@@ -126,6 +135,34 @@ public class OrderController {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 
+		//放入redis缓存，后续取出更新订单状态
+		//时间30分钟，比订单过期时间15分钟多15分钟
+		//将保存好回报信息的项目对象序列化存入redis,订单号作为key
+		String orderJson = JSON.toJSONString(orderVO);
+		ResultEntity<String> stringResultEntity = redisService.saveNormalStringKeyValue(orderVO.getOrdernum(),orderJson,30);
+		if(ResultEntity.FAILED.equals(stringResultEntity.getResult())){
+			return ResultEntity.failed(stringResultEntity.getMessage());
+		}
+
 		return ResultEntity.successWithData(resultEntity.getData());
 	}
+
+
+	/**
+	 * 查询用户支持的众筹项目
+	 * @param orderVO
+	 * @return
+	 */
+	@PostMapping("/query/orderSupport")
+	@ResponseBody
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(OrderVO orderVO){
+		ResultEntity<List<OrderDetailPO>> ordersupportRestult = memmberRemoteService.querySupportOrder(orderVO);
+		if(ResultEntity.FAILED.equals(ordersupportRestult.getResult())){
+			return ResultEntity.failed(ordersupportRestult.getMessage());
+		}
+
+		return ResultEntity.successWithData(ordersupportRestult.getData());
+	}
+
+
 }

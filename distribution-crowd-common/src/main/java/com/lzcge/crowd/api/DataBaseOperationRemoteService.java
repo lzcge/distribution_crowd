@@ -184,4 +184,35 @@ public interface DataBaseOperationRemoteService {
 	public ResultEntity<ProjectDetailPO> updateProject(@RequestBody ProjectVO projectVO);
 
 
+	/**
+	 * 更新订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/update/order")
+	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO);
+
+
+
+	/**
+	 * 查询用户支持的项目
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/support/order")
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO);
+
+
+
+
+	/**
+	 * 删除订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/order/by/orderid")
+	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid);
+
+
+
 }

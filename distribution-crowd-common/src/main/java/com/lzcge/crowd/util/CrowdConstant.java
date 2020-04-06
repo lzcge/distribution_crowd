@@ -22,6 +22,8 @@ public class CrowdConstant {
 	public static final String ATTR_NAME_INIT_PROJECT = "INIT-PROJECT";
 
 	public static final String MESSAGE_ORDER_FAILED = "订单获取失败";
+	public static final String MESSAGE_ORDER_NOT_EXISTS = "订单已失效";
+	public static final String MESSAGE_ORDER_UPDATE_FAILED = "订单更新失败";
 
 
 	public static final String MESSAGE_ADDRESS_FAILED = "收获地址已存在";

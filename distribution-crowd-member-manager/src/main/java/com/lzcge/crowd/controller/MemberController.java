@@ -575,4 +575,53 @@ public class MemberController {
 	}
 
 
+	/**
+	 * 更新订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/update/order")
+	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO){
+		ResultEntity<String> resultEntity = databasesRemoteService.updateOrder(orderVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
+	}
+
+
+	/**
+	 * 查询用户支持的项目
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/support/order")
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO){
+		ResultEntity<List<OrderDetailPO>> resultEntity = databasesRemoteService.querySupportOrder(orderVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+
+
+	/**
+	 * 删除订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/order/by/orderid")
+	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid){
+		ResultEntity<String> resultEntity = databasesRemoteService.deleteOrderByorderid(orderid);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
+
+	}
+
+
+
 }

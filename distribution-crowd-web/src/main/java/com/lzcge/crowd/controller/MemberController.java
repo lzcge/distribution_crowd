@@ -5,9 +5,11 @@ import com.lzcge.crowd.api.MemberManagerRemoteService;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.CertPO;
+import com.lzcge.crowd.pojo.po.OrderDetailPO;
 import com.lzcge.crowd.pojo.vo.Data;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
+import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.util.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -266,6 +268,25 @@ public class MemberController {
 		session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER,loginMember);
 		return ResultEntity.successNoData();
 
+	}
+
+
+
+
+	/**
+	 * 删除用户订单
+	 * @param orderid
+	 * @return
+	 */
+	@PostMapping("/delete/order/by/orderid")
+	@ResponseBody
+	public ResultEntity<String> deleteOrderByorderid(Integer orderid){
+		ResultEntity<String> resultEntity = memmberRemoteService.deleteOrderByorderid(orderid);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+
+		return ResultEntity.successNoData();
 	}
 
 

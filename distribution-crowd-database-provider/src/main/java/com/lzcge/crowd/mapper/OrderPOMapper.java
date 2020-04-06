@@ -16,4 +16,16 @@ public interface OrderPOMapper {
 	Integer saveOrder( OrderVO orderVO);
 
 	OrderPO queryOrderById(@Param("id") Integer orderid);
+
+	void updateOrder( OrderPO orderVO);
+
+	List<OrderPO> queryOrderBymemberid(Integer memberid);
+
+	List<OrderPO> querySupportOrderOrPay(OrderPO orderPO);
+
+	void deleteByPrimaryKey(Integer id);
+
+
+
+
 }

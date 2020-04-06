@@ -3,10 +3,8 @@ package com.lzcge.crowd.controller;
 
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
-import com.lzcge.crowd.pojo.po.MemberAddressPO;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.MemberPO;
-import com.lzcge.crowd.pojo.po.OrderPO;
+import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.service.MemberPOService;
 import com.lzcge.crowd.service.OrderPOService;
@@ -51,6 +49,7 @@ public class OrderController {
 	@RequestMapping(value = "member/order/query/order/by/orderid")
 	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid){
 		try {
+
 			OrderPO orderPO = orderPOService.queryOrderById(orderid);
 			if(orderPO==null){
 				return ResultEntity.failed(CrowdConstant.MESSAGE_ORDER_FAILED);
@@ -63,5 +62,60 @@ public class OrderController {
 		}
 
 	}
+
+	/**
+	 * 更新订单
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/update/order")
+	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO){
+		try {
+			orderPOService.updateOrder(orderVO);
+			return ResultEntity.successNoData();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+
+
+	}
+
+
+	/**
+	 * 删除订单
+	 * @param orderid
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/order/by/orderid")
+	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid){
+		try {
+			orderPOService.deleteOrderByorderid(orderid);
+			return ResultEntity.successNoData();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
+	/**
+	 * 查询用户支持的项目
+	 * @param orderVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/support/order")
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO){
+		try {
+
+			List<OrderDetailPO> resultEntity = orderPOService.querySupportOrder(orderVO);
+			return ResultEntity.successWithData(resultEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+
+	}
+
+
 
 }
