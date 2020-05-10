@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController			//服务端返回的都是json数据
 public class OrderController {
@@ -56,6 +57,24 @@ public class OrderController {
 			}else{
 				return ResultEntity.successWithData(orderPO);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * 根据订单状态查询订单
+	 * @param statuMap
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/status")
+	public ResultEntity<List<OrderPO>> queryOrderByStatus(@RequestParam Map<String,Object> statuMap){
+		try {
+
+			List<OrderPO> orderPOList = orderPOService.queryByStatus(statuMap);
+			return ResultEntity.successWithData(orderPOList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultEntity.failed(e.getMessage());

@@ -1,11 +1,11 @@
 package com.lzcge.crowd.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.lzcge.crowd.api.MemberManagerRemoteService;
 import com.lzcge.crowd.api.ProjectOperationRemoteService;
+import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.ProjectDetailPO;
-import com.lzcge.crowd.pojo.po.ProjectPO;
+import com.lzcge.crowd.pojo.po.*;
 import com.lzcge.crowd.pojo.vo.*;
 import com.lzcge.crowd.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,9 @@ public class ProjectController {
 
 	@Autowired
 	private MemberManagerRemoteService managerRemoteService;
+
+	@Autowired
+	private RedisOperationRemoteService redisService;
 
 	@Value(value="${oss.project.parent.folder}")
 	private String ossProjectParentFolder;
@@ -84,11 +88,39 @@ public class ProjectController {
 		TokenVO tokenVO = new TokenVO();
 		tokenVO.setMemberSignToken(memberSignToken);
 		tokenVO.setProjectTempToken(projectToken);
-		ResultEntity<String> resultEntity = projectRemoteService.saveWholeProject(tokenVO);
+		ResultEntity<Integer> resultEntity = projectRemoteService.saveWholeProject(tokenVO);
 		if (ResultEntity.FAILED.equals(resultEntity.getResult())){
 			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
 			return "/project/start-step-3.html";
 		}
+
+
+
+//		//重新查询出项目信息，并放入redis用于定时任务监控众筹状态
+//		Integer id = resultEntity.getData();
+//		ResultEntity<ProjectPO> projectPOResultEntity = projectRemoteService.queryProjectById(id);
+//		if (ResultEntity.FAILED.equals(projectPOResultEntity.getResult())){
+//			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,projectPOResultEntity.getMessage());
+//			return "/project/start-step-3.html";
+//		}
+//		//redis中去获取存放所有发布项目的list信息
+//		ResultEntity<Object> projecListRestult = redisService.retrieveObjectValueByObjectKey(CrowdConstant.REDIS_PROJECT_STATUS_PREFIX);
+//		if (ResultEntity.FAILED.equals(projecListRestult.getResult())){
+//			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,projecListRestult.getMessage());
+//			return "/project/start-step-3.html";
+//		}
+//		List<ProjectPO> redisProjectPOList = (List<ProjectPO>) projecListRestult.getData();
+//		if(redisProjectPOList==null){
+//			redisProjectPOList = new ArrayList<>();
+//		}
+//		redisProjectPOList.add(projectPOResultEntity.getData());
+//		//放入redis
+//		ResultEntity<String> stringResultEntity = redisService.saveNormalObjectKeyValue(CrowdConstant.REDIS_PROJECT_STATUS_PREFIX,redisProjectPOList);
+//		if (ResultEntity.FAILED.equals(stringResultEntity.getResult())){
+//			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,stringResultEntity.getMessage());
+//			return "/project/start-step-3.html";
+//		}
+
 
 		return "/project/start-step-4.html";
 	}
@@ -314,16 +346,37 @@ public class ProjectController {
 
 
 	/**
+	 * 查询所有项目类别标签信息
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/project/queryProjectType")
+	public ResultEntity queryProjectType() {
+		// 查询
+		ResultEntity<List<TypePO>> typeList = projectRemoteService.queryProjectType();
+		if (ResultEntity.FAILED.equals(typeList.getResult())){
+			return ResultEntity.failed(typeList.getMessage());
+		}
+		return ResultEntity.successWithData(typeList.getData());
+
+	}
+
+
+
+	/**
 	 * 分页查询项目信息
 	 * @param queryIndexVo
 	 * @return
 	 */
 	@ResponseBody
 	@PostMapping("/project/pageQuery")
-	public ResultEntity pageQuery(QueryIndexVo queryIndexVo) {
+	public ResultEntity pageQuery(@RequestBody QueryIndexVo queryIndexVo) {
 		String pagetext = queryIndexVo.getQueryText();
 		Integer pageno = queryIndexVo.getPageNo();
 		Integer pagesize = queryIndexVo.getPageSize();
+
+		List<Byte> status=queryIndexVo.getStatus();
+		List<Integer> typeIds = queryIndexVo.getTypeIds();
 
 		Map<String, Object> projectMap = new HashMap<String, Object>();
 		projectMap.put("pageno", pageno);
@@ -332,6 +385,16 @@ public class ProjectController {
 			pagetext = pagetext.replaceAll("%", "\\\\%");
 		}
 		projectMap.put("pagetext", pagetext);
+
+		if(status !=null && status.size()>0){
+			String statuslist = JSON.toJSONString(status);
+			projectMap.put("statuslist",statuslist);
+		}
+		if(typeIds !=null && typeIds.size()>0){
+			String typeIdlist = JSON.toJSONString(typeIds);
+			projectMap.put("typeIdlist",typeIdlist);
+		}
+
 
 		// 分页查询
 		ResultEntity<Page<ProjectPO>> page = projectRemoteService.pageQuery(projectMap);
@@ -359,7 +422,7 @@ public class ProjectController {
 		//用户支持时需要支付的总金额
 		Integer totalMoney = projectDetailPO.getReturnPO().getSupportmoney()+projectDetailPO.getReturnPO().getFreight();
 		projectDetailPO.setTotalMoney(totalMoney);
-		
+
 		session.setAttribute("ProjectDetailPO",projectDetailPO);
 		return ResultEntity.successWithData(resultEntity.getData());
 
@@ -384,6 +447,40 @@ public class ProjectController {
 		session.setAttribute("ProjectDetailPO",projectDetailPO);
 		return ResultEntity.successWithData(projectDetailPO);
 
+	}
+
+
+	/**
+	 * 查找企业用户发布的项目
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("/query/publishProject")
+	@ResponseBody
+	public ResultEntity<List<ProjectPO>> querypublishProject(ProjectVO projectVO){
+		ResultEntity<List<ProjectPO>> querypublishProject = projectRemoteService.querypublishProject(projectVO);
+		if(ResultEntity.FAILED.equals(querypublishProject.getResult())){
+			return ResultEntity.failed(querypublishProject.getMessage());
+		}
+
+		return ResultEntity.successWithData(querypublishProject.getData());
+	}
+
+
+	/**
+	 * 查找企业用户发布的项目
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("/delete/project")
+	@ResponseBody
+	public ResultEntity<String> deleteProject(ProjectVO projectVO){
+		ResultEntity<String> resultEntity = projectRemoteService.deleteProject(projectVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+
+		return ResultEntity.successNoData();
 	}
 
 

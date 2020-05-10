@@ -27,6 +27,17 @@ public class MemberController {
 		return ResultEntity.successWithData(memberLaunchInfoPO);
 	}
 
+	@RequestMapping(value = "member/manager/queryByid")
+	public ResultEntity<MemberPO> queryByid(@RequestBody MemberPO memberPO	){
+		try {
+			MemberPO memberPO1 = memberPOService.queryByid(memberPO.getId());
+			return ResultEntity.successWithData(memberPO1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
 	/**
 	 * 查找登录账号数量
 	 * @param loginacct
@@ -217,6 +228,22 @@ public class MemberController {
 		try {
 			List<MemberAddressPO> memberAddressPOList = memberPOService.addMemberAddress(memberAddressPO);
 			return ResultEntity.successWithData(memberAddressPOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
+	/**
+	 * 删除收获地址
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/address/by/addressid")
+	public ResultEntity<String> deleteAddress(@RequestParam("id") Integer id){
+		try {
+			memberPOService.deleteAddress(id);
+			return ResultEntity.successNoData();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultEntity.failed(e.getMessage());

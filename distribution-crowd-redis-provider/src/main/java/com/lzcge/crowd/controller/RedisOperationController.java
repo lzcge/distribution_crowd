@@ -5,8 +5,10 @@ import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.util.CrowdConstant;
 import com.lzcge.crowd.util.CrowdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,53 @@ import java.util.concurrent.TimeUnit;
 public class RedisOperationController {
 
 	@Autowired
+	private RedisTemplate<Object, Object> redisTemplate;
+
+	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+
+
+	/**
+	 * 将对象的键值对保存到Redis时调用的远程方法
+	 * @return
+	 */
+	@RequestMapping("/save/normal/object/key/value")
+	ResultEntity<String> saveNormalObjectKeyValue(@RequestParam("key") String key,@RequestBody Object object){
+		//获取Redis执行器
+		ValueOperations<Object, Object> oper = redisTemplate.opsForValue();
+
+		try {
+			oper.set(key,object);
+		} catch (Exception e) {
+			e.printStackTrace();
+			//返回失败结果
+			return ResultEntity.failed(e.getMessage());
+		}
+		//返回成功结果
+		return ResultEntity.successNoData();
+	}
+
+
+	/**
+	 * 根据key查询对应value时调用的远程方法
+	 * @return
+	 */
+	@RequestMapping("/retrieve/Object/value/by/Object/key")
+	ResultEntity<Object> retrieveObjectValueByObjectKey(@RequestParam("key") String key){
+		//对存入Redis中的数据进行验证
+		if(key==null){
+			return ResultEntity.failed(CrowdConstant.MESSAGE_REDIS_KEY_OR_VALUE_INVALID);
+		}
+		try {
+			Object result = redisTemplate.opsForValue().get(key);
+			return ResultEntity.successWithData(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultEntity.failed(e.getMessage());
+		}
+	}
+
+
 
 	/**
 	 * 将字符串类型的键值对保存到Redis时调用的远程方法

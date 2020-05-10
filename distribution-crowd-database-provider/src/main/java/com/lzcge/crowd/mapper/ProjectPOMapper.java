@@ -2,6 +2,8 @@ package com.lzcge.crowd.mapper;
 
 import com.lzcge.crowd.pojo.po.ProjectPO;
 import com.lzcge.crowd.pojo.po.ProjectPOExample;
+import com.lzcge.crowd.pojo.po.TypePO;
+import com.lzcge.crowd.pojo.vo.ProjectVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public interface ProjectPOMapper {
 
     ProjectPO selectByPrimaryKey(Integer id);
 
+
+	List<ProjectPO> queryByStatus( Map<String, Object> statumMap);
+
     int updateByExampleSelective(@Param("record") ProjectPO record, @Param("example") ProjectPOExample example);
 
     int updateByExample(@Param("record") ProjectPO record, @Param("example") ProjectPOExample example);
@@ -33,4 +38,6 @@ public interface ProjectPOMapper {
 	List<ProjectPO> queryPage(Map<String, Object> projectMap);
 
 	int queryCount(Map<String, Object> projectMap);
+
+
 }

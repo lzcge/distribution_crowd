@@ -6,6 +6,7 @@ import com.lzcge.crowd.api.RedisOperationRemoteService;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.ProjectDetailPO;
 import com.lzcge.crowd.pojo.po.ProjectPO;
+import com.lzcge.crowd.pojo.po.TypePO;
 import com.lzcge.crowd.pojo.vo.MemberConfirmInfoVO;
 import com.lzcge.crowd.pojo.vo.ProjectVO;
 import com.lzcge.crowd.pojo.vo.ReturnVO;
@@ -34,7 +35,7 @@ public class ProjectController {
 	 * @return
 	 */
 	@RequestMapping("project/manager/save/hole/project")
-	public ResultEntity<String> saveWholeProject(@RequestBody TokenVO tokenVO){
+	public ResultEntity<Integer> saveWholeProject(@RequestBody TokenVO tokenVO){
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		String memberSignToken = tokenVO.getMemberSignToken();
 		ResultEntity<String> resultEntity = redisService.retrieveStringValueByStringKey(memberSignToken);
@@ -49,13 +50,18 @@ public class ProjectController {
 		ProjectVO projectVOByRedis = getProjectVO(tokenVO).getData();
 
 
-		ResultEntity<String> resultEntity1 = dataBaseService.saveProjectRemote(projectVOByRedis, memberId);
+		ResultEntity<Integer> resultEntity1 = dataBaseService.saveProjectRemote(projectVOByRedis, memberId);
 		if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
 			return ResultEntity.failed(resultEntity1.getMessage());
 		}
 		//保存完成之后删除Redis中的临时数据
 		String projectTempToken = tokenVO.getProjectTempToken();
-		return redisService.removeByKey(projectTempToken);
+		ResultEntity<String> redisResult = redisService.removeByKey(projectTempToken);
+		if(ResultEntity.FAILED.equals(redisResult.getResult())){
+			return ResultEntity.failed(redisResult.getMessage());
+		}
+
+		return ResultEntity.successWithData(resultEntity1.getData());
 	}
 
 
@@ -275,6 +281,22 @@ public class ProjectController {
 	}
 
 
+
+	/**
+	 * 查询所有项目类别标签信息
+	 * @return
+	 */
+	@GetMapping("project/manager/query/projecttype")
+	public ResultEntity<List<TypePO>> queryProjectType(){
+		ResultEntity<List<TypePO>> resultEntity = dataBaseService.queryProjectType();
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+
 	/**
 	 * 分页查询项目信息
 	 * @param projectMap
@@ -288,6 +310,23 @@ public class ProjectController {
 		}
 		return ResultEntity.successWithData(resultEntity.getData());
 	}
+
+
+	/**
+	 * 根据项目状态查询项目信息
+	 * @param statusmap
+	 * @return
+	 */
+	@RequestMapping("retrieve/project/by/status")
+	public ResultEntity<List<ProjectPO>> queryByStatus(@RequestParam Map<String, Object> statusmap){
+		ResultEntity<List<ProjectPO>> resultEntity = dataBaseService.queryByStatus(statusmap);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
 
 	/**
 	 * 查询项目详细信息
@@ -316,6 +355,52 @@ public class ProjectController {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+	/**
+	 * 查询发布的项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/publishProject")
+	public ResultEntity<List<ProjectPO>> querypublishProject(@RequestBody ProjectVO projectVO){
+		ResultEntity<List<ProjectPO>> resultEntity = dataBaseService.querypublishProject(projectVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+	/**
+	 * 根据id查询项目
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/project/by/id")
+	public ResultEntity<ProjectPO>  queryProjectById(@RequestParam("id") Integer id){
+		ResultEntity<ProjectPO> resultEntity = dataBaseService.queryProjectById(id);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+
+
+	/**
+	 * 删除项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/delete/publishProject")
+	public ResultEntity<String> deleteProject(@RequestBody ProjectVO projectVO){
+		ResultEntity<String> resultEntity = dataBaseService.deleteProject(projectVO);
+		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
 	}
 
 }

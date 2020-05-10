@@ -104,18 +104,45 @@
 
 
     <select id="queryPage" resultMap="BaseResultMap">
-        select * from t_project
+        select distinct t_project.* from t_project,t_project_type,t_type
         <where>
+            t_project.id = t_project_type.projectid
+            and t_project_type.typeid = t_type.id
             <if test="pagetext != null">
-                and project_name like concat('%', #{pagetext}, '%')
+                and t_project.project_name like concat('%', #{pagetext}, '%')
+            </if>
+            <if test="statuslist != null" >
+                and t_project.status in
+                <foreach collection="statuslist" item="sta" separator="," open="(" close=")">
+                    #{sta}
+                </foreach>
+            </if>
+            <if test="typeIdlist != null" >
+                and t_project_type.typeid in
+                <foreach collection="typeIdlist" item="ty" separator="," open="(" close=")">
+                    #{ty}
+                </foreach>
             </if>
         </where>
         limit #{startIndex}, #{pagesize}
     </select>
 
+
+
+    <select id="queryByStatus" resultMap="BaseResultMap" parameterType="Map">
+        select
+          <include refid="Base_Column_List" />
+        from t_project
+        where status in
+        <foreach collection="statulist" item="sta" separator="," open="(" close=")">
+            #{sta}
+        </foreach>
+    </select>
+
     <select id="queryCount" resultType="int">
         select count(id) from t_project
         <where>
+            status in (0,1,2)
             <if test="pagetext != null">
                 and project_name like concat('%', #{pagetext}, '%')
             </if>

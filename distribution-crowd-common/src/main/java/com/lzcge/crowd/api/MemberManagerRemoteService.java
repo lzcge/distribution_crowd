@@ -3,10 +3,8 @@ package com.lzcge.crowd.api;
 
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
-import com.lzcge.crowd.pojo.po.MemberAddressPO;
-import com.lzcge.crowd.pojo.po.MemberLaunchInfoPO;
-import com.lzcge.crowd.pojo.po.OrderDetailPO;
-import com.lzcge.crowd.pojo.po.OrderPO;
+import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.ComplainVO;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient("member-manager")	//调用注册到eureka中的微服务名称
 public interface MemberManagerRemoteService {
@@ -35,6 +34,9 @@ public interface MemberManagerRemoteService {
 
 	@RequestMapping(value = "member/manager/updateBasicinfo" ,method = RequestMethod.POST)
 	public ResultEntity<String> updateBasicinfo(@RequestBody MemberVO memberVO	);
+
+	@RequestMapping(value = "member/manager/queryByid")
+	public ResultEntity<MemberPO> queryByid(@RequestBody MemberVO memberVO	);
 
 	@RequestMapping(value = "member/manager/saveMemberCert" ,method = RequestMethod.POST)
 	public ResultEntity<String> saveMemberCert(@RequestBody List<MemberCert> certimgs	);
@@ -110,6 +112,15 @@ public interface MemberManagerRemoteService {
 	@RequestMapping(value = "member/order/query/order/by/orderid")
 	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid);
 
+
+	/**
+	 * 根据订单状态查询订单
+	 * @param statuMap
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/status")
+	public ResultEntity<List<OrderPO>> queryOrderByStatus(@RequestParam Map<String,Object> statuMap);
+
 	/**
 	 * 更新订单
 	 * @param orderVO
@@ -135,6 +146,23 @@ public interface MemberManagerRemoteService {
 	 */
 	@RequestMapping(value = "member/delete/order/by/orderid")
 	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid);
+
+
+	/**
+	 * 删除收获地址
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/address/by/addressid")
+	public ResultEntity<String> deleteAddress(@RequestParam("id") Integer id);
+
+	/**
+	 *保存反馈信息
+	 * @param complainVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/save/saveComplain")
+	public ResultEntity<String> saveComplain(@RequestBody ComplainVO complainVO);
 
 
 

@@ -110,6 +110,12 @@
     from t_member
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+    <delete id="deleteAddress" parameterType="java.lang.Integer" >
+        delete from t_member_address
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_member
     where id = #{id,jdbcType=INTEGER}

@@ -1,5 +1,6 @@
 package com.lzcge.crowd.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.mapper.*;
 import com.lzcge.crowd.pojo.po.*;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderPOServiceImpl implements OrderPOService {
@@ -54,6 +56,15 @@ public class OrderPOServiceImpl implements OrderPOService {
 		orderPOMapper.updateOrder(orderPO);
 	}
 
+	@Override
+	public List<OrderPO> queryByStatus(Map<String, Object> statuMap) {
+
+		//statuMap参数传递中的Json串，转换成对象
+		String statulist = (String)statuMap.get("statulist");
+		List<Character> chars = JSON.parseArray(statulist,Character.class);
+		statuMap.put("statulist",chars);
+		return orderPOMapper.queryByStatus(statuMap);
+	}
 
 	@Override
 	@Transactional

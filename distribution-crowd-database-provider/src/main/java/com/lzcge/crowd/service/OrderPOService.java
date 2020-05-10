@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderPOService {
 
@@ -16,6 +17,13 @@ public interface OrderPOService {
 	Integer saveOrder(OrderVO orderVO);
 
 	OrderPO queryOrderById( Integer orderid);
+
+	/**
+	 * 根据订单状态查询订单
+	 * @param statuMap
+	 * @return
+	 */
+	List<OrderPO> queryByStatus(Map<String,Object> statuMap);
 
 	void updateOrder( OrderVO orderVO);
 

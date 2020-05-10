@@ -4,6 +4,7 @@ import com.lzcge.crowd.entity.Cert;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.ComplainVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
 import com.lzcge.crowd.pojo.vo.ProjectVO;
@@ -53,6 +54,11 @@ public interface DataBaseOperationRemoteService {
 	 */
 	@RequestMapping(value = "/save/member/remote",method = RequestMethod.POST)
 	ResultEntity<String> saveMemberRemote(@RequestBody MemberPO memberPO);
+
+
+	@RequestMapping(value = "member/manager/queryByid")
+	public ResultEntity<MemberPO> queryByid(@RequestBody MemberPO memberPO	);
+
 
 	/**
 	 * 更新用户类型信息
@@ -112,7 +118,16 @@ public interface DataBaseOperationRemoteService {
 	 * @return
 	 */
 	@RequestMapping("save/project/remote/{memberId}")
-	ResultEntity<String> saveProjectRemote(@RequestBody ProjectVO projectVO, @PathVariable("memberId") String memberId);
+	ResultEntity<Integer> saveProjectRemote(@RequestBody ProjectVO projectVO, @PathVariable("memberId") String memberId);
+
+
+
+	/**
+	 * 查询所有项目类别标签信息
+	 * @return
+	 */
+	@GetMapping("project/manager/query/projecttype")
+	public ResultEntity<List<TypePO>> queryProjectType();
 
 
 	/**
@@ -122,6 +137,15 @@ public interface DataBaseOperationRemoteService {
 	 */
 	@RequestMapping("retrieve/project/querypage")
 	ResultEntity<Page<ProjectPO>> pageQueryProject(@RequestParam Map<String, Object> projectMap);
+
+	/**
+	 * 根据项目状态查询项目信息
+	 * @param statusmap
+	 * @return
+	 */
+	@RequestMapping("retrieve/project/by/status")
+	public ResultEntity<List<ProjectPO>> queryByStatus(@RequestParam Map<String, Object> statusmap);
+
 
 	/**
 	 * 查询项目详细信息
@@ -159,6 +183,15 @@ public interface DataBaseOperationRemoteService {
 	public ResultEntity<List<MemberAddressPO>> addMemberAddress(@RequestBody MemberAddressPO memberAddressPO);
 
 	/**
+	 * 删除收获地址
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/address/by/addressid")
+	public ResultEntity<String> deleteAddress(@RequestParam("id") Integer id);
+
+
+	/**
 	 * 保存订单
 	 * @param orderVO
 	 * @return
@@ -174,6 +207,14 @@ public interface DataBaseOperationRemoteService {
 	@RequestMapping(value = "member/order/query/order/by/orderid")
 	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid);
 
+
+	/**
+	 * 根据订单状态查询订单
+	 * @param statuMap
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/status")
+	public ResultEntity<List<OrderPO>> queryOrderByStatus(@RequestParam Map<String,Object> statuMap);
 
 	/**
 	 * 更新项目信息
@@ -212,6 +253,42 @@ public interface DataBaseOperationRemoteService {
 	 */
 	@RequestMapping(value = "member/delete/order/by/orderid")
 	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid);
+
+
+	/**
+	 * 查询发布的项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/publishProject")
+	public ResultEntity<List<ProjectPO>> querypublishProject(@RequestBody ProjectVO projectVO);
+
+
+	/**
+	 * 根据id查询项目
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("project/manager/query/project/by/id")
+	public ResultEntity<ProjectPO>  queryProjectById(@RequestParam("id") Integer id);
+
+
+	/**
+	 * 删除项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@RequestMapping("project/manager/delete/publishProject")
+	public ResultEntity<String> deleteProject(@RequestBody ProjectVO projectVO);
+
+
+	/**
+	 *保存反馈信息
+	 * @param complainVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/save/saveComplain")
+	public ResultEntity<String> saveComplain(@RequestBody ComplainVO complainVO);
 
 
 

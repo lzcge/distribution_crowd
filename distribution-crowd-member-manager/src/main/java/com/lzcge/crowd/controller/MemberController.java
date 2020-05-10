@@ -7,6 +7,7 @@ import com.lzcge.crowd.entity.Cert;
 import com.lzcge.crowd.entity.MemberCert;
 import com.lzcge.crowd.pojo.ResultEntity;
 import com.lzcge.crowd.pojo.po.*;
+import com.lzcge.crowd.pojo.vo.ComplainVO;
 import com.lzcge.crowd.pojo.vo.MemberSignSuccessVO;
 import com.lzcge.crowd.pojo.vo.MemberVO;
 import com.lzcge.crowd.pojo.vo.OrderVO;
@@ -33,7 +34,7 @@ import java.util.*;
 public class MemberController {
 
 	@Autowired
-	RedisOperationRemoteService redisRemoteService;		//装配操作Redis的类
+	RedisOperationRemoteService redisRemoteService;        //装配操作Redis的类
 
 
 	//使用SpringSecurity中的BCryptPasswordEncoder加密工具进行密码加密和密码比较。
@@ -44,17 +45,17 @@ public class MemberController {
 	DataBaseOperationRemoteService databasesRemoteService;
 
 	@Autowired
-	private JavaMailSender javaMailSender;
+	private JavaMailSender mailSender;
 
 	@Value("${spring.mail.username}")
 	private String username;
 
 
 	//工具类;检查用户令牌是否登录
-	public ResultEntity<String> memberTokenCheck(String memberSignToken){
+	public ResultEntity<String> memberTokenCheck(String memberSignToken) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(memberSignToken);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 
@@ -63,13 +64,12 @@ public class MemberController {
 	}
 
 
-
 //	//Spring会根据@Value注解中的表达式读取yml/properties配置文件给成员变量设置对应的值
 //	@Value("${crowd.short.message.appCode}")
 //	private String appcode;
 
 	@RequestMapping("get/Member/Launch/InfoPO/By/Token")
-	public ResultEntity<MemberLaunchInfoPO> getMemberLaunchInfoPOByToken(@RequestParam("token") String token){
+	public ResultEntity<MemberLaunchInfoPO> getMemberLaunchInfoPOByToken(@RequestParam("token") String token) {
 		//根据token查询memberID
 		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(token);
 		String memberId = resultEntity.getData();
@@ -83,20 +83,22 @@ public class MemberController {
 
 	/**
 	 * 退出，根据key删除Redis中对应的value
+	 *
 	 * @param token
 	 * @return
 	 */
 	@RequestMapping("member/manager/logout")
-	public ResultEntity<String> logout(@RequestParam("token") String token){
+	public ResultEntity<String> logout(@RequestParam("token") String token) {
 		return redisRemoteService.removeByKey(token);
 	}
 
 	/**
 	 * 登录
+	 *
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/login",method = RequestMethod.POST)
-	public ResultEntity<MemberSignSuccessVO> login(@RequestBody MemberVO memberVO){
+	@RequestMapping(value = "member/manager/login", method = RequestMethod.POST)
+	public ResultEntity<MemberSignSuccessVO> login(@RequestBody MemberVO memberVO) {
 		String loginacct = memberVO.getLoginacct();
 		String userpswd = memberVO.getUserpswd();
 		String phoneNum = memberVO.getPhoneNum();
@@ -105,7 +107,7 @@ public class MemberController {
 		ResultEntity<MemberSignSuccessVO> result = new ResultEntity<>();
 		//根据登录账号从数据库查询MemberPO对象
 		ResultEntity<MemberPO> resultEntity = databasesRemoteService.retrieveMemberByLoginAcct(loginacct);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 
@@ -117,7 +119,7 @@ public class MemberController {
 		}
 
 		//判断手机号是否正确
-		if(!memberPO.getPhoneNum().equals(phoneNum)){
+		if (!memberPO.getPhoneNum().equals(phoneNum)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_PHONE_FAILED);
 		}
 
@@ -146,7 +148,7 @@ public class MemberController {
 
 		//判断前台传入的值和Redis中的值是否相等
 		String randomCodeRedis = "123456";  //手动构造验证码，调试结束后删除
-		if(!Objects.equals(randomCode,randomCodeRedis)){
+		if (!Objects.equals(randomCode, randomCodeRedis)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_NOT_MATCH);
 		}
 
@@ -167,19 +169,18 @@ public class MemberController {
 		}
 
 
-
 		//对比成功，生成token
 		String token = CrowdUtils.generateRedisKey(CrowdConstant.REDIS_MEMBER_SING_TOKEN_PREFIX);
 		//token作为key，userid作为value，过期时间30分钟存入Redis
-		String id = memberPO.getId()+"";
+		String id = memberPO.getId() + "";
 		ResultEntity<String> resultEntitySaveToken = redisRemoteService.saveNormalStringKeyValue(token, id, -1);
-		if(ResultEntity.FAILED.equals(resultEntitySaveToken.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntitySaveToken.getResult())) {
 			return ResultEntity.failed(resultEntitySaveToken.getMessage());
 		}
 		//账号密码验证成功，封装对象
 		MemberSignSuccessVO signSuccessVO = new MemberSignSuccessVO();
 		//将memberPO复制到signSuccessVO对象中
-		BeanUtils.copyProperties(memberPO,signSuccessVO);
+		BeanUtils.copyProperties(memberPO, signSuccessVO);
 		signSuccessVO.setToken(token);
 		return ResultEntity.successWithData(signSuccessVO);
 
@@ -188,88 +189,95 @@ public class MemberController {
 
 	/**
 	 * 注册
+	 *
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/register",method = RequestMethod.POST)
-	public ResultEntity<String> register(@RequestBody() MemberVO memberVO){
+	@RequestMapping(value = "member/manager/register", method = RequestMethod.POST)
+	public ResultEntity<String> register(@RequestBody() MemberVO memberVO) {
 		//获取前台的输入验证码
 		String randomCode = memberVO.getRandomCode();
 		//检查验证码是否有效
-		if(!CrowdUtils.strEffectiveCheck(randomCode)){
+		if (!CrowdUtils.strEffectiveCheck(randomCode)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_INVALID);
 		}
 
 		//检查手机号是否有效
 		String phoneNum = memberVO.getPhoneNum();
-		if(!CrowdUtils.strEffectiveCheck(phoneNum)){
+		if (!CrowdUtils.strEffectiveCheck(phoneNum)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_PHONE_NUM_INVALID);
 		}
 
 		//远程调用database_provider检查账号是否存在
 		String loginacct = memberVO.getLoginacct();
 		ResultEntity<Integer> integerResultEntity = databasesRemoteService.retrieveLoginAcctCount(loginacct);
-		if(ResultEntity.FAILED.equals(integerResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(integerResultEntity.getResult())) {
 			return ResultEntity.failed(integerResultEntity.getMessage());
 		}
 
 		Integer count = integerResultEntity.getData();
 		//账号被占用，返回失败信息
-		if(count>0){
+		if (count > 0) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
 		}
 
 		//远程调用database_provider检查手机号是否存在
 		ResultEntity<Integer> phoneNumIntegerResultEntity = databasesRemoteService.retrieveLoginPhoneNumCount(phoneNum);
-		if(ResultEntity.FAILED.equals(phoneNumIntegerResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(phoneNumIntegerResultEntity.getResult())) {
 			return ResultEntity.failed(phoneNumIntegerResultEntity.getMessage());
 		}
 
 		Integer phoneNumcount = phoneNumIntegerResultEntity.getData();
 		//手机号被占用，返回失败信息
-		if(phoneNumcount>0){
+		if (phoneNumcount > 0) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_PHONENUM_ALREADY_IN_USE);
 		}
 
 		//远程调用database_provider检查邮箱是否存在
 		String email = memberVO.getEmail();
 		ResultEntity<Integer> emailIntegerResultEntity = databasesRemoteService.retrieveLoginEmailCount(email);
-		if(ResultEntity.FAILED.equals(emailIntegerResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(emailIntegerResultEntity.getResult())) {
 			return ResultEntity.failed(emailIntegerResultEntity.getMessage());
 		}
 
 		Integer emailcount = emailIntegerResultEntity.getData();
 		//手机号被占用，返回失败信息
-		if(emailcount>0){
+		if (emailcount > 0) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_EMAIL_ALREADY_IN_USE);
 		}
 
 
-		//拼接验证码的key
-		String codeKey = CrowdConstant.REDIS_RANDOM_CODE_PREFIX+phoneNum;
+//		//拼接验证码的key
+//		String codeKey = CrowdConstant.REDIS_RANDOM_CODE_PREFIX+phoneNum;
+//
+//		//远程调用Redis_provider的方法获取key对应的值
+//		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(codeKey);
+//		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+//			return resultEntity;
+//		}
+//
+//		//获取Redis中key对应的value(验证码)
+//		String randomCodeRedis = resultEntity.getData();
 
-		//远程调用Redis_provider的方法获取key对应的值
-		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(codeKey);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
-			return resultEntity;
-		}
 
-		//获取Redis中key对应的value(验证码)
-		String randomCodeRedis = resultEntity.getData();
-		if(!CrowdUtils.strEffectiveCheck(randomCodeRedis)){
+		//判断前台传入的值和Redis中的值是否相等
+		String randomCodeRedis = "123456";  //手动构造验证码，调试结束后删除
+
+
+		if (!CrowdUtils.strEffectiveCheck(randomCodeRedis)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_NOT_EXISTS);
 		}
 
 		//判断前台传入的值和Redis中的值是否相等
-		if(!Objects.equals(randomCode,randomCodeRedis)){
+		if (!Objects.equals(randomCode, randomCodeRedis)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_NOT_MATCH);
 		}
 
-		//如果验证码匹配需要删除当前key对应的验证码
-		ResultEntity<String> resultEntity1 = redisRemoteService.removeByKey(codeKey);
-		if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
-			return resultEntity1;
-		}
+//		//如果验证码匹配需要删除当前key对应的验证码
+//		ResultEntity<String> resultEntity1 = redisRemoteService.removeByKey(codeKey);
+//		if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
+//			return resultEntity1;
+//		}
 
 
 		//密码加密
@@ -281,25 +289,48 @@ public class MemberController {
 		//设置账号默认认证状态（0）
 		memberVO.setAuthstatus("0");
 		//设置账号类型
-		String statu = memberVO.getUsertype().equals("个人")?"0":"1";
+		String statu = memberVO.getUsertype().equals("个人") ? "0" : "1";
 		memberVO.setUsertype(statu);
 
 		MemberPO memberPO = new MemberPO();
 		//将memberVO对象中的值复制到memberPO对象中
-		BeanUtils.copyProperties(memberVO,memberPO);
+		BeanUtils.copyProperties(memberVO, memberPO);
 		//远程调用database_provider保存注册信息
 		return databasesRemoteService.saveMemberRemote(memberPO);
 	}
 
 	/**
+	 * 查询用户信息
+	 *
+	 * @param memberVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/manager/queryByid")
+	public ResultEntity<MemberPO> queryByid(@RequestBody MemberVO memberVO) {
+		MemberPO memberPO = new MemberPO();
+		//将memberVO对象中的值复制到memberPO对象中
+		BeanUtils.copyProperties(memberVO, memberPO);
+		ResultEntity<MemberPO> resultEntity = databasesRemoteService.queryByid(memberPO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		if (resultEntity.getData() == null) {
+			return ResultEntity.failed("查询用户失败");
+		}
+
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
+	/**
 	 * 发送短信验证码
+	 *
 	 * @param phoneNum
 	 * @return
 	 */
 	@RequestMapping("member/manager/send/code")
-	public ResultEntity<String> sendCode(@RequestParam("phoneNum")String phoneNum){
+	public ResultEntity<String> sendCode(@RequestParam("phoneNum") String phoneNum) {
 		//验证手机号
-		if(!CrowdUtils.strEffectiveCheck(phoneNum)){
+		if (!CrowdUtils.strEffectiveCheck(phoneNum)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_PHONE_NUM_INVALID);
 		}
 		//生成验证码
@@ -307,18 +338,18 @@ public class MemberController {
 		String code = CrowdUtils.randomCode(length);
 
 		//保存到Redis
-		int timeoutMinute = 15;		//验证码默认过期时间15分钟
+		int timeoutMinute = 15;        //验证码默认过期时间15分钟
 		//Redis的key是固定前缀+手机号
-		String normalKey = CrowdConstant.REDIS_RANDOM_CODE_PREFIX+phoneNum;
+		String normalKey = CrowdConstant.REDIS_RANDOM_CODE_PREFIX + phoneNum;
 		ResultEntity<String> resultEntity = redisRemoteService.saveNormalStringKeyValue(normalKey, code, timeoutMinute);
 		//判断key是否保存成功，如果失败就直接返回
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return resultEntity;
 		}
 		//验证码成功添加到Redis后发送到用户手机
 		try {
 			String appcode = "";
-			CrowdUtils.sendMessage(appcode,code,phoneNum);
+			CrowdUtils.sendMessage(appcode, code, phoneNum);
 			return ResultEntity.successNoData();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -328,20 +359,21 @@ public class MemberController {
 
 	/**
 	 * 发送邮箱验证码
+	 *
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/send/emailcode",method = RequestMethod.POST)
-	public ResultEntity<String> sendEmailCode(@RequestBody MemberVO memberVO){
+	@RequestMapping(value = "member/manager/send/emailcode", method = RequestMethod.POST)
+	public ResultEntity<String> sendEmailCode(@RequestBody MemberVO memberVO) {
 
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
 			String MailVerifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
 			message.setFrom(username);
 			message.setTo(memberVO.getEmail());
-			message.setSubject("验证码：");
+			message.setSubject("验证码:");
 			message.setText(MailVerifyCode);
-			javaMailSender.send(message);
+			mailSender.send(message);
 			int timeoutMinute = 1;  //1分钟
 			//放入redis
 			ResultEntity<String> resultEntity = redisRemoteService.saveNormalStringKeyValue(CrowdConstant.REDIS_EMAIL_RANDOM_CODE_PREFIX + memberVO.getEmail(), MailVerifyCode, timeoutMinute);
@@ -350,7 +382,7 @@ public class MemberController {
 				return resultEntity;
 			}
 			return ResultEntity.successNoData();
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ResultEntity.failed(e.getMessage());
 		}
@@ -358,29 +390,30 @@ public class MemberController {
 
 	/**
 	 * 验证邮箱验证码
+	 *
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/finish/emailcode",method = RequestMethod.POST)
-	public ResultEntity<String> finishEmailApply(@RequestBody MemberVO memberVO){
+	@RequestMapping(value = "member/manager/finish/emailcode", method = RequestMethod.POST)
+	public ResultEntity<String> finishEmailApply(@RequestBody MemberVO memberVO) {
 
 		//从redis中获取系统发送验证码
-		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(CrowdConstant.REDIS_EMAIL_RANDOM_CODE_PREFIX+memberVO.getEmail());
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		ResultEntity<String> resultEntity = redisRemoteService.retrieveStringValueByStringKey(CrowdConstant.REDIS_EMAIL_RANDOM_CODE_PREFIX + memberVO.getEmail());
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		String randomCode = resultEntity.getData();
 		//验证验证码是否存在或者过期
-		if(!CrowdUtils.strEffectiveCheck(randomCode)){
+		if (!CrowdUtils.strEffectiveCheck(randomCode)) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_NOT_EXISTS);
 
 		}
 		//验证是否相等
-		if(!randomCode.equals(memberVO.getRandomCode())){
+		if (!randomCode.equals(memberVO.getRandomCode())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_CODE_NOT_MATCH);
 		}
-		ResultEntity<String> resultEntity1 = redisRemoteService.removeByKey(CrowdConstant.REDIS_EMAIL_RANDOM_CODE_PREFIX+memberVO.getEmail());
-		if(ResultEntity.FAILED.equals(resultEntity1.getResult())){
+		ResultEntity<String> resultEntity1 = redisRemoteService.removeByKey(CrowdConstant.REDIS_EMAIL_RANDOM_CODE_PREFIX + memberVO.getEmail());
+		if (ResultEntity.FAILED.equals(resultEntity1.getResult())) {
 			return ResultEntity.failed(resultEntity1.getMessage());
 		}
 
@@ -390,31 +423,31 @@ public class MemberController {
 	}
 
 
-
 	/**
 	 * 实名认证-更新账户类型
+	 *
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/updateAcctType" ,method = RequestMethod.POST)
-	public ResultEntity<String> updateAcctType(@RequestBody MemberVO memberVO){
+	@RequestMapping(value = "member/manager/updateAcctType", method = RequestMethod.POST)
+	public ResultEntity<String> updateAcctType(@RequestBody MemberVO memberVO) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		String memberSignToken = memberVO.getMemberSignToken();
 		ResultEntity<String> tokenResultEntity = redisRemoteService.retrieveStringValueByStringKey(memberSignToken);
-		if(ResultEntity.FAILED.equals(tokenResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(tokenResultEntity.getResult())) {
 			return ResultEntity.failed(tokenResultEntity.getMessage());
 		}
-		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+		if (!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
 
 		}
 
 		MemberPO memberPO = new MemberPO();
 		//将memberVO对象中的值复制到memberPO对象中
-		BeanUtils.copyProperties(memberVO,memberPO);
+		BeanUtils.copyProperties(memberVO, memberPO);
 		//远程调用database_provider更新账号类型信息
 		ResultEntity<String> resultEntity = databasesRemoteService.updateAcctType(memberPO);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return resultEntity;
 		}
 
@@ -423,28 +456,29 @@ public class MemberController {
 
 	/**
 	 * 实名认证-更新用户实名信息
+	 *
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/updateBasicinfo" ,method = RequestMethod.POST)
-	public ResultEntity<String> updateBasicinfo(@RequestBody MemberVO memberVO){
+	@RequestMapping(value = "member/manager/updateBasicinfo", method = RequestMethod.POST)
+	public ResultEntity<String> updateBasicinfo(@RequestBody MemberVO memberVO) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		String memberSignToken = memberVO.getMemberSignToken();
 		ResultEntity<String> tokenResultEntity = redisRemoteService.retrieveStringValueByStringKey(memberSignToken);
-		if(ResultEntity.FAILED.equals(tokenResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(tokenResultEntity.getResult())) {
 			return ResultEntity.failed(tokenResultEntity.getMessage());
 		}
-		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+		if (!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
 
 		}
 
 		MemberPO memberPO = new MemberPO();
 		//将memberVO对象中的值复制到memberPO对象中
-		BeanUtils.copyProperties(memberVO,memberPO);
+		BeanUtils.copyProperties(memberVO, memberPO);
 		//远程调用database_provider更新用户实名信息
 		ResultEntity<String> resultEntity = databasesRemoteService.updateBasicinfo(memberPO);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return resultEntity;
 		}
 		return ResultEntity.successNoData();
@@ -453,21 +487,22 @@ public class MemberController {
 
 	/**
 	 * 保存用户上传的资质图片
+	 *
 	 * @param certimgs
 	 * @return
 	 */
-	@RequestMapping(value = "member/manager/saveMemberCert" ,method = RequestMethod.POST)
-	public ResultEntity<String> saveMemberCert(@RequestBody List<MemberCert> certimgs	){
+	@RequestMapping(value = "member/manager/saveMemberCert", method = RequestMethod.POST)
+	public ResultEntity<String> saveMemberCert(@RequestBody List<MemberCert> certimgs) {
 
 		//删除原有的关系
 		ResultEntity<String> delResultEntity = databasesRemoteService.delteMemberCert(certimgs.get(0));
-		if(ResultEntity.FAILED.equals(delResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(delResultEntity.getResult())) {
 			return delResultEntity;
 		}
 		// 保存会员与资质关系数据.
-		for (MemberCert memberCert:certimgs ) {
+		for (MemberCert memberCert : certimgs) {
 			ResultEntity<String> insetResultEntity = databasesRemoteService.insertMemberCert(memberCert);
-			if(ResultEntity.FAILED.equals(insetResultEntity.getResult())){
+			if (ResultEntity.FAILED.equals(insetResultEntity.getResult())) {
 				return insetResultEntity;
 			}
 		}
@@ -478,18 +513,19 @@ public class MemberController {
 
 	/**
 	 * 查询用户收获地址
+	 *
 	 * @param memberAddressPO
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/get/address")
-	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO){
+	public ResultEntity<List<MemberAddressPO>> queryAddress(@RequestBody MemberAddressPO memberAddressPO) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
-		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+		if (!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
 		}
 		ResultEntity<List<MemberAddressPO>> listResultEntity = databasesRemoteService.queryAddress(memberAddressPO);
-		if(ResultEntity.FAILED.equals(listResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(listResultEntity.getResult())) {
 			return ResultEntity.failed(listResultEntity.getMessage());
 		}
 
@@ -499,18 +535,19 @@ public class MemberController {
 
 	/**
 	 * 查询用户收获地址根据收获地址
+	 *
 	 * @param memberAddressPO
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/get/address/by/address")
-	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO){
+	public ResultEntity<List<MemberAddressPO>> selectMemberAddressByadress(@RequestBody MemberAddressPO memberAddressPO) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
-		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+		if (!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
 		}
 		ResultEntity<List<MemberAddressPO>> listResultEntity = databasesRemoteService.selectMemberAddressByadress(memberAddressPO);
-		if(ResultEntity.FAILED.equals(listResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(listResultEntity.getResult())) {
 			return ResultEntity.failed(listResultEntity.getMessage());
 		}
 
@@ -518,25 +555,24 @@ public class MemberController {
 	}
 
 
-
 	/**
 	 * 新增用户收获地址
+	 *
 	 * @param memberAddressPO
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/add/address")
-	public ResultEntity<List<MemberAddressPO>> addAddress(@RequestBody MemberAddressPO memberAddressPO){
+	public ResultEntity<List<MemberAddressPO>> addAddress(@RequestBody MemberAddressPO memberAddressPO) {
 		//检查是否登录(Redis中memberSignToken对应的key是否有值)
 		ResultEntity<String> tokenResultEntity = memberTokenCheck(memberAddressPO.getMemberSignToken());
-		if(!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())){
+		if (!CrowdUtils.strEffectiveCheck(tokenResultEntity.getData())) {
 			return ResultEntity.failed(CrowdConstant.MESSAGE_ACCESS_DENIED);
 		}
 
 		ResultEntity<List<MemberAddressPO>> addResultEntity = databasesRemoteService.addMemberAddress(memberAddressPO);
-		if(ResultEntity.FAILED.equals(addResultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(addResultEntity.getResult())) {
 			return ResultEntity.failed(addResultEntity.getMessage());
 		}
-
 
 
 		return ResultEntity.successWithData(addResultEntity.getData());
@@ -546,13 +582,14 @@ public class MemberController {
 
 	/**
 	 * 保存订单
+	 *
 	 * @param orderVO
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/save/order")
-	public ResultEntity<Integer> saveOrder(@RequestBody OrderVO orderVO){
+	public ResultEntity<Integer> saveOrder(@RequestBody OrderVO orderVO) {
 		ResultEntity<Integer> resultEntity = databasesRemoteService.saveOrder(orderVO);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successWithData(resultEntity.getData());
@@ -561,29 +598,46 @@ public class MemberController {
 
 	/**
 	 * 根据订单id获取订单
+	 *
 	 * @param orderid
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/query/order/by/orderid")
-	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid){
+	public ResultEntity<OrderPO> queryOrderById(@RequestParam("orderid") Integer orderid) {
 		ResultEntity<OrderPO> resultEntity = databasesRemoteService.queryOrderById(orderid);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successWithData(resultEntity.getData());
 
 	}
 
+	/**
+	 * 根据订单状态查询订单
+	 *
+	 * @param statuMap
+	 * @return
+	 */
+	@RequestMapping(value = "member/order/query/order/by/status")
+	public ResultEntity<List<OrderPO>> queryOrderByStatus(@RequestParam Map<String, Object> statuMap) {
+		ResultEntity<List<OrderPO>> resultEntity = databasesRemoteService.queryOrderByStatus(statuMap);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successWithData(resultEntity.getData());
+	}
+
 
 	/**
 	 * 更新订单
+	 *
 	 * @param orderVO
 	 * @return
 	 */
 	@RequestMapping(value = "member/order/update/order")
-	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO){
+	public ResultEntity<String> updateOrder(@RequestBody OrderVO orderVO) {
 		ResultEntity<String> resultEntity = databasesRemoteService.updateOrder(orderVO);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successNoData();
@@ -592,35 +646,66 @@ public class MemberController {
 
 	/**
 	 * 查询用户支持的项目
+	 *
 	 * @param orderVO
 	 * @return
 	 */
 	@RequestMapping(value = "member/support/order")
-	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO){
+	public ResultEntity<List<OrderDetailPO>> querySupportOrder(@RequestBody OrderVO orderVO) {
 		ResultEntity<List<OrderDetailPO>> resultEntity = databasesRemoteService.querySupportOrder(orderVO);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successWithData(resultEntity.getData());
 	}
 
 
-
-
 	/**
 	 * 删除订单
+	 *
 	 * @param orderid
 	 * @return
 	 */
 	@RequestMapping(value = "member/delete/order/by/orderid")
-	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid){
+	public ResultEntity<String> deleteOrderByorderid(@RequestParam("orderid") Integer orderid) {
 		ResultEntity<String> resultEntity = databasesRemoteService.deleteOrderByorderid(orderid);
-		if(ResultEntity.FAILED.equals(resultEntity.getResult())){
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
 			return ResultEntity.failed(resultEntity.getMessage());
 		}
 		return ResultEntity.successNoData();
 
 	}
+
+	/**
+	 * 删除收获地址
+	 *
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "member/delete/address/by/addressid")
+	public ResultEntity<String> deleteAddress(@RequestParam("id") Integer id) {
+		ResultEntity<String> resultEntity = databasesRemoteService.deleteAddress(id);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
+	}
+
+
+	/**
+	 *保存反馈信息
+	 * @param complainVO
+	 * @return
+	 */
+	@RequestMapping(value = "member/save/saveComplain")
+	public ResultEntity<String> saveComplain(@RequestBody ComplainVO complainVO){
+		ResultEntity<String> resultEntity = databasesRemoteService.saveComplain(complainVO);
+		if (ResultEntity.FAILED.equals(resultEntity.getResult())) {
+			return ResultEntity.failed(resultEntity.getMessage());
+		}
+		return ResultEntity.successNoData();
+	}
+
 
 
 

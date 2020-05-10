@@ -14,6 +14,8 @@ import java.util.List;
 
 public interface MemberPOService {
 
+	MemberPO queryByid(Integer id);
+
 	int getLoginAcct(String loginacct);
 
 	int getPhoneNumAcct(String phoneNum);
@@ -39,6 +41,9 @@ public interface MemberPOService {
 	List<MemberAddressPO> selectMemberAddressByadress(MemberAddressPO memberAddressPO);
 
 	List<MemberAddressPO> addMemberAddress(MemberAddressPO memberAddressPO);
+
+
+	void deleteAddress(Integer id);
 
 
 

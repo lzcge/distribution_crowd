@@ -3,14 +3,32 @@ package com.lzcge.crowd.api;
 
 import com.lzcge.crowd.pojo.ResultEntity;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * redis操作远程公共接口
  */
 @FeignClient(value="redis-provider")	//调用注册到eureka中的微服务名称
 public interface RedisOperationRemoteService {
+
+
+	/**
+	 * 将对象的键值对保存到Redis时调用的远程方法
+	 * @return
+	 */
+	@RequestMapping("/save/normal/object/key/value")
+	ResultEntity<String> saveNormalObjectKeyValue(@RequestParam("key") String key,@RequestBody Object object);
+
+	/**
+	 * 根据key查询对应value时调用的远程方法
+	 * @return
+	 */
+	@RequestMapping("/retrieve/Object/value/by/Object/key")
+	ResultEntity<Object> retrieveObjectValueByObjectKey(@RequestParam("key")String key);
 
 	/**
 	 * 将字符串类型的键值对保存到Redis时调用的远程方法

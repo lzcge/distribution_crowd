@@ -48,11 +48,19 @@ public class PayController {
 			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,resultEntity.getMessage());
 			return "error";
 		}
+		OrderPO orderPO = resultEntity.getData();
+		//订单还存在，没有过期
+		if(orderPO.getStatus().equals("0")){
+			//写入model域中
+			model.addAttribute("orderInfo",resultEntity.getData());
+			//返回页面
+			return "pay/pay-paymoney";
 
-		//写入model域中
-		model.addAttribute("orderInfo",resultEntity.getData());
-		//返回页面
-		return "pay/pay-paymoney";
+		}else{
+			//写入model域中
+			model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,"订单已过期");
+			return "/member/minecrowdfunding.html";
+		}
 	}
 
 
@@ -202,13 +210,11 @@ public class PayController {
 			//判断是否众筹成功
 			//众筹已结束
 			if(projectDetailPO.getProjectPO().getSupportmoney()>=projectDetailPO.getProjectPO().getMoney()){
-				byte status = new Byte("2");
-				projectVO.setStatus(status);
+				projectVO.setStatus(CrowdConstant.PROJECT_STATUS_SUCCESS_CROWD);
 			}else{    //没结束
 				//刚好结束
 				if(projectDetailPO.getProjectPO().getSupportmoney()+money>=projectDetailPO.getProjectPO().getMoney()){
-					byte status = new Byte("2");
-					projectVO.setStatus(status);
+					projectVO.setStatus(CrowdConstant.PROJECT_STATUS_SUCCESS_CROWD);
 				}
 				projectVO.setSupporter(projectDetailPO.getProjectPO().getSupporter()+1);
 				projectVO.setSupportmoney(projectDetailPO.getProjectPO().getSupportmoney()+money);
@@ -238,7 +244,7 @@ public class PayController {
 			//json转对象
 			OrderVO orderVO = JSON.parseObject(orderVOString, OrderVO.class);
 			//更新订单状态
-			orderVO.setStatus("1");
+			orderVO.setStatus(CrowdConstant.ORDER_STATUS_SUCCESS_PAY.toString());
 			ResultEntity<String> resultEntity2 = memmberRemoteService.updateOrder(orderVO);
 			if(ResultEntity.FAILED.equals(resultEntity2.getResult())){
 				model.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE,CrowdConstant.MESSAGE_ORDER_UPDATE_FAILED);
@@ -248,7 +254,7 @@ public class PayController {
 			redisService.removeByKey(out_trade_no);
 
 			session.setAttribute("ProjectDetailPO",resultEntity.getData());
-			return "redirect:/project/projectdetail.html";
+			return "redirect:/member/minecrowdfunding.html";
 //			return "trade_no:" + trade_no + "<br/>out_trade_no:" + out_trade_no + "<br/>total_amount:" + total_amount;
 		} else {
 			return "验签失败";

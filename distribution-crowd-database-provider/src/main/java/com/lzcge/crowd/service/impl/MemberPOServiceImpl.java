@@ -36,6 +36,11 @@ public class MemberPOServiceImpl implements MemberPOService {
 
 
 	@Override
+	public MemberPO queryByid(Integer id) {
+		return memberPOMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
 	public int getLoginAcct(String loginacct) {
 		MemberPOExample example = new MemberPOExample();
 		// 2.封装查询条件
@@ -152,7 +157,10 @@ public class MemberPOServiceImpl implements MemberPOService {
 	}
 
 
-
-
+	@Override
+	@Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+	public void deleteAddress(Integer id) {
+		memberPOMapper.deleteAddress(id);
+	}
 
 }

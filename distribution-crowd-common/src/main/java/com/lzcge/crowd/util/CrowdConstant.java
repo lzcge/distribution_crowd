@@ -12,8 +12,23 @@ public class CrowdConstant {
 	public static final String REDIS_EMAIL_RANDOM_CODE_PREFIX = "MailVerifyCode_";
 	//登录用户token
 	public static final String REDIS_MEMBER_SING_TOKEN_PREFIX = "SIGNED_MEMBER_";
-	//工程对象放入redis，后缀通过UUID创建
+	//发布项目时工程对象放入redis临时存储，后缀通过UUID创建
 	public static final String REDIS_PROJECT_TEMP_TOKEN_PREFIX = "PROJECT_TEMP_TOKEN_";
+
+	//项目状态
+	public static final Byte PROJECT_STATUS_NOT_CROWD = 0;//即将开始
+	public static final Byte PROJECT_STATUS_ING_CROWD = 1;//众筹中
+	public static final Byte PROJECT_STATUS_SUCCESS_CROWD = 2;//众筹成功
+	public static final Byte PROJECT_STATUS_FAILED_CROWD = 3;//众筹失败
+	public static final Byte PROJECT_STATUS_AUTH_FAILED_CROWD = 4;//审核失败
+
+	//投诉内容处理状态、
+	public static final Integer COMPLAIN_STATUS_NOT_HANDLE = 0;//未处理
+	public static final Integer COMPLAIN_STATUS_SUCCESS_HANDLE = 1;//处理完毕
+
+
+	//项目发布成功后放入到list中然后放入redis，用于监控项目众筹状态
+	public static final String REDIS_PROJECT_STATUS_PREFIX = "PROJECT_LIST_STATUS";
 
 	public static final String ATTR_NAME_MESSAGE = "MESSAGE";
 	public static final String ATTR_NAME_LOGIN_ADMIN = "LOGIN-ADMIN";
@@ -21,9 +36,22 @@ public class CrowdConstant {
 	public static final String ATTR_NAME_PAGE_INFO = "PAGE-INFO";
 	public static final String ATTR_NAME_INIT_PROJECT = "INIT-PROJECT";
 
+	//订单生成成功后放入到list中然后放入redis，用于监控订单是否完成付款
+	public static final String REDIS_ORDER_STATUS_PREFIX = "ORDER_LIST_STATUS";
 	public static final String MESSAGE_ORDER_FAILED = "订单获取失败";
 	public static final String MESSAGE_ORDER_NOT_EXISTS = "订单已失效";
 	public static final String MESSAGE_ORDER_UPDATE_FAILED = "订单更新失败";
+	//订单过期时间(15分钟)
+	public static final Long ORDER_PAST_TIME = 15L;
+	//下单成功后在redis中缓存等待支付时间(30分钟)
+	public static final Integer REDIS_ORDER_WAIT_PAY_TIME = 30;
+	//订单状态信息
+	//待支付
+	public static final Character ORDER_STATUS_WAIT_PAY = '0';
+	//支付完成
+	public static final Character ORDER_STATUS_SUCCESS_PAY = '1';
+	//支付失败，交易关闭
+	public static final Character ORDER_STATUS_FAILED_PAY = '2';
 
 
 	public static final String MESSAGE_ADDRESS_FAILED = "收获地址已存在";

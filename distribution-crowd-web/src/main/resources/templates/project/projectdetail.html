@@ -59,30 +59,8 @@
 
 
   <body>
- <div class="navbar-wrapper">
-      <div class="container">
-			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			  <div class="container">
-				<div class="navbar-header">
-				  <a class="navbar-brand" href="#" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
-				</div>
-                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-                      <ul class="nav navbar-nav">
-                          <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <li><a href="/member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-			  </div>
-			</nav>
-      </div>
-    </div>
+
+  <div th:include="common/top :: top"></div>
 
     <div class="container theme-showcase" role="main">
 
@@ -169,12 +147,23 @@
                                     <div >
 
                                         <p><span>已有[[${session['ProjectDetailPO'].projectPO.supporter}]]人支持该项目</span></p>
-                                        <span th:switch="${session['ProjectDetailPO'].projectPO.status}">
-                                            <span th:case="0" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹尚未开始</button></span>
-                                            <span th:case="1" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#" onclick="window.location.href='/pay/pay-ConfirmReturn.html'">立即支持</button></span>
-                                            <span th:case="2" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹已结束</button></span>
-                                            <span th:case="3" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹已结束</button></span>
+
+                                        <!--判断是否是当前用户自己发布的项目-->
+                                        <span th:switch="${session['ProjectDetailPO'].projectPO.memberid}">
+                                            <!--//当前用户发布的项目，不显示-->
+                                            <span th:case="${session['LOGIN-MEMBER'].id}">
+                                            </span>
+                                            <span th:case="*">
+                                                <span th:switch="${session['ProjectDetailPO'].projectPO.status}">
+                                                    <span th:case="0" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹即将开始</button></span>
+                                                    <span th:case="1" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#" onclick="window.location.href='/pay/pay-ConfirmReturn.html'">立即支持</button></span>
+                                                    <span th:case="2" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹已结束</button></span>
+                                                    <span th:case="3" ><button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#">众筹已结束</button></span>
+                                                </span>
+                                            </span>
+
                                         </span>
+
                                         <!--<button type="button" class="btn  btn-warning btn-lg btn-block" data-toggle="modal" data-target="#myModal">立即支持</button>-->
                                     </div>
 

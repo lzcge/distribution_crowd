@@ -85,6 +85,9 @@
         </trim>
     </insert>
 
+
+
+
     <select id="queryOrderById" resultType="com.lzcge.crowd.pojo.po.OrderPO" parameterType="java.lang.Integer">
         SELECT
             id,
@@ -154,7 +157,31 @@
     </select>
 
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.lzcge.crowd.pojo.po.OrderPO" >
+    <select id="queryByStatus" resultType="com.lzcge.crowd.pojo.po.OrderPO" parameterType="Map">
+        SELECT
+            id,
+            memberid,
+            projectid,
+            returnid,
+            ordernum,
+            createdate,
+            money,
+            rtncount,
+            status,
+            address,
+            gainusername,
+            gainphone,
+            remark
+        FROM
+          t_order
+        where status in
+        <foreach collection="statulist" item="sta" separator="," open="(" close=")">
+            #{sta}
+        </foreach>
+    </select>
+
+
+    <update id="updateOrder" parameterType="com.lzcge.crowd.pojo.po.OrderPO" >
         update t_order
         <set >
 
@@ -162,40 +189,37 @@
                 memberid =  #{memberid,jdbcType=INTEGER},
             </if>
             <if test="projectid != null" >
-                projectid = #{projectid,jdbcType=INTEGER},,
+                projectid = #{projectid,jdbcType=INTEGER},
             </if>
             <if test="returnid != null" >
-                returnid =  #{returnid,jdbcType=INTEGER},,
-            </if>
-            <if test="ordernum != null" >
-                ordernum =  #{ordernum,jdbcType=VARCHAR},,
+                returnid =  #{returnid,jdbcType=INTEGER},
             </if>
             <if test="createdate != null" >
-                createdate = #{createdate,jdbcType=CHAR},,
+                createdate = #{createdate,jdbcType=CHAR},
             </if>
             <if test="money != null" >
-                money = #{money,jdbcType=INTEGER},,
+                money = #{money,jdbcType=INTEGER},
             </if>
             <if test="rtncount != null" >
-                rtncount = #{rtncount,jdbcType=INTEGER},,
+                rtncount = #{rtncount,jdbcType=INTEGER},
             </if>
             <if test="status != null" >
-                status = #{status,jdbcType=CHAR},,
+                status = #{status,jdbcType=CHAR},
             </if>
             <if test="address != null" >
-                address =  #{address,jdbcType=VARCHAR},,
+                address =  #{address,jdbcType=VARCHAR},
             </if>
             <if test="gainusername != null" >
-                gainusername = #{gainusername,jdbcType=VARCHAR},,
+                gainusername = #{gainusername,jdbcType=VARCHAR},
             </if>
             <if test="gainphone != null" >
-                gainphone = #{gainphone,jdbcType=VARCHAR},,
+                gainphone = #{gainphone,jdbcType=VARCHAR},
             </if>
             <if test="remark != null" >
-                remark =  #{remark,jdbcType=VARCHAR},,
+                remark =  #{remark,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where ordernum =  #{ordernum,jdbcType=VARCHAR}
     </update>
 
 

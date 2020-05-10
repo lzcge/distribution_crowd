@@ -9,6 +9,7 @@ import com.lzcge.crowd.pojo.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderPOMapper {
 
@@ -22,6 +23,8 @@ public interface OrderPOMapper {
 	List<OrderPO> queryOrderBymemberid(Integer memberid);
 
 	List<OrderPO> querySupportOrderOrPay(OrderPO orderPO);
+
+	List<OrderPO> queryByStatus(Map<String,Object> statuMap);
 
 	void deleteByPrimaryKey(Integer id);
 

@@ -41,7 +41,7 @@ public class ProjectVO extends TokenVO{
 	private String projectDescription;
 
 	// 计划筹集的金额
-	private Integer money;
+	private Long money;
 
 	// 筹集资金的天数
 	private Integer day;

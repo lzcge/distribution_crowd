@@ -51,31 +51,10 @@
     </style>
 </head>
 <body>
-<div class="navbar-wrapper">
-    <div class="container">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html" style="font-size:32px;">人人筹-创意产品众筹平台</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-    </div>
-</div>
+<div th:include="common/top :: top"></div>
+
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-sm-3 col-md-3 column">
@@ -99,7 +78,7 @@
             <div class="list-group">
                 <!--企业才支持发起众筹-->
                 <div th:switch="${session['LOGIN-MEMBER'].usertype}">
-                    <div th:case="1" class="list-group-item active" onclick="window.location.href='/project/to/agree/page'">
+                    <div th:case="1" style="cursor:pointer;" class="list-group-item " onclick="publishProject()">
                         发起众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                     </div>
 
@@ -110,8 +89,8 @@
                 <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/project/displayAllProjects.html'">
                     项目总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                 </div>
-                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/toPage/pay/pay'">
-                    支付宝付款<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/member/selfinfo.html'">
+                    个人中心<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                 </div>
             </div>
         </div>
@@ -157,6 +136,7 @@
 <script src="script/docs.min.js" th:src="@{/script/docs.min.js}"></script>
 <script src="script/back-to-top.js" th:src="@{/script/back-to-top.js}"></script>
 <script src="script/echarts.js" th:src="@{/script/echarts.js}"></script>
+<script type="text/javascript" src="${APP_PATH }/jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>
 <script>
 $('#myTab a').click(function (e) {
     e.preventDefault()
@@ -166,6 +146,16 @@ $('#myTab1 a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
 })
+
+
+function publishProject() {
+    var authstatus = [[${session['LOGIN-MEMBER'].authstatus}]];
+    if(authstatus=='2'){
+        window.location.href='/project/to/agree/page';
+    }else{
+        layer.msg("完成实名认证后才能发布项目!", {time:2000, icon:0, shift:0});
+    }
+}
 
 var myChart = echarts.init(document.getElementById('main'));
 

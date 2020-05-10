@@ -51,31 +51,9 @@
 	</style>
   </head>
   <body>
- <div class="navbar-wrapper">
-      <div class="container">
-			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			  <div class="container">
-				<div class="navbar-header">
-				  <a class="navbar-brand" href="#" style="font-size:32px;">众筹平台</a>
-				</div>
-                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-                      <ul class="nav navbar-nav">
-                          <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>[[${session['LOGIN-MEMBER'].username}]]<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <li><a href="/member/center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="index.html" th:href="@{/member/logout.html}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-			  </div>
-			</nav>
 
-      </div>
-    </div>
+  <div th:include="common/top :: top"></div>
+
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-sm-3 col-md-3 column">
@@ -99,7 +77,7 @@
 			<div class="list-group">
                 <!--企业才支持发起众筹-->
                 <div th:switch="${session['LOGIN-MEMBER'].usertype}">
-                    <div th:case="1" class="list-group-item " onclick="window.location.href='/project/to/agree/page'">
+                    <div th:case="1" style="cursor:pointer;" class="list-group-item " onclick="publishProject()">
                         发起众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                     </div>
 
@@ -109,6 +87,9 @@
                 </div>
                 <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/project/displayAllProjects.html'">
                     项目总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                </div>
+                <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='/member/selfinfo.html'">
+                    个人中心<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
                 </div>
 			</div>
 		</div>
@@ -122,17 +103,20 @@
 
                         <ul id="myTab1" class="nav nav-tabs">
                           <li role="presentation" class="active">
-                              <a onclick="querySupportPage()"  href="#support">我支持的</a>
+                              <a onclick="querySupportPage(-1)"  href="#support">我支持的</a>
                           </li>
                           <!--<li role="presentation"><a href="#attension">我关注的</a></li>-->
                           <!--企业才有这个功能模块-->
                           <li th:switch="${session['LOGIN-MEMBER'].usertype}" role="presentation">
-                              <a th:case="1" href="#add">我发起的</a>
+                              <a onclick="queryPublishProject('-1')" th:case="1" href="#add">我发起的</a>
                           </li>
                           <li th:switch="${session['LOGIN-MEMBER'].usertype}" class=" pull-right">
-                             <button th:case="1" type="button" class="btn btn-warning" onclick="window.location.href='start.html'">发起众筹</button>
+                             <button th:case="1" type="button" class="btn btn-warning" onclick="publishProject()">发起众筹</button>
                           </li>
                         </ul>
+
+
+                        <p style="color: red;">[[${MESSAGE}]]</p>
 
 
                         <div id="myTab1" class="tab-content" style="margin-top:10px;">
@@ -214,19 +198,22 @@
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-md-12 column">
-                                             <span class="label label-warning">全部</span> <span class="label" style="color:#000;">众筹中</span> <span class="label " style="color:#000;">众筹成功</span>  <span class="label " style="color:#000;">众筹失败</span>
+                                             <span th:id="add-1" class="label " style="cursor:pointer"><a onclick="queryPublishProject('-1')">全部</a></span>
+                                            <span th:id="add1" class="label" style="color:#000;cursor:pointer"><a onclick="queryPublishProject('1')">众筹中</a></span>
+                                            <span th:id="add2" class="label " style="color:#000;cursor:pointer"><a onclick="queryPublishProject('2')">众筹成功</a></span>
+                                            <span th:id="add3" class="label " style="color:#000;cursor:pointer"><a onclick="queryPublishProject('3')">众筹失败</a></span>
                                         </div>
                                         <div class="col-md-12 column" style="padding:0;margin-top:10px;">
                                             <table class="table table-bordered" style="text-align:center;">
                                               <thead>
                                                 <tr style="background-color:#ddd;">
                                                   <td>项目信息</td>
-                                                  <td width="120">募集金额（元）</td>
+                                                  <td width="120">需募集金额（元）</td>
                                                   <td width="80">当前状态</td>
                                                   <td width="120">操作</td>
                                                 </tr>
                                               </thead>
-                                              <tbody>
+                                              <tbody th:id="addtable">
                                                 <tr>
                                                   <td style="vertical-align:middle;">
                                                     <div class="thumbnail">
@@ -248,7 +235,8 @@
                                                     </div>
                                                   </td>
                                                   <td style="vertical-align:middle;">1.00<br>(运费：0.00 )</td>
-                                                  <td style="vertical-align:middle;">草稿</td>
+                                                  <td style="vertical-align:middle;">草稿
+                                                  </td>
                                                   <td style="vertical-align:middle;">
                                                     <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
                                                           <button type="button" class="btn btn-default">项目预览</button>
@@ -258,6 +246,11 @@
                                                     </div>
                                                   </td>
                                                 </tr>
+
+
+                                              <!--js动态添加项目信息-->
+
+
                                               </tbody>
                                             </table>
                                         </div>
@@ -306,6 +299,17 @@
           $(this).tab('show')
         });
         querySupportPage("-1");
+
+
+
+        function publishProject() {
+            var authstatus = [[${session['LOGIN-MEMBER'].authstatus}]];
+            if(authstatus=='2'){
+                window.location.href='/project/to/agree/page';
+            }else{
+                layer.msg("完成实名认证后才能发布项目!", {time:2000, icon:0, shift:0});
+            }
+        }
 
 
         /**
@@ -362,21 +366,21 @@
                             content+=    "</p>";
                             content+=    "<br>";
                             content+=        "<div class='progress' style='margin-bottom: 4px;'>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 1'>";
-                            content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹中</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 2'>";
-                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹结束</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 3'>";
-                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹失败</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
+                            if(orderDetail.projectPO.status==1){
+                                content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=               "<span >众筹中</span>";
+                                content+=               "</div>";
+                            }
+                            if(orderDetail.projectPO.status==2){
+                                content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=               "<span >众筹结束</span>";
+                                content+=               "</div>";
+                            }
+                            if(orderDetail.projectPO.status==3){
+                                content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=               "<span >众筹失败</span>";
+                                content+=               "</div>";
+                            }
                             content+=         "</div>";
                             content+=       "</div>";
                             content+=        "</div>";
@@ -386,7 +390,11 @@
                             content+=   "<td style='vertical-align:middle;'>"+orderDetail.orderPO.rtncount+"</td>";
                             content+=        "<td style='vertical-align:middle;'>";
                             content+=        "<div class='btn-group-vertical' role='group' aria-label='Vertical button group'>";
-                            content+=       "<button type='button' onclick='deleteOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>删除订单</button>";
+                            content+=                "<button type='button' onclick='deleteOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>删除订单</button>";
+                            // 判断是否是未付款的，是需要加入付款接口
+                            if(orderDetail.orderPO.status==0){
+                                content+=            "<button type='button' onclick='payOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>去付款</button>";
+                            }
                             content+=       "</div>";
                             content+=        "</td>";
                             content+=        "</tr>";
@@ -452,17 +460,40 @@
         }
 
 
+        //订单付款
+        function payOrder(orderid){
+
+            window.location.href = '/pay/paymoney.html?orderid='+orderid;
+
+        }
+
+
         /**
-         * 查询未支付的项目
+         * 查询发布的项目
+         * -1全部
+         * 1众筹中
+         * 2众筹成功
+         * 3众筹失败
          */
-        function querySupportNotpay(){
+        function queryPublishProject(num){
+            //清除原有所有样式
+            $("#add-1").attr("class", "label");
+            $("#add1").attr("class", "label");
+            $("#add2").attr("class", "label");
+            $("#add3").attr("class", "label");
+
+            //设置新点击标签颜色改变
+            $("#add"+num).attr("class", "label label-warning");
+
             var memberid = [[${session['LOGIN-MEMBER'].id}]];
             var loadingIndex = -1 ;
+
             $.ajax({
-                url : "/query/orderSupport",
+                url : "/query/publishProject",
                 type : "POST",
                 data : {
-                    "memberid":memberid
+                    "memberid":memberid,
+                    "status":num
                 },
                 dataType:"JSON",
                 beforeSend : function(){
@@ -478,53 +509,75 @@
                         var list = result.data;
                         // var list = pageObj.datas ;
                         var content = "";
-                        $("#projects").html(content);
-                        $.each(list,function(i,orderDetail){
+                        $("#addtable").html(content);
+                        $.each(list,function(i,projectDetail){
 
-                            content+="<tr>";
+                            content+= "<tr>";
+                            content+="<td style='vertical-align:middle;'>";
+                            content+= "   <div class='thumbnail'>";
+                            content+= "   <div class='caption'>";
+                            content+=  " <p>"+projectDetail.projectName+"</p>";
+                            content+=    "<p>";
+                            content+=    "<div style='float:left;'><i class='glyphicon glyphicon-screenshot' title='目标金额' ></i>已筹集:￥"+projectDetail.supportmoney+"元</div>";
+                            content+=   "<div style='float:right;'><i title='截至日期' class='glyphicon glyphicon-calendar'></i> "+projectDetail.deploydate+" </div>";
+                            content+=   "</p>";
+                            content+=   "<br>";
+                            content+=    "<div class='progress' style='margin-bottom: 4px;'>";
+                            if(projectDetail.status==0){
+                                content+=           "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=            "<span >即将开始</span>";
+                                content+=            "</div>";
+                            }
+                            if(projectDetail.status==1){
+                                content+=           "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=            "<span >众筹中</span>";
+                                content+=            "</div>";
+                            }
+                            if(projectDetail.status==2){
+                                content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=               "<span >众筹成功</span>";
+                                content+=               "</div>";
+                            }
+                            if(projectDetail.status==3){
+                                content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
+                                content+=               "<span >众筹失败</span>";
+                                content+=               "</div>";
+                            }
+                            content+=      "</div>";
+                            content+=    "</div>";
+                            content+=    "</div>";
+                            content+=    "</td>";
+                            content+=    "<td style='vertical-align:middle;'>￥"+projectDetail.money+"元<br></td>";
+                            content+=     "<td style='vertical-align:middle;'>";
+                            if(projectDetail.status==0){
+                                content+= "审核中";
+                            }
+                            if(projectDetail.status==1){
+                                content+= "众筹中";
+                            }
+                            if(projectDetail.status==2){
+                                content+= "众筹完成";
+                            }
+                            if(projectDetail.status==3){
+                                content+= "众筹失败";
+                            }
+                            content+=     "</td>";
                             content+=    "<td style='vertical-align:middle;'>";
-                            content+=       "<div class='thumbnail'>";
-                            content+=        "<div class='caption'>";
-                            content+=        "<h3>"+orderDetail.projectPO.projectDescription+"</h3>";
-                            content+=       "<p>订单编号:"+orderDetail.orderPO.ordernum+"</p>";
-                            content+=   "<p>";
-                            content+=   "<div style='float:left;'><i class='glyphicon glyphicon-screenshot' title='目标金额' ></i> 已筹集：￥"+orderDetail.projectPO.supportmoney+  "</div>";
-                            content+=   "<div style='float:right;'><i title='截至日期' class='glyphicon glyphicon-calendar'></i> "+orderDetail.projectPO.deploydate+" </div>";
-                            content+=    "</p>";
-                            content+=    "<br>";
-                            content+=        "<div class='progress' style='margin-bottom: 4px;'>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 1'>";
-                            content+=               "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹中</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 2'>";
-                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹结束</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
-                            content+=            "<if condition='"+orderDetail.projectPO.status+" eq 3'>";
-                            content+=               "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>";
-                            content+=               "<span >众筹失败</span>";
-                            content+=               "</div>";
-                            content+=            "</if>";
-                            content+=         "</div>";
-                            content+=       "</div>";
-                            content+=        "</div>";
-                            content+=       " </td>";
-                            content+=        "<td style='vertical-align:middle;'>"+orderDetail.orderPO.createdate+"</td>";
-                            content+=   "<td style='vertical-align:middle;'>￥"+orderDetail.orderPO.money+"<br>(运费:￥"+orderDetail.returnPO.freight+" )</td>";
-                            content+=   "<td style='vertical-align:middle;'>"+orderDetail.orderPO.rtncount+"</td>";
-                            content+=        "<td style='vertical-align:middle;'>";
-                            content+=        "<div class='btn-group-vertical' role='group' aria-label='Vertical button group'>";
-                            content+=       "<button type='button' onclick='deleteOrder("+orderDetail.orderPO.id+")' class='btn btn-default'>删除订单</button>";
-                            content+=       "</div>";
-                            content+=        "</td>";
-                            content+=        "</tr>";
+                            content+=    "<div class='btn-group-vertical' role='group' aria-label='Vertical button group'>";
+                            content+=   "<button type='button' onclick='getProjectDetail("+projectDetail.id+")' class='btn btn-default'>查看详情</button>";
+                            if(projectDetail.status!=1){
+                                content+=    "<button onclick='deleteProject("+projectDetail.id+")' type='button' class='btn btn-default'>删除项目</button>";
+                            }
+                            if(projectDetail.status==2){
+                                content+=    "<button onclick='' type='button' class='btn btn-default'>订单管理</button>";
+                            }
+                            content+=   "</div>";
+                            content+=   "</td>";
+                            content+=   "</tr>";
 
                         });
                         //$("tbody").append(content);
-                        $("#supporttable").html(content);
+                        $("#addtable").html(content);
                     }else{
 
                         layer.msg("查询数据失败", {time:2000, icon:5, shift:6});
@@ -540,6 +593,74 @@
 
         }
 
+
+        /**
+         * 查看项目详情
+         * @param projectId
+         */
+        function getProjectDetail(projectId){
+            $.ajax({
+                url : "/project/do/projectdetail",
+                type : "POST",
+                data : {
+                    "id":projectId
+                },
+                dataType:"JSON",
+                success : function(result) {
+                    console.log(result);
+                    // alert(result);
+                    if ( result.result=='SUCCESS' ) {
+                        window.location.href = "/project/projectdetail.html";
+                    } else {
+                        layer.msg(result.message, {time:2000, icon:5, shift:6});
+                    }
+                }
+
+            })
+
+
+        }
+
+
+        /**
+         * 删除项目信息
+         * @param projectid
+         */
+        function deleteProject(projectid) {
+            layer.confirm("确认删除该项目信息吗？",{icon: 3, title:'提示'},function (index) {
+                layer.close(index);
+                var loadingIndex = -1 ;
+                $.ajax({
+                    url: "/delete/project",
+                    type: "POST",
+                    data: {
+                        "id": projectid
+                    },
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        loadingIndex = layer.msg('数据删除中', {icon: 6});
+                        return true;
+                    },
+                    success:function (result) {
+                        console.log(result);
+                        layer.close(loadingIndex);
+                        if(result.result='SUCCESS'){
+                            queryPublishProject('-1');
+                        }else{
+                            layer.msg("删除失败", {time:2000, icon:5, shift:6});
+                        }
+                    },
+                    error:function () {
+                        layer.msg("删除失败", {time:2000, icon:5, shift:6});
+                    }
+
+
+                })
+
+            }),function (index) {
+                layer.close(index);
+            }
+        }
 
 
 	</script>

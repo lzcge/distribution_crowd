@@ -37,6 +37,11 @@ public class SpringMVCConfig implements WebMvcConfigurer {
 		viewName="member/center";
 		registry.addViewController(urlPath).setViewName(viewName);
 
+		//跳转到投诉反馈页面
+		urlPath="member/complain.html";
+		viewName="member/complain";
+		registry.addViewController(urlPath).setViewName(viewName);
+
 		//实名认证-跳转到账号类型更新页面
 		urlPath="member/accttype.html";
 		viewName="member/accttype";
@@ -101,6 +106,10 @@ public class SpringMVCConfig implements WebMvcConfigurer {
 
 		urlPath = "/member/minecrowdfunding.html";
 		viewName = "member/minecrowdfunding";
+		registry.addViewController(urlPath).setViewName(viewName);
+
+		urlPath = "/member/selfinfo.html";
+		viewName = "member/selfinfo";
 		registry.addViewController(urlPath).setViewName(viewName);
 
 

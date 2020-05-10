@@ -44,5 +44,7 @@ public interface MemberPOMapper {
 
 	void addMemberAddress(MemberAddressPO memberAddressPO);
 
+	void deleteAddress(Integer id);
+
 
 }

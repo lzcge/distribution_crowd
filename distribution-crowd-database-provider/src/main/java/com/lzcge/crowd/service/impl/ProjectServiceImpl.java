@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	@Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-	public void saveProject(ProjectVO projectVO,String memberid) {
+	public int saveProject(ProjectVO projectVO,String memberid) {
 		//1.保存ProjectPO
 		ProjectPO projectPO = new ProjectPO();
 		BeanUtils.copyProperties(projectVO,projectPO);
@@ -121,6 +121,8 @@ public class ProjectServiceImpl implements ProjectService {
 					memberConfirmInfoVO.getCardnum());
 			memberConfirmInfoPOMapper.insertSelective(memberConfirmInfoPO);
 		}
+
+		return projectPOId;
 	}
 
 	//分页查询项目信息
@@ -141,6 +143,17 @@ public class ProjectServiceImpl implements ProjectService {
 		projectPOPage.setTotalSize(count);
 
 		return projectPOPage;
+	}
+
+
+	/**
+	 * 根据项目状态查询项目信息
+	 * @param map
+	 * @return
+	 */
+	@Override
+	public List<ProjectPO> queryByStatus(Map<String, Object> map) {
+		return projectPOMapper.queryByStatus(map);
 	}
 
 	//查询项目详细信息
@@ -191,14 +204,48 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	@Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-	public ProjectDetailPO updateProject(ProjectVO projectVO) {
+	public void updateProject(ProjectVO projectVO) {
 		//1.保存ProjectPO
 		ProjectPO projectPO = new ProjectPO();
 		BeanUtils.copyProperties(projectVO,projectPO);
 		//更新项目
 		projectPOMapper.updateByPrimaryKeySelective(projectPO);
-		//获取更新后的项目信息
-		ProjectDetailPO projectDetailPO = queryProjectDetail(projectPO.getId().toString());
-		return projectDetailPO;
+
+	}
+
+
+	/**
+	 * 查询项目信息
+	 * @param projectVO
+	 * @return
+	 */
+	@Override
+	public List<ProjectPO> querypublishProject(ProjectVO projectVO) {
+		//1.保存ProjectPO
+		ProjectPO projectPO = new ProjectPO();
+		BeanUtils.copyProperties(projectVO,projectPO);
+		//设置查询条件参数
+		ProjectPOExample example = new ProjectPOExample();
+		ProjectPOExample.Criteria criteria = example.createCriteria();
+		criteria.andMemberidEqualTo(projectPO.getMemberid());
+		Byte status = new Byte("-1");
+		if(!projectPO.getStatus().equals(status)){
+			criteria.andStatusEqualTo(projectPO.getStatus());
+		}
+		List<ProjectPO> projectPOList = projectPOMapper.selectByExample(example);
+		return projectPOList;
+	}
+
+
+	@Override
+	@Transactional
+	public void deleteProject(ProjectVO projectVO) {
+		projectPOMapper.deleteByPrimaryKey(projectVO.getId());
+	}
+
+
+	@Override
+	public ProjectPO queryProjectById(Integer id) {
+		return projectPOMapper.selectByPrimaryKey(id);
 	}
 }
